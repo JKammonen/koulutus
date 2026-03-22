@@ -51,7 +51,7 @@
   .card p { font-size: 13px; color: var(--text-dim); line-height: 1.6; }
 
   /* Diagram containers */
-  .diagram-box { max-width: 900px; width: 100%; background: var(--card); border: 1px solid var(--card-border); border-radius: 16px; padding: 32px; margin-bottom: 20px; overflow: hidden; }
+  .diagram-box { max-width: 1000px; width: 100%; background: var(--card); border: 1px solid var(--card-border); border-radius: 16px; padding: 32px; margin-bottom: 20px; overflow: hidden; }
   svg.diagram { width: 100%; height: auto; display: block; }
 
   /* Tables */
@@ -400,7 +400,7 @@
 
   <!-- GPON DOWNSTREAM: isompi, selkeämpi -->
   <div class="diagram-box">
-    <svg class="diagram" viewBox="0 0 900 480">
+    <svg class="diagram" viewBox="0 0 900 560">
       <text x="450" y="22" fill="#60a5fa" font-size="14" font-weight="800" text-anchor="middle" letter-spacing="2">DOWNSTREAM — 1490 nm</text>
       <text x="450" y="40" fill="#94a3b8" font-size="11" text-anchor="middle">OLT lähettää KAIKEN datan KAIKILLE — splitteri kopioi signaalin jokaiseen haaraan</text>
 
@@ -433,127 +433,126 @@
       <text x="375" y="157" fill="#94a3b8" font-size="8" text-anchor="middle">kopioi kaiken</text>
 
       <!-- 4 output fibers with identical data -->
-      <line x1="400" y1="82" x2="500" y2="55" stroke="#60a5fa" stroke-width="2" stroke-opacity="0.4"/>
-      <line x1="400" y1="90" x2="500" y2="82" stroke="#60a5fa" stroke-width="2" stroke-opacity="0.4"/>
-      <line x1="400" y1="100" x2="500" y2="108" stroke="#60a5fa" stroke-width="2" stroke-opacity="0.4"/>
-      <line x1="400" y1="108" x2="500" y2="135" stroke="#60a5fa" stroke-width="2" stroke-opacity="0.4"/>
+      <line x1="400" y1="82" x2="500" y2="48" stroke="#60a5fa" stroke-width="2" stroke-opacity="0.4"/>
+      <line x1="400" y1="90" x2="500" y2="98" stroke="#60a5fa" stroke-width="2" stroke-opacity="0.4"/>
+      <line x1="400" y1="100" x2="500" y2="148" stroke="#60a5fa" stroke-width="2" stroke-opacity="0.4"/>
+      <line x1="400" y1="108" x2="500" y2="198" stroke="#60a5fa" stroke-width="2" stroke-opacity="0.4"/>
 
-      <!-- ONT 1 -->
-      <rect x="500" y="38" width="85" height="34" rx="6" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-opacity="0.4" stroke-width="1.5"/>
-      <text x="542" y="60" fill="#22c55e" font-size="11" font-weight="700" text-anchor="middle">ONT 1</text>
-      <!-- Identical stream -->
-      <rect x="595" y="40" width="14" height="10" rx="1" fill="#ef4444" opacity="0.9"/><text x="602" y="48" fill="white" font-size="6" text-anchor="middle">A</text>
-      <rect x="611" y="40" width="14" height="10" rx="1" fill="#f97316" opacity="0.4"/><text x="618" y="48" fill="white" font-size="6" text-anchor="middle">B</text>
-      <rect x="627" y="40" width="14" height="10" rx="1" fill="#facc15" opacity="0.4"/><text x="634" y="48" fill="#1e293b" font-size="6" text-anchor="middle">C</text>
-      <rect x="643" y="40" width="14" height="10" rx="1" fill="#22c55e" opacity="0.4"/><text x="650" y="48" fill="white" font-size="6" text-anchor="middle">D</text>
-      <text x="625" y="64" fill="#ef4444" font-size="9" text-anchor="middle" font-weight="600">→ Purkaa vain A (oma avain)</text>
+      <!-- ONT 1 — y=35 -->
+      <rect x="500" y="35" width="85" height="28" rx="6" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-opacity="0.4" stroke-width="1.5"/>
+      <text x="542" y="54" fill="#22c55e" font-size="11" font-weight="700" text-anchor="middle">ONT 1</text>
+      <rect x="595" y="37" width="14" height="10" rx="1" fill="#ef4444" opacity="0.9"/><text x="602" y="45" fill="white" font-size="6" text-anchor="middle">A</text>
+      <rect x="611" y="37" width="14" height="10" rx="1" fill="#f97316" opacity="0.3"/>
+      <rect x="627" y="37" width="14" height="10" rx="1" fill="#facc15" opacity="0.3"/>
+      <rect x="643" y="37" width="14" height="10" rx="1" fill="#22c55e" opacity="0.3"/>
+      <text x="700" y="46" fill="#ef4444" font-size="9" font-weight="600">Purkaa vain A</text>
 
-      <!-- ONT 2 -->
-      <rect x="500" y="65" width="85" height="34" rx="6" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-opacity="0.4" stroke-width="1.5"/>
-      <text x="542" y="87" fill="#22c55e" font-size="11" font-weight="700" text-anchor="middle">ONT 2</text>
-      <rect x="595" y="67" width="14" height="10" rx="1" fill="#ef4444" opacity="0.4"/>
-      <rect x="611" y="67" width="14" height="10" rx="1" fill="#f97316" opacity="0.9"/><text x="618" y="75" fill="white" font-size="6" text-anchor="middle">B</text>
-      <rect x="627" y="67" width="14" height="10" rx="1" fill="#facc15" opacity="0.4"/>
-      <rect x="643" y="67" width="14" height="10" rx="1" fill="#22c55e" opacity="0.4"/>
-      <text x="625" y="91" fill="#f97316" font-size="9" text-anchor="middle" font-weight="600">→ Purkaa vain B (oma avain)</text>
+      <!-- ONT 2 — y=85 -->
+      <rect x="500" y="85" width="85" height="28" rx="6" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-opacity="0.4" stroke-width="1.5"/>
+      <text x="542" y="104" fill="#22c55e" font-size="11" font-weight="700" text-anchor="middle">ONT 2</text>
+      <rect x="595" y="87" width="14" height="10" rx="1" fill="#ef4444" opacity="0.3"/>
+      <rect x="611" y="87" width="14" height="10" rx="1" fill="#f97316" opacity="0.9"/><text x="618" y="95" fill="white" font-size="6" text-anchor="middle">B</text>
+      <rect x="627" y="87" width="14" height="10" rx="1" fill="#facc15" opacity="0.3"/>
+      <rect x="643" y="87" width="14" height="10" rx="1" fill="#22c55e" opacity="0.3"/>
+      <text x="700" y="96" fill="#f97316" font-size="9" font-weight="600">Purkaa vain B</text>
 
-      <!-- ONT 3 -->
-      <rect x="500" y="92" width="85" height="34" rx="6" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-opacity="0.4" stroke-width="1.5"/>
-      <text x="542" y="114" fill="#22c55e" font-size="11" font-weight="700" text-anchor="middle">ONT 3</text>
-      <rect x="595" y="94" width="14" height="10" rx="1" fill="#ef4444" opacity="0.4"/>
-      <rect x="611" y="94" width="14" height="10" rx="1" fill="#f97316" opacity="0.4"/>
-      <rect x="627" y="94" width="14" height="10" rx="1" fill="#facc15" opacity="0.9"/><text x="634" y="102" fill="#1e293b" font-size="6" text-anchor="middle">C</text>
-      <rect x="643" y="94" width="14" height="10" rx="1" fill="#22c55e" opacity="0.4"/>
-      <text x="625" y="118" fill="#facc15" font-size="9" text-anchor="middle" font-weight="600">→ Purkaa vain C (oma avain)</text>
+      <!-- ONT 3 — y=135 -->
+      <rect x="500" y="135" width="85" height="28" rx="6" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-opacity="0.4" stroke-width="1.5"/>
+      <text x="542" y="154" fill="#22c55e" font-size="11" font-weight="700" text-anchor="middle">ONT 3</text>
+      <rect x="595" y="137" width="14" height="10" rx="1" fill="#ef4444" opacity="0.3"/>
+      <rect x="611" y="137" width="14" height="10" rx="1" fill="#f97316" opacity="0.3"/>
+      <rect x="627" y="137" width="14" height="10" rx="1" fill="#facc15" opacity="0.9"/><text x="634" y="145" fill="#1e293b" font-size="6" text-anchor="middle">C</text>
+      <rect x="643" y="137" width="14" height="10" rx="1" fill="#22c55e" opacity="0.3"/>
+      <text x="700" y="146" fill="#facc15" font-size="9" font-weight="600">Purkaa vain C</text>
 
-      <!-- ONT 4 -->
-      <rect x="500" y="119" width="85" height="34" rx="6" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-opacity="0.4" stroke-width="1.5"/>
-      <text x="542" y="141" fill="#22c55e" font-size="11" font-weight="700" text-anchor="middle">ONT 4</text>
-      <rect x="595" y="121" width="14" height="10" rx="1" fill="#ef4444" opacity="0.4"/>
-      <rect x="611" y="121" width="14" height="10" rx="1" fill="#f97316" opacity="0.4"/>
-      <rect x="627" y="121" width="14" height="10" rx="1" fill="#facc15" opacity="0.4"/>
-      <rect x="643" y="121" width="14" height="10" rx="1" fill="#22c55e" opacity="0.9"/><text x="650" y="129" fill="white" font-size="6" text-anchor="middle">D</text>
-      <text x="625" y="145" fill="#22c55e" font-size="9" text-anchor="middle" font-weight="600">→ Purkaa vain D (oma avain)</text>
+      <!-- ONT 4 — y=185 -->
+      <rect x="500" y="185" width="85" height="28" rx="6" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-opacity="0.4" stroke-width="1.5"/>
+      <text x="542" y="204" fill="#22c55e" font-size="11" font-weight="700" text-anchor="middle">ONT 4</text>
+      <rect x="595" y="187" width="14" height="10" rx="1" fill="#ef4444" opacity="0.3"/>
+      <rect x="611" y="187" width="14" height="10" rx="1" fill="#f97316" opacity="0.3"/>
+      <rect x="627" y="187" width="14" height="10" rx="1" fill="#facc15" opacity="0.3"/>
+      <rect x="643" y="187" width="14" height="10" rx="1" fill="#22c55e" opacity="0.9"/><text x="650" y="195" fill="white" font-size="6" text-anchor="middle">D</text>
+      <text x="700" y="196" fill="#22c55e" font-size="9" font-weight="600">Purkaa vain D</text>
 
       <!-- Key insight box -->
-      <rect x="500" y="158" width="370" height="28" rx="6" fill="rgba(239,68,68,0.06)" stroke="rgba(239,68,68,0.15)"/>
-      <text x="685" y="176" fill="#f87171" font-size="10" text-anchor="middle" font-weight="600">🔒 AES-128 salaus — jokainen ONT näkee kaiken, mutta voi purkaa vain omansa</text>
+      <rect x="500" y="225" width="370" height="28" rx="6" fill="rgba(239,68,68,0.06)" stroke="rgba(239,68,68,0.15)"/>
+      <text x="685" y="243" fill="#f87171" font-size="10" text-anchor="middle" font-weight="600">🔒 AES-128 — jokainen ONT näkee kaiken, purkaa vain omansa</text>
 
       <!-- ═══ SEPARATOR ═══ -->
-      <line x1="20" y1="205" x2="880" y2="205" stroke="#1e293b" stroke-width="1.5"/>
+      <line x1="20" y1="270" x2="880" y2="270" stroke="#1e293b" stroke-width="1.5"/>
 
       <!-- UPSTREAM TDMA -->
-      <text x="450" y="230" fill="#22c55e" font-size="14" font-weight="800" text-anchor="middle" letter-spacing="2">UPSTREAM — 1310 nm</text>
-      <text x="450" y="248" fill="#94a3b8" font-size="11" text-anchor="middle">ONT:t lähettävät vuorotellen — OLT jakaa aikavälit (TDMA). Ei törmäyksiä.</text>
+      <text x="450" y="295" fill="#22c55e" font-size="14" font-weight="800" text-anchor="middle" letter-spacing="2">UPSTREAM — 1310 nm</text>
+      <text x="450" y="313" fill="#94a3b8" font-size="11" text-anchor="middle">ONT:t lähettävät vuorotellen — OLT jakaa aikavälit (TDMA). Ei törmäyksiä.</text>
 
       <!-- ONTs sending one at a time -->
-      <rect x="30" y="270" width="70" height="30" rx="5" fill="rgba(239,68,68,0.12)" stroke="#ef4444" stroke-opacity="0.3"/>
-      <text x="65" y="289" fill="#ef4444" font-size="10" font-weight="600" text-anchor="middle">ONT 1</text>
+      <rect x="30" y="335" width="70" height="30" rx="5" fill="rgba(239,68,68,0.12)" stroke="#ef4444" stroke-opacity="0.3"/>
+      <text x="65" y="354" fill="#ef4444" font-size="10" font-weight="600" text-anchor="middle">ONT 1</text>
 
-      <rect x="30" y="308" width="70" height="30" rx="5" fill="rgba(249,115,22,0.12)" stroke="#f97316" stroke-opacity="0.3"/>
-      <text x="65" y="327" fill="#f97316" font-size="10" font-weight="600" text-anchor="middle">ONT 2</text>
+      <rect x="30" y="373" width="70" height="30" rx="5" fill="rgba(249,115,22,0.12)" stroke="#f97316" stroke-opacity="0.3"/>
+      <text x="65" y="392" fill="#f97316" font-size="10" font-weight="600" text-anchor="middle">ONT 2</text>
 
-      <rect x="30" y="346" width="70" height="30" rx="5" fill="rgba(250,204,21,0.12)" stroke="#facc15" stroke-opacity="0.3"/>
-      <text x="65" y="365" fill="#facc15" font-size="10" font-weight="600" text-anchor="middle">ONT 3</text>
+      <rect x="30" y="411" width="70" height="30" rx="5" fill="rgba(250,204,21,0.12)" stroke="#facc15" stroke-opacity="0.3"/>
+      <text x="65" y="430" fill="#facc15" font-size="10" font-weight="600" text-anchor="middle">ONT 3</text>
 
-      <rect x="30" y="384" width="70" height="30" rx="5" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-opacity="0.3"/>
-      <text x="65" y="403" fill="#22c55e" font-size="10" font-weight="600" text-anchor="middle">ONT 4</text>
+      <rect x="30" y="449" width="70" height="30" rx="5" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-opacity="0.3"/>
+      <text x="65" y="468" fill="#22c55e" font-size="10" font-weight="600" text-anchor="middle">ONT 4</text>
 
       <!-- Arrows to timeline -->
-      <line x1="100" y1="285" x2="155" y2="285" stroke="#ef4444" stroke-width="1.5" stroke-opacity="0.4"/>
-      <line x1="100" y1="323" x2="155" y2="323" stroke="#f97316" stroke-width="1.5" stroke-opacity="0.4"/>
-      <line x1="100" y1="361" x2="155" y2="361" stroke="#facc15" stroke-width="1.5" stroke-opacity="0.4"/>
-      <line x1="100" y1="399" x2="155" y2="399" stroke="#22c55e" stroke-width="1.5" stroke-opacity="0.4"/>
+      <line x1="100" y1="350" x2="155" y2="350" stroke="#ef4444" stroke-width="1.5" stroke-opacity="0.4"/>
+      <line x1="100" y1="388" x2="155" y2="388" stroke="#f97316" stroke-width="1.5" stroke-opacity="0.4"/>
+      <line x1="100" y1="426" x2="155" y2="426" stroke="#facc15" stroke-width="1.5" stroke-opacity="0.4"/>
+      <line x1="100" y1="464" x2="155" y2="464" stroke="#22c55e" stroke-width="1.5" stroke-opacity="0.4"/>
 
       <!-- Merged timeline -->
-      <text x="450" y="270" fill="#94a3b8" font-size="10" text-anchor="middle">Aika →</text>
-      <line x1="160" y1="280" x2="820" y2="280" stroke="#334155" stroke-width="2"/>
+      <text x="450" y="335" fill="#94a3b8" font-size="10" text-anchor="middle">Aika →</text>
+      <line x1="160" y1="345" x2="820" y2="345" stroke="#334155" stroke-width="2"/>
 
-      <!-- Time slots: visually show data fitting together like puzzle pieces -->
-      <rect x="160" y="290" width="140" height="40" rx="4" fill="rgba(239,68,68,0.12)" stroke="#ef4444" stroke-opacity="0.3" stroke-width="1.5"/>
-      <text x="230" y="315" fill="#ef4444" font-size="12" font-weight="700" text-anchor="middle">ONT 1 data</text>
-      <rect x="160" y="290" width="140" height="4" rx="1" fill="#ef4444" opacity="0.6"/>
+      <!-- Time slots -->
+      <rect x="160" y="355" width="140" height="40" rx="4" fill="rgba(239,68,68,0.12)" stroke="#ef4444" stroke-opacity="0.3" stroke-width="1.5"/>
+      <text x="230" y="380" fill="#ef4444" font-size="12" font-weight="700" text-anchor="middle">ONT 1 data</text>
+      <rect x="160" y="355" width="140" height="4" rx="1" fill="#ef4444" opacity="0.6"/>
 
-      <rect x="308" y="290" width="90" height="40" rx="4" fill="rgba(249,115,22,0.12)" stroke="#f97316" stroke-opacity="0.3" stroke-width="1.5"/>
-      <text x="353" y="315" fill="#f97316" font-size="12" font-weight="700" text-anchor="middle">ONT 2</text>
-      <rect x="308" y="290" width="90" height="4" rx="1" fill="#f97316" opacity="0.6"/>
+      <rect x="308" y="355" width="90" height="40" rx="4" fill="rgba(249,115,22,0.12)" stroke="#f97316" stroke-opacity="0.3" stroke-width="1.5"/>
+      <text x="353" y="380" fill="#f97316" font-size="12" font-weight="700" text-anchor="middle">ONT 2</text>
+      <rect x="308" y="355" width="90" height="4" rx="1" fill="#f97316" opacity="0.6"/>
 
-      <rect x="406" y="290" width="180" height="40" rx="4" fill="rgba(250,204,21,0.12)" stroke="#facc15" stroke-opacity="0.3" stroke-width="1.5"/>
-      <text x="496" y="315" fill="#facc15" font-size="12" font-weight="700" text-anchor="middle">ONT 3 data</text>
-      <rect x="406" y="290" width="180" height="4" rx="1" fill="#facc15" opacity="0.6"/>
+      <rect x="406" y="355" width="180" height="40" rx="4" fill="rgba(250,204,21,0.12)" stroke="#facc15" stroke-opacity="0.3" stroke-width="1.5"/>
+      <text x="496" y="380" fill="#facc15" font-size="12" font-weight="700" text-anchor="middle">ONT 3 data</text>
+      <rect x="406" y="355" width="180" height="4" rx="1" fill="#facc15" opacity="0.6"/>
 
-      <rect x="594" y="290" width="70" height="40" rx="4" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-opacity="0.3" stroke-width="1.5"/>
-      <text x="629" y="315" fill="#22c55e" font-size="11" font-weight="700" text-anchor="middle">ONT 4</text>
-      <rect x="594" y="290" width="70" height="4" rx="1" fill="#22c55e" opacity="0.6"/>
+      <rect x="594" y="355" width="70" height="40" rx="4" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-opacity="0.3" stroke-width="1.5"/>
+      <text x="629" y="380" fill="#22c55e" font-size="11" font-weight="700" text-anchor="middle">ONT 4</text>
+      <rect x="594" y="355" width="70" height="4" rx="1" fill="#22c55e" opacity="0.6"/>
 
       <!-- Guard time markers -->
-      <line x1="304" y1="286" x2="304" y2="334" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3 2" opacity="0.4"/>
-      <line x1="402" y1="286" x2="402" y2="334" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3 2" opacity="0.4"/>
-      <line x1="590" y1="286" x2="590" y2="334" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3 2" opacity="0.4"/>
-      <text x="304" y="346" fill="#64748b" font-size="7" text-anchor="middle">guard</text>
-      <text x="402" y="346" fill="#64748b" font-size="7" text-anchor="middle">guard</text>
-      <text x="590" y="346" fill="#64748b" font-size="7" text-anchor="middle">guard</text>
+      <line x1="304" y1="351" x2="304" y2="399" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3 2" opacity="0.4"/>
+      <line x1="402" y1="351" x2="402" y2="399" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3 2" opacity="0.4"/>
+      <line x1="590" y1="351" x2="590" y2="399" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3 2" opacity="0.4"/>
+      <text x="304" y="411" fill="#64748b" font-size="7" text-anchor="middle">guard</text>
+      <text x="402" y="411" fill="#64748b" font-size="7" text-anchor="middle">guard</text>
+      <text x="590" y="411" fill="#64748b" font-size="7" text-anchor="middle">guard</text>
 
       <!-- Combined to OLT -->
-      <line x1="670" y1="310" x2="770" y2="310" stroke="#22c55e" stroke-width="3" stroke-opacity="0.4"/>
-      <polygon points="770,304 785,310 770,316" fill="#22c55e" opacity="0.5"/>
-      <rect x="790" y="290" width="80" height="40" rx="8" fill="rgba(59,130,246,0.12)" stroke="#3b82f6" stroke-opacity="0.3"/>
-      <text x="830" y="314" fill="#60a5fa" font-size="12" font-weight="700" text-anchor="middle">OLT</text>
+      <line x1="670" y1="375" x2="770" y2="375" stroke="#22c55e" stroke-width="3" stroke-opacity="0.4"/>
+      <polygon points="770,369 785,375 770,381" fill="#22c55e" opacity="0.5"/>
+      <rect x="790" y="355" width="80" height="40" rx="8" fill="rgba(59,130,246,0.12)" stroke="#3b82f6" stroke-opacity="0.3"/>
+      <text x="830" y="379" fill="#60a5fa" font-size="12" font-weight="700" text-anchor="middle">OLT</text>
 
       <!-- DBA box -->
-      <rect x="160" y="360" width="660" height="55" rx="8" fill="rgba(59,130,246,0.04)" stroke="rgba(59,130,246,0.15)"/>
-      <text x="490" y="380" fill="#60a5fa" font-size="12" font-weight="700" text-anchor="middle">DBA — Dynamic Bandwidth Allocation</text>
-      <text x="490" y="397" fill="#94a3b8" font-size="10" text-anchor="middle">OLT päättää kuka lähettää milloinkin ja kuinka kauan. Enemmän dataa = pidempi aikaväli.</text>
-      <text x="490" y="410" fill="#94a3b8" font-size="10" text-anchor="middle">Siksi ONT 3:n lohko on isompi kuin ONT 4:n — dynaaminen allokointi tarpeen mukaan.</text>
+      <rect x="160" y="425" width="660" height="55" rx="8" fill="rgba(59,130,246,0.04)" stroke="rgba(59,130,246,0.15)"/>
+      <text x="490" y="445" fill="#60a5fa" font-size="12" font-weight="700" text-anchor="middle">DBA — Dynamic Bandwidth Allocation</text>
+      <text x="490" y="462" fill="#94a3b8" font-size="10" text-anchor="middle">OLT päättää kuka lähettää milloinkin ja kuinka kauan. Enemmän dataa = pidempi aikaväli.</text>
+      <text x="490" y="475" fill="#94a3b8" font-size="10" text-anchor="middle">Siksi ONT 3:n lohko on isompi kuin ONT 4:n — dynaaminen allokointi tarpeen mukaan.</text>
 
       <!-- Wavelength labels on sides -->
-      <rect x="20" y="430" width="420" height="40" rx="8" fill="rgba(59,130,246,0.04)" stroke="rgba(59,130,246,0.1)"/>
-      <text x="230" y="450" fill="#60a5fa" font-size="10" text-anchor="middle" font-weight="600">↓ DOWNSTREAM 1490 nm — Broadcast, salattu</text>
-      <text x="230" y="464" fill="#94a3b8" font-size="9" text-anchor="middle">Sama signaali kaikille, AES-128 avain per ONT</text>
+      <rect x="20" y="495" width="420" height="40" rx="8" fill="rgba(59,130,246,0.04)" stroke="rgba(59,130,246,0.1)"/>
+      <text x="230" y="515" fill="#60a5fa" font-size="10" text-anchor="middle" font-weight="600">↓ DOWNSTREAM 1490 nm — Broadcast, salattu</text>
+      <text x="230" y="529" fill="#94a3b8" font-size="9" text-anchor="middle">Sama signaali kaikille, AES-128 avain per ONT</text>
 
-      <rect x="460" y="430" width="420" height="40" rx="8" fill="rgba(34,197,94,0.04)" stroke="rgba(34,197,94,0.1)"/>
-      <text x="670" y="450" fill="#22c55e" font-size="10" text-anchor="middle" font-weight="600">↑ UPSTREAM 1310 nm — TDMA, vuorottelu</text>
-      <text x="670" y="464" fill="#94a3b8" font-size="9" text-anchor="middle">ONT:t lähettävät eri aikoina, OLT hallitsee</text>
+      <rect x="460" y="495" width="420" height="40" rx="8" fill="rgba(34,197,94,0.04)" stroke="rgba(34,197,94,0.1)"/>
+      <text x="670" y="515" fill="#22c55e" font-size="10" text-anchor="middle" font-weight="600">↑ UPSTREAM 1310 nm — TDMA, vuorottelu</text>
+      <text x="670" y="529" fill="#94a3b8" font-size="9" text-anchor="middle">ONT:t lähettävät eri aikoina, OLT hallitsee</text>
     </svg>
   </div>
 
