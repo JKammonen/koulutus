@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kuituverkko & CWDM — Koulutus</title>
+<title>CWDM & DWDM — Koulutus</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -96,22 +96,6 @@
   .when-card.yes li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
   .when-card.no li::before { content: '✗'; position: absolute; left: 0; color: var(--red); font-weight: 700; }
 
-  /* Loss budget calculator */
-  .calc-container { max-width: 800px; width: 100%; background: var(--card); border: 1px solid var(--card-border); border-radius: 16px; padding: 32px; }
-  .calc-row { display: flex; align-items: center; gap: 16px; margin: 12px 0; }
-  .calc-label { width: 200px; font-size: 13px; color: var(--text-dim); }
-  .calc-slider { flex: 1; -webkit-appearance: none; height: 4px; border-radius: 2px; background: var(--card-border); outline: none; }
-  .calc-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: var(--accent); cursor: pointer; }
-  .calc-value { width: 80px; text-align: right; font-weight: 600; font-size: 14px; }
-  .calc-result { margin-top: 20px; padding: 20px; border-radius: 10px; text-align: center; }
-  .calc-result.ok { background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.2); }
-  .calc-result.warn { background: rgba(250,204,21,0.08); border: 1px solid rgba(250,204,21,0.2); }
-  .calc-result.fail { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2); }
-  .calc-total { font-size: 36px; font-weight: 800; line-height: 1; }
-  .calc-budget { font-size: 13px; color: var(--text-dim); margin-top: 4px; }
-  .calc-bar-bg { width: 100%; height: 12px; background: var(--card-border); border-radius: 6px; margin-top: 12px; overflow: hidden; }
-  .calc-bar-fill { height: 100%; border-radius: 6px; transition: width 0.3s, background 0.3s; }
-
   /* Glossary */
   .glossary-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 8px; max-width: 900px; width: 100%; }
   .glossary-item { display: flex; gap: 12px; padding: 10px 14px; background: var(--card); border: 1px solid var(--card-border); border-radius: 8px; font-size: 13px; }
@@ -139,9 +123,6 @@
     .section { padding: 70px 16px 20px; }
     h2 { font-size: 22px; }
     .when-grid, .savings-row { grid-template-columns: 1fr; flex-direction: column; }
-    .calc-row { flex-direction: column; align-items: stretch; gap: 4px; }
-    .calc-label { width: auto; }
-    .calc-value { width: auto; text-align: left; }
   }
 </style>
 </head>
@@ -149,643 +130,22 @@
 
 <!-- NAV -->
 <nav class="nav">
-  <div class="nav-title">Kuituverkko & CWDM</div>
+  <div class="nav-title">CWDM & DWDM</div>
   <div class="nav-dots" id="navDots"></div>
   <div class="nav-label" id="navLabel"></div>
 </nav>
 
 <!-- ═══════════════════════════════════════════════ -->
-<!-- OSA I: KUITUVERKON PERUSTEET                    -->
+<!-- CWDM-TEKNIIKKA                                  -->
 <!-- ═══════════════════════════════════════════════ -->
 <div class="part-header" style="padding-top:70px;">
-  <div class="part-number">Osa I</div>
-  <div class="part-title">Kuituverkon perusteet</div>
+  <div class="part-number">CWDM-tekniikka</div>
+  <div class="part-title">Aallonpituusjako</div>
 </div>
 
-<!-- 1. VALOKUITU -->
-<section class="section" data-label="Valokuitu">
-  <div class="section-num">01</div>
-  <h2>Valokuitu — miten valo kulkee</h2>
-  <p class="subtitle">Valokuitu kuljettaa dataa valopulsseina lasilla tai muovilla. Kokonaisheijastus pitää valon kuidun sisällä — sama ilmiö kuin timantin loiste.</p>
-
-  <div class="diagram-box">
-    <svg class="diagram" viewBox="0 0 800 280">
-      <!-- Fiber cross-section -->
-      <text x="200" y="25" fill="#94a3b8" font-size="12" font-weight="600" text-anchor="middle" letter-spacing="1">KUIDUN POIKKILEIKKAUS</text>
-      <!-- Outer coating -->
-      <circle cx="200" cy="140" r="80" fill="rgba(139,92,246,0.08)" stroke="#8b5cf6" stroke-opacity="0.3" stroke-width="2"/>
-      <text x="200" y="240" fill="#a78bfa" font-size="10" text-anchor="middle">Vaippa (coating)</text>
-      <!-- Cladding -->
-      <circle cx="200" cy="140" r="55" fill="rgba(59,130,246,0.08)" stroke="#3b82f6" stroke-opacity="0.4" stroke-width="2"/>
-      <text x="280" y="115" fill="#60a5fa" font-size="10">Kuori 125 µm</text>
-      <line x1="255" y1="130" x2="275" y2="118" stroke="#60a5fa" stroke-opacity="0.4"/>
-      <!-- Core - single mode -->
-      <circle cx="200" cy="140" r="8" fill="rgba(250,204,21,0.3)" stroke="#facc15" stroke-opacity="0.6" stroke-width="2"/>
-      <text x="280" y="145" fill="#facc15" font-size="10" font-weight="600">Ydin 9 µm</text>
-      <line x1="208" y1="140" x2="275" y2="143" stroke="#facc15" stroke-opacity="0.4"/>
-      <text x="200" y="260" fill="#94a3b8" font-size="11" text-anchor="middle">Yksimuotokuitu (SM)</text>
-
-      <!-- Total internal reflection -->
-      <text x="580" y="25" fill="#94a3b8" font-size="12" font-weight="600" text-anchor="middle" letter-spacing="1">KOKONAISHEIJASTUS</text>
-      <!-- Fiber tube side view -->
-      <rect x="420" y="80" width="320" height="120" rx="10" fill="rgba(59,130,246,0.04)" stroke="#3b82f6" stroke-opacity="0.2"/>
-      <!-- Core -->
-      <rect x="420" y="115" width="320" height="50" rx="4" fill="rgba(250,204,21,0.06)" stroke="#facc15" stroke-opacity="0.15"/>
-      <text x="430" y="110" fill="#60a5fa" font-size="9">Kuori (n₂)</text>
-      <text x="430" y="158" fill="#facc15" font-size="9">Ydin (n₁ > n₂)</text>
-      <text x="430" y="195" fill="#60a5fa" font-size="9">Kuori (n₂)</text>
-
-      <!-- Light bouncing -->
-      <polyline points="440,135 490,120 540,145 590,120 640,145 690,120 730,140" fill="none" stroke="#facc15" stroke-width="2" stroke-opacity="0.8">
-        <animate attributeName="stroke-dashoffset" from="40" to="0" dur="1s" repeatCount="indefinite"/>
-      </polyline>
-      <polyline points="440,135 490,120 540,145 590,120 640,145 690,120 730,140" fill="none" stroke="#facc15" stroke-width="2" stroke-dasharray="4 4" opacity="0.4"/>
-
-      <!-- Animated pulse -->
-      <circle r="4" fill="#facc15" opacity="0.9">
-        <animateMotion dur="2s" repeatCount="indefinite" path="M440,135 L490,120 L540,145 L590,120 L640,145 L690,120 L730,140"/>
-      </circle>
-    </svg>
-  </div>
-
-  <div class="card-grid">
-    <div class="card">
-      <div class="card-label">Yksimuoto (SM)</div>
-      <h3>9/125 µm</h3>
-      <p>Vain yksi valomoodi kulkee. Pitkät matkat (jopa 100+ km). Käytetään FTTH-verkoissa. Aallonpituudet 1310/1490/1550 nm.</p>
-    </div>
-    <div class="card">
-      <div class="card-label">Monimuoto (MM)</div>
-      <h3>50/125 tai 62.5/125 µm</h3>
-      <p>Useita valomoodeja. Lyhyet matkat (< 550m). Käytetään datakeskuksissa. Aallonpituudet 850/1300 nm. Halvemmat lähettimet.</p>
-    </div>
-    <div class="card">
-      <div class="card-label">Vaimennus</div>
-      <h3>Signaali heikkenee matkalla</h3>
-      <p>SM-kuitu @1310nm: ~0.35 dB/km. @1550nm: ~0.22 dB/km. Liittimet: ~0.3 dB/kpl. Jatkokset: ~0.1 dB/kpl. Splitterit: 3.5–21 dB.</p>
-    </div>
-  </div>
-</section>
-
-<!-- 2. RAKENNEOSAT -->
-<section class="section" data-label="Rakenneosat">
-  <div class="section-num">02</div>
-  <h2>Kuituverkon rakenneosat</h2>
-  <p class="subtitle">FTTH-verkko koostuu aktiivisista laitteista (OLT, ONT) ja passiivisesta infrasta (kaapelit, splitterit, jatkokset, kanavistot).</p>
-
-  <div class="diagram-box">
-    <svg class="diagram" viewBox="0 0 800 300">
-      <!-- OLT -->
-      <text x="55" y="25" fill="#60a5fa" font-size="10" text-anchor="middle" font-weight="600">KESKUS</text>
-      <rect x="10" y="35" width="90" height="70" rx="8" fill="rgba(59,130,246,0.12)" stroke="#3b82f6" stroke-opacity="0.4" stroke-width="2"/>
-      <text x="55" y="68" fill="#60a5fa" font-size="14" font-weight="700" text-anchor="middle">OLT</text>
-      <text x="55" y="85" fill="#94a3b8" font-size="9" text-anchor="middle">Keskuslaite</text>
-
-      <!-- Trunk cable -->
-      <line x1="100" y1="70" x2="220" y2="70" stroke="#facc15" stroke-width="4" stroke-opacity="0.6"/>
-      <text x="160" y="60" fill="#facc15" font-size="10" text-anchor="middle" font-weight="500">Runkokaapeli</text>
-      <text x="160" y="90" fill="#94a3b8" font-size="8" text-anchor="middle">48–288 kuitua</text>
-
-      <!-- FDH -->
-      <text x="265" y="25" fill="#06b6d4" font-size="10" text-anchor="middle" font-weight="600">ALUE</text>
-      <rect x="220" y="35" width="90" height="90" rx="8" fill="rgba(6,182,212,0.1)" stroke="#06b6d4" stroke-opacity="0.35" stroke-width="2"/>
-      <text x="265" y="70" fill="#06b6d4" font-size="13" font-weight="700" text-anchor="middle">FDH</text>
-      <text x="265" y="87" fill="#94a3b8" font-size="9" text-anchor="middle">Jakokaappi</text>
-      <text x="265" y="100" fill="#94a3b8" font-size="9" text-anchor="middle">(splitteri)</text>
-
-      <!-- Distribution cables -->
-      <line x1="310" y1="55" x2="410" y2="40" stroke="#22c55e" stroke-width="2.5" stroke-opacity="0.5"/>
-      <line x1="310" y1="80" x2="410" y2="110" stroke="#22c55e" stroke-width="2.5" stroke-opacity="0.5"/>
-      <line x1="310" y1="105" x2="410" y2="180" stroke="#22c55e" stroke-width="2.5" stroke-opacity="0.5"/>
-      <text x="360" y="30" fill="#22c55e" font-size="9" text-anchor="middle" font-weight="500">Jakelukaapeli</text>
-
-      <!-- FDT / FAT — spaced out vertically -->
-      <rect x="410" y="20" width="80" height="42" rx="6" fill="rgba(249,115,22,0.1)" stroke="#f97316" stroke-opacity="0.3"/>
-      <text x="450" y="40" fill="#f97316" font-size="11" font-weight="600" text-anchor="middle">FDT</text>
-      <text x="450" y="54" fill="#94a3b8" font-size="8" text-anchor="middle">Talojakaaja</text>
-
-      <rect x="410" y="90" width="80" height="42" rx="6" fill="rgba(249,115,22,0.1)" stroke="#f97316" stroke-opacity="0.3"/>
-      <text x="450" y="110" fill="#f97316" font-size="11" font-weight="600" text-anchor="middle">FAT</text>
-      <text x="450" y="124" fill="#94a3b8" font-size="8" text-anchor="middle">Liityntäpiste</text>
-
-      <rect x="410" y="160" width="80" height="42" rx="6" fill="rgba(249,115,22,0.1)" stroke="#f97316" stroke-opacity="0.3"/>
-      <text x="450" y="180" fill="#f97316" font-size="11" font-weight="600" text-anchor="middle">FDT</text>
-      <text x="450" y="194" fill="#94a3b8" font-size="8" text-anchor="middle">Talojakaaja</text>
-
-      <!-- Drop cables -->
-      <line x1="490" y1="35" x2="570" y2="25" stroke="#a78bfa" stroke-width="1.5" stroke-opacity="0.4" stroke-dasharray="4 3"/>
-      <line x1="490" y1="45" x2="570" y2="60" stroke="#a78bfa" stroke-width="1.5" stroke-opacity="0.4" stroke-dasharray="4 3"/>
-      <line x1="490" y1="105" x2="570" y2="95" stroke="#a78bfa" stroke-width="1.5" stroke-opacity="0.4" stroke-dasharray="4 3"/>
-      <line x1="490" y1="115" x2="570" y2="130" stroke="#a78bfa" stroke-width="1.5" stroke-opacity="0.4" stroke-dasharray="4 3"/>
-      <line x1="490" y1="175" x2="570" y2="165" stroke="#a78bfa" stroke-width="1.5" stroke-opacity="0.4" stroke-dasharray="4 3"/>
-      <line x1="490" y1="185" x2="570" y2="200" stroke="#a78bfa" stroke-width="1.5" stroke-opacity="0.4" stroke-dasharray="4 3"/>
-      <text x="530" y="230" fill="#a78bfa" font-size="9" text-anchor="middle" font-weight="500">Drop-kaapelit</text>
-
-      <!-- ONTs — properly spaced -->
-      <text x="600" y="12" fill="#22c55e" font-size="10" text-anchor="middle" font-weight="600">ASIAKKAAT</text>
-
-      <rect x="570" y="18" width="60" height="24" rx="5" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-opacity="0.3"/>
-      <text x="600" y="34" fill="#22c55e" font-size="10" font-weight="600" text-anchor="middle">ONT</text>
-
-      <rect x="570" y="50" width="60" height="24" rx="5" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-opacity="0.3"/>
-      <text x="600" y="66" fill="#22c55e" font-size="10" font-weight="600" text-anchor="middle">ONT</text>
-
-      <rect x="570" y="88" width="60" height="24" rx="5" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-opacity="0.3"/>
-      <text x="600" y="104" fill="#22c55e" font-size="10" font-weight="600" text-anchor="middle">ONT</text>
-
-      <rect x="570" y="120" width="60" height="24" rx="5" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-opacity="0.3"/>
-      <text x="600" y="136" fill="#22c55e" font-size="10" font-weight="600" text-anchor="middle">ONT</text>
-
-      <rect x="570" y="158" width="60" height="24" rx="5" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-opacity="0.3"/>
-      <text x="600" y="174" fill="#22c55e" font-size="10" font-weight="600" text-anchor="middle">ONT</text>
-
-      <rect x="570" y="190" width="60" height="24" rx="5" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-opacity="0.3"/>
-      <text x="600" y="206" fill="#22c55e" font-size="10" font-weight="600" text-anchor="middle">ONT</text>
-
-      <!-- Service icons -->
-      <rect x="650" y="25" width="50" height="22" rx="4" fill="rgba(94,94,94,0.1)" stroke="#666" stroke-opacity="0.2"/>
-      <text x="675" y="40" fill="#94a3b8" font-size="8" text-anchor="middle">WiFi</text>
-      <rect x="650" y="58" width="50" height="22" rx="4" fill="rgba(94,94,94,0.1)" stroke="#666" stroke-opacity="0.2"/>
-      <text x="675" y="73" fill="#94a3b8" font-size="8" text-anchor="middle">IPTV</text>
-      <rect x="650" y="91" width="50" height="22" rx="4" fill="rgba(94,94,94,0.1)" stroke="#666" stroke-opacity="0.2"/>
-      <text x="675" y="106" fill="#94a3b8" font-size="8" text-anchor="middle">Puhelin</text>
-    </svg>
-  </div>
-
-  <table class="data-table">
-    <thead><tr><th>Komponentti</th><th>Tyyppi</th><th>Kuvaus</th></tr></thead>
-    <tbody>
-      <tr><td class="hl">OLT</td><td>Aktiivinen</td><td>Optical Line Terminal — keskuslaite, hallinnoi PON-verkkoa. Sijaitsee teletilassa.</td></tr>
-      <tr><td class="hl">ONT / ONU</td><td>Aktiivinen</td><td>Optical Network Terminal — asiakaspääte. Muuntaa valon ethernet/WiFi-signaaliksi.</td></tr>
-      <tr><td class="hl">Splitteri</td><td>Passiivinen</td><td>Jakaa optisen signaalin 1:N (2, 4, 8, 16, 32, 64). Ei sähköä.</td></tr>
-      <tr><td class="hl">FDH</td><td>Passiivinen</td><td>Fiber Distribution Hub — jakokaappi. Sisältää splitterin ja kuitukytkennät.</td></tr>
-      <tr><td class="hl">FDT / FAT</td><td>Passiivinen</td><td>Fiber Distribution/Access Terminal — talojakaaja tai liityntäpiste.</td></tr>
-      <tr><td class="hl">ODF</td><td>Passiivinen</td><td>Optical Distribution Frame — kuituristikkö keskuksessa. Kytkentäpiste OLT↔runkokaapeli.</td></tr>
-      <tr><td>Runkokaapeli</td><td>Infra</td><td>48–288 kuitua. Keskuksesta jakokappeihin. Kanavistossa tai ilmajohtona.</td></tr>
-      <tr><td>Jakelukaapeli</td><td>Infra</td><td>12–48 kuitua. Jakokaapista talojakaajiin.</td></tr>
-      <tr><td>Drop-kaapeli</td><td>Infra</td><td>1–4 kuitua. Talojakaajasta asiakkaalle. Usein itsekantava tai sisäkaapeli.</td></tr>
-      <tr><td>Jatkos</td><td>Infra</td><td>Hitsattu kuitujatkos (~0.1 dB häviö). Käytetään kaapelin jatkamiseen.</td></tr>
-      <tr><td>Liitin</td><td>Infra</td><td>SC/APC (vihreä), LC — irrotettava liitos (~0.3 dB). ODF:ssä ja ONT:ssä.</td></tr>
-    </tbody>
-  </table>
-</section>
-
-<!-- 3. PON-ARKKITEHTUURIT -->
-<section class="section" data-label="PON-arkkitehtuurit">
-  <div class="section-num">03</div>
-  <h2>PON-arkkitehtuurit</h2>
-  <p class="subtitle">Passive Optical Network — jaettu kuitu splittereillä. Eri PON-sukupolvet eroavat nopeudessa ja aallonpituuksissa.</p>
-
-  <table class="data-table">
-    <thead>
-      <tr><th>Tekniikka</th><th>Downstream</th><th>Upstream</th><th>λ Down</th><th>λ Up</th><th>Split</th><th>Kantama</th></tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="hl">GPON</td><td>2.5 Gbps</td><td>1.25 Gbps</td>
-        <td>1490 nm</td><td>1310 nm</td><td>1:64</td><td>20 km</td>
-      </tr>
-      <tr>
-        <td class="hl">XGS-PON</td><td>10 Gbps</td><td>10 Gbps</td>
-        <td>1577 nm</td><td>1270 nm</td><td>1:64</td><td>20 km</td>
-      </tr>
-      <tr>
-        <td class="hl">25G-PON</td><td>25 Gbps</td><td>25 Gbps</td>
-        <td>1342 nm *</td><td>1270 nm</td><td>1:64</td><td>20 km</td>
-      </tr>
-      <tr>
-        <td class="hl">50G-PON</td><td>50 Gbps</td><td>25/50 Gbps</td>
-        <td>1342 nm *</td><td>1270 nm</td><td>1:64</td><td>20 km</td>
-      </tr>
-      <tr>
-        <td class="hl">P2P (ei PON)</td><td>1–100 Gbps</td><td>1–100 Gbps</td>
-        <td colspan="2" style="text-align:center">1310/1550 nm tai BiDi</td><td>1:1</td><td>80+ km</td>
-      </tr>
-      <tr><td colspan="7" style="font-size:11px; color:#64748b;">* ITU-T G.9804 — standardointi kesken, tarkat λ voivat muuttua</td></tr>
-    </tbody>
-  </table>
-
-  <div class="card-grid" style="margin-top: 16px;">
-    <div class="card">
-      <div class="card-label">GPON</div>
-      <h3>Yleisin tänään</h3>
-      <p>ITU-T G.984. 2.5G/1.25G. Laaja laitekanta, edulliset ONT:t. Riittää useimmille kotitalouksille vielä vuosia. Yleisin FTTH-tekniikka Suomessa.</p>
-    </div>
-    <div class="card">
-      <div class="card-label">XGS-PON</div>
-      <h3>Seuraava askel</h3>
-      <p>ITU-T G.9807. Symmetrinen 10G. Voidaan ajaa samassa kuidussa GPON:n kanssa (eri λ). Yrityskäyttö + tulevaisuudenvaraus.</p>
-    </div>
-    <div class="card">
-      <div class="card-label">Rinnakkaisuus</div>
-      <h3>GPON + XGS-PON samassa kuidussa</h3>
-      <p>Eri aallonpituudet mahdollistavat molemmat samassa splitteripuussa. Vaatii WDM1r coexistence elementin (CE) OLT:n ja splitterin väliin erottamaan λ-kaistat. Päivitetään asiakaskohtaisesti ONT:ta vaihtamalla — ei kaivutöitä.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════ -->
-<!-- OSA II: GPON SYVEMMIN                           -->
-<!-- ═══════════════════════════════════════════════ -->
-<div class="part-header">
-  <div class="part-number">Osa II</div>
-  <div class="part-title">GPON syvemmin</div>
-</div>
-
-<!-- 4. GPON TOIMINTAPERIAATE -->
-<section class="section" data-label="GPON-toiminta">
-  <div class="section-num">04</div>
-  <h2>GPON — signaalin jako</h2>
-  <p class="subtitle">GPON jakaa yhden kuidun monelle käyttäjälle kahdella mekanismilla: downstream broadcast + salaus, upstream aikajako (TDMA).</p>
-
-  <!-- GPON DOWNSTREAM: isompi, selkeämpi -->
-  <div class="diagram-box">
-    <svg class="diagram" viewBox="0 0 900 560">
-      <text x="450" y="22" fill="#60a5fa" font-size="14" font-weight="800" text-anchor="middle" letter-spacing="2">DOWNSTREAM — 1490 nm</text>
-      <text x="300" y="40" fill="#94a3b8" font-size="11" text-anchor="middle">OLT lähettää KAIKEN datan KAIKILLE</text>
-      <text x="300" y="54" fill="#94a3b8" font-size="11" text-anchor="middle">splitteri kopioi signaalin jokaiseen haaraan</text>
-
-      <!-- OLT with data stream visualization -->
-      <rect x="20" y="65" width="100" height="60" rx="10" fill="rgba(59,130,246,0.15)" stroke="#3b82f6" stroke-opacity="0.5" stroke-width="2"/>
-      <text x="70" y="92" fill="#60a5fa" font-size="14" font-weight="700" text-anchor="middle">OLT</text>
-      <text x="70" y="108" fill="#94a3b8" font-size="8" text-anchor="middle">Keskuslaite</text>
-
-      <!-- Data stream from OLT: colored packets -->
-      <rect x="140" y="78" width="24" height="14" rx="2" fill="#ef4444" opacity="0.8"/><text x="152" y="89" fill="white" font-size="7" text-anchor="middle" font-weight="700">A</text>
-      <rect x="168" y="78" width="24" height="14" rx="2" fill="#f97316" opacity="0.8"/><text x="180" y="89" fill="white" font-size="7" text-anchor="middle" font-weight="700">B</text>
-      <rect x="196" y="78" width="24" height="14" rx="2" fill="#facc15" opacity="0.8"/><text x="208" y="89" fill="#1e293b" font-size="7" text-anchor="middle" font-weight="700">C</text>
-      <rect x="224" y="78" width="24" height="14" rx="2" fill="#22c55e" opacity="0.8"/><text x="236" y="89" fill="white" font-size="7" text-anchor="middle" font-weight="700">D</text>
-      <rect x="252" y="78" width="24" height="14" rx="2" fill="#ef4444" opacity="0.8"/><text x="264" y="89" fill="white" font-size="7" text-anchor="middle" font-weight="700">A</text>
-      <rect x="280" y="78" width="24" height="14" rx="2" fill="#facc15" opacity="0.8"/><text x="292" y="89" fill="#1e293b" font-size="7" text-anchor="middle" font-weight="700">C</text>
-
-      <text x="230" y="72" fill="#94a3b8" font-size="8" text-anchor="middle">Kaikki paketit sekaisin →</text>
-
-      <!-- Animated pulses on main fiber -->
-      <line x1="120" y1="95" x2="350" y2="95" stroke="#60a5fa" stroke-width="4" stroke-opacity="0.3"/>
-      <circle r="4" fill="#ef4444"><animateMotion dur="1.5s" repeatCount="indefinite" path="M130,95 L340,95" begin="0s"/></circle>
-      <circle r="4" fill="#f97316"><animateMotion dur="1.5s" repeatCount="indefinite" path="M130,95 L340,95" begin="0.3s"/></circle>
-      <circle r="4" fill="#facc15"><animateMotion dur="1.5s" repeatCount="indefinite" path="M130,95 L340,95" begin="0.6s"/></circle>
-      <circle r="4" fill="#22c55e"><animateMotion dur="1.5s" repeatCount="indefinite" path="M130,95 L340,95" begin="0.9s"/></circle>
-
-      <!-- BIG SPLITTER -->
-      <path d="M350,60 L400,80 L400,110 L350,130 Z" fill="rgba(250,204,21,0.12)" stroke="#facc15" stroke-opacity="0.5" stroke-width="2"/>
-      <text x="375" y="100" fill="#facc15" font-size="11" font-weight="700" text-anchor="middle">1:4</text>
-      <text x="375" y="145" fill="#facc15" font-size="9" text-anchor="middle">Splitteri</text>
-      <text x="375" y="157" fill="#94a3b8" font-size="8" text-anchor="middle">kopioi kaiken</text>
-
-      <!-- 4 output fibers with identical data -->
-      <line x1="400" y1="82" x2="500" y2="48" stroke="#60a5fa" stroke-width="2" stroke-opacity="0.4"/>
-      <line x1="400" y1="90" x2="500" y2="98" stroke="#60a5fa" stroke-width="2" stroke-opacity="0.4"/>
-      <line x1="400" y1="100" x2="500" y2="148" stroke="#60a5fa" stroke-width="2" stroke-opacity="0.4"/>
-      <line x1="400" y1="108" x2="500" y2="198" stroke="#60a5fa" stroke-width="2" stroke-opacity="0.4"/>
-
-      <!-- ONT 1 — y=35 -->
-      <rect x="500" y="35" width="85" height="28" rx="6" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-opacity="0.4" stroke-width="1.5"/>
-      <text x="542" y="54" fill="#22c55e" font-size="11" font-weight="700" text-anchor="middle">ONT 1</text>
-      <rect x="595" y="37" width="14" height="10" rx="1" fill="#ef4444" opacity="0.9"/><text x="602" y="45" fill="white" font-size="6" text-anchor="middle">A</text>
-      <rect x="611" y="37" width="14" height="10" rx="1" fill="#f97316" opacity="0.3"/>
-      <rect x="627" y="37" width="14" height="10" rx="1" fill="#facc15" opacity="0.3"/>
-      <rect x="643" y="37" width="14" height="10" rx="1" fill="#22c55e" opacity="0.3"/>
-      <text x="700" y="46" fill="#ef4444" font-size="9" font-weight="600">Purkaa vain A</text>
-
-      <!-- ONT 2 — y=85 -->
-      <rect x="500" y="85" width="85" height="28" rx="6" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-opacity="0.4" stroke-width="1.5"/>
-      <text x="542" y="104" fill="#22c55e" font-size="11" font-weight="700" text-anchor="middle">ONT 2</text>
-      <rect x="595" y="87" width="14" height="10" rx="1" fill="#ef4444" opacity="0.3"/>
-      <rect x="611" y="87" width="14" height="10" rx="1" fill="#f97316" opacity="0.9"/><text x="618" y="95" fill="white" font-size="6" text-anchor="middle">B</text>
-      <rect x="627" y="87" width="14" height="10" rx="1" fill="#facc15" opacity="0.3"/>
-      <rect x="643" y="87" width="14" height="10" rx="1" fill="#22c55e" opacity="0.3"/>
-      <text x="700" y="96" fill="#f97316" font-size="9" font-weight="600">Purkaa vain B</text>
-
-      <!-- ONT 3 — y=135 -->
-      <rect x="500" y="135" width="85" height="28" rx="6" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-opacity="0.4" stroke-width="1.5"/>
-      <text x="542" y="154" fill="#22c55e" font-size="11" font-weight="700" text-anchor="middle">ONT 3</text>
-      <rect x="595" y="137" width="14" height="10" rx="1" fill="#ef4444" opacity="0.3"/>
-      <rect x="611" y="137" width="14" height="10" rx="1" fill="#f97316" opacity="0.3"/>
-      <rect x="627" y="137" width="14" height="10" rx="1" fill="#facc15" opacity="0.9"/><text x="634" y="145" fill="#1e293b" font-size="6" text-anchor="middle">C</text>
-      <rect x="643" y="137" width="14" height="10" rx="1" fill="#22c55e" opacity="0.3"/>
-      <text x="700" y="146" fill="#facc15" font-size="9" font-weight="600">Purkaa vain C</text>
-
-      <!-- ONT 4 — y=185 -->
-      <rect x="500" y="185" width="85" height="28" rx="6" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-opacity="0.4" stroke-width="1.5"/>
-      <text x="542" y="204" fill="#22c55e" font-size="11" font-weight="700" text-anchor="middle">ONT 4</text>
-      <rect x="595" y="187" width="14" height="10" rx="1" fill="#ef4444" opacity="0.3"/>
-      <rect x="611" y="187" width="14" height="10" rx="1" fill="#f97316" opacity="0.3"/>
-      <rect x="627" y="187" width="14" height="10" rx="1" fill="#facc15" opacity="0.3"/>
-      <rect x="643" y="187" width="14" height="10" rx="1" fill="#22c55e" opacity="0.9"/><text x="650" y="195" fill="white" font-size="6" text-anchor="middle">D</text>
-      <text x="700" y="196" fill="#22c55e" font-size="9" font-weight="600">Purkaa vain D</text>
-
-      <!-- Key insight box -->
-      <rect x="500" y="225" width="370" height="28" rx="6" fill="rgba(239,68,68,0.06)" stroke="rgba(239,68,68,0.15)"/>
-      <text x="685" y="243" fill="#f87171" font-size="10" text-anchor="middle" font-weight="600">🔒 AES-128 — jokainen ONT näkee kaiken, purkaa vain omansa</text>
-
-      <!-- ═══ SEPARATOR ═══ -->
-      <line x1="20" y1="270" x2="880" y2="270" stroke="#1e293b" stroke-width="1.5"/>
-
-      <!-- UPSTREAM TDMA -->
-      <text x="450" y="295" fill="#22c55e" font-size="14" font-weight="800" text-anchor="middle" letter-spacing="2">UPSTREAM — 1310 nm</text>
-      <text x="450" y="313" fill="#94a3b8" font-size="11" text-anchor="middle">ONT:t lähettävät vuorotellen — OLT jakaa aikavälit (TDMA). Ei törmäyksiä.</text>
-
-      <!-- ONTs sending one at a time -->
-      <rect x="30" y="335" width="70" height="30" rx="5" fill="rgba(239,68,68,0.12)" stroke="#ef4444" stroke-opacity="0.3"/>
-      <text x="65" y="354" fill="#ef4444" font-size="10" font-weight="600" text-anchor="middle">ONT 1</text>
-
-      <rect x="30" y="373" width="70" height="30" rx="5" fill="rgba(249,115,22,0.12)" stroke="#f97316" stroke-opacity="0.3"/>
-      <text x="65" y="392" fill="#f97316" font-size="10" font-weight="600" text-anchor="middle">ONT 2</text>
-
-      <rect x="30" y="411" width="70" height="30" rx="5" fill="rgba(250,204,21,0.12)" stroke="#facc15" stroke-opacity="0.3"/>
-      <text x="65" y="430" fill="#facc15" font-size="10" font-weight="600" text-anchor="middle">ONT 3</text>
-
-      <rect x="30" y="449" width="70" height="30" rx="5" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-opacity="0.3"/>
-      <text x="65" y="468" fill="#22c55e" font-size="10" font-weight="600" text-anchor="middle">ONT 4</text>
-
-      <!-- Arrows to timeline -->
-      <line x1="100" y1="350" x2="155" y2="350" stroke="#ef4444" stroke-width="1.5" stroke-opacity="0.4"/>
-      <line x1="100" y1="388" x2="155" y2="388" stroke="#f97316" stroke-width="1.5" stroke-opacity="0.4"/>
-      <line x1="100" y1="426" x2="155" y2="426" stroke="#facc15" stroke-width="1.5" stroke-opacity="0.4"/>
-      <line x1="100" y1="464" x2="155" y2="464" stroke="#22c55e" stroke-width="1.5" stroke-opacity="0.4"/>
-
-      <!-- Merged timeline -->
-      <text x="450" y="335" fill="#94a3b8" font-size="10" text-anchor="middle">Aika →</text>
-      <line x1="160" y1="345" x2="820" y2="345" stroke="#334155" stroke-width="2"/>
-
-      <!-- Time slots -->
-      <rect x="160" y="355" width="140" height="40" rx="4" fill="rgba(239,68,68,0.12)" stroke="#ef4444" stroke-opacity="0.3" stroke-width="1.5"/>
-      <text x="230" y="380" fill="#ef4444" font-size="12" font-weight="700" text-anchor="middle">ONT 1 data</text>
-      <rect x="160" y="355" width="140" height="4" rx="1" fill="#ef4444" opacity="0.6"/>
-
-      <rect x="308" y="355" width="90" height="40" rx="4" fill="rgba(249,115,22,0.12)" stroke="#f97316" stroke-opacity="0.3" stroke-width="1.5"/>
-      <text x="353" y="380" fill="#f97316" font-size="12" font-weight="700" text-anchor="middle">ONT 2</text>
-      <rect x="308" y="355" width="90" height="4" rx="1" fill="#f97316" opacity="0.6"/>
-
-      <rect x="406" y="355" width="180" height="40" rx="4" fill="rgba(250,204,21,0.12)" stroke="#facc15" stroke-opacity="0.3" stroke-width="1.5"/>
-      <text x="496" y="380" fill="#facc15" font-size="12" font-weight="700" text-anchor="middle">ONT 3 data</text>
-      <rect x="406" y="355" width="180" height="4" rx="1" fill="#facc15" opacity="0.6"/>
-
-      <rect x="594" y="355" width="70" height="40" rx="4" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-opacity="0.3" stroke-width="1.5"/>
-      <text x="629" y="380" fill="#22c55e" font-size="11" font-weight="700" text-anchor="middle">ONT 4</text>
-      <rect x="594" y="355" width="70" height="4" rx="1" fill="#22c55e" opacity="0.6"/>
-
-      <!-- Guard time markers -->
-      <line x1="304" y1="351" x2="304" y2="399" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3 2" opacity="0.4"/>
-      <line x1="402" y1="351" x2="402" y2="399" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3 2" opacity="0.4"/>
-      <line x1="590" y1="351" x2="590" y2="399" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3 2" opacity="0.4"/>
-      <text x="304" y="411" fill="#64748b" font-size="7" text-anchor="middle">guard</text>
-      <text x="402" y="411" fill="#64748b" font-size="7" text-anchor="middle">guard</text>
-      <text x="590" y="411" fill="#64748b" font-size="7" text-anchor="middle">guard</text>
-
-      <!-- Combined to OLT -->
-      <line x1="670" y1="375" x2="770" y2="375" stroke="#22c55e" stroke-width="3" stroke-opacity="0.4"/>
-      <polygon points="770,369 785,375 770,381" fill="#22c55e" opacity="0.5"/>
-      <rect x="790" y="355" width="80" height="40" rx="8" fill="rgba(59,130,246,0.12)" stroke="#3b82f6" stroke-opacity="0.3"/>
-      <text x="830" y="379" fill="#60a5fa" font-size="12" font-weight="700" text-anchor="middle">OLT</text>
-
-      <!-- DBA box -->
-      <rect x="160" y="425" width="660" height="55" rx="8" fill="rgba(59,130,246,0.04)" stroke="rgba(59,130,246,0.15)"/>
-      <text x="490" y="445" fill="#60a5fa" font-size="12" font-weight="700" text-anchor="middle">DBA — Dynamic Bandwidth Allocation</text>
-      <text x="490" y="462" fill="#94a3b8" font-size="10" text-anchor="middle">OLT päättää kuka lähettää milloinkin ja kuinka kauan. Enemmän dataa = pidempi aikaväli.</text>
-      <text x="490" y="475" fill="#94a3b8" font-size="10" text-anchor="middle">Siksi ONT 3:n lohko on isompi kuin ONT 4:n — dynaaminen allokointi tarpeen mukaan.</text>
-
-      <!-- Wavelength labels on sides -->
-      <rect x="20" y="495" width="420" height="40" rx="8" fill="rgba(59,130,246,0.04)" stroke="rgba(59,130,246,0.1)"/>
-      <text x="230" y="515" fill="#60a5fa" font-size="10" text-anchor="middle" font-weight="600">↓ DOWNSTREAM 1490 nm — Broadcast, salattu</text>
-      <text x="230" y="529" fill="#94a3b8" font-size="9" text-anchor="middle">Sama signaali kaikille, AES-128 avain per ONT</text>
-
-      <rect x="460" y="495" width="420" height="40" rx="8" fill="rgba(34,197,94,0.04)" stroke="rgba(34,197,94,0.1)"/>
-      <text x="670" y="515" fill="#22c55e" font-size="10" text-anchor="middle" font-weight="600">↑ UPSTREAM 1310 nm — TDMA, vuorottelu</text>
-      <text x="670" y="529" fill="#94a3b8" font-size="9" text-anchor="middle">ONT:t lähettävät eri aikoina, OLT hallitsee</text>
-    </svg>
-  </div>
-
-  <div class="card-grid">
-    <div class="card">
-      <div class="card-label">Salaus</div>
-      <h3>AES-128 downstream</h3>
-      <p>Koska kaikki ONT:t näkevät kaiken downstream-datan, jokainen ONT:n yhteys on salattu omalla avaimella. Naapuri ei voi lukea dataasi.</p>
-    </div>
-    <div class="card">
-      <div class="card-label">T-CONT</div>
-      <h3>Liikenneluokat</h3>
-      <p>Traffic Container: OLT allokoi jokaiselle ONT:lle T-CONTeja eri palveluluokille (puhelin, IPTV, data). Takaa QoS:n.</p>
-    </div>
-    <div class="card">
-      <div class="card-label">GEM Port</div>
-      <h3>Virtuaalinen yhteys</h3>
-      <p>GPON Encapsulation Method. Multipleksoi eri palvelut (Ethernet, VoIP) T-CONT:n sisällä. Yksi ONT voi ajaa useita palveluita.</p>
-    </div>
-  </div>
-</section>
-
-<!-- 5. HÄVIÖBUDJETTI -->
-<section class="section" data-label="Häviöbudjetti">
-  <div class="section-num">05</div>
-  <h2>Häviöbudjetti (Loss Budget)</h2>
-  <p class="subtitle">GPON:n optinen budjetti on tyypillisesti 28 dB (Class B+). Jokainen komponentti "syö" osan budjetista. Laskurilla näet jääkö marginaalia.</p>
-
-  <div class="calc-container">
-    <div style="margin-bottom: 16px;">
-      <div style="display: flex; justify-content: space-between; font-size: 12px; color: var(--accent); font-weight: 600;">
-        <span>GPON Class B+ budjetti</span><span>28.0 dB</span>
-      </div>
-    </div>
-
-    <div class="calc-row">
-      <div class="calc-label">Kuitumatka (km)</div>
-      <input type="range" class="calc-slider" id="sliderKm" min="0.5" max="20" step="0.5" value="8">
-      <div class="calc-value" id="valKm">8.0 km</div>
-    </div>
-    <div class="calc-row">
-      <div class="calc-label" style="font-size:11px; color:#64748b; padding-left:12px;">↳ Kuitu @1310nm: 0.35 dB/km</div>
-      <div class="calc-value" id="valFiber" style="color:#f97316;">2.80 dB</div>
-    </div>
-
-    <div class="calc-row">
-      <div class="calc-label">Splitteri</div>
-      <select id="selectSplit" style="flex:1; background:var(--card-border); color:var(--text); border:none; border-radius:6px; padding:8px 12px; font-size:13px;">
-        <option value="3.5">1:2 (3.5 dB)</option>
-        <option value="7">1:4 (7.0 dB)</option>
-        <option value="10.5">1:8 (10.5 dB)</option>
-        <option value="14">1:16 (14.0 dB)</option>
-        <option value="17.5" selected>1:32 (17.5 dB)</option>
-        <option value="17.5">1:4 + 1:8 kaskadi (7+10.5 = 17.5 dB)</option>
-        <option value="21">1:64 (21.0 dB)</option>
-        <option value="21">1:8 + 1:8 kaskadi (10.5+10.5 = 21.0 dB)</option>
-      </select>
-      <div class="calc-value" id="valSplit" style="color:#facc15;">17.50 dB</div>
-    </div>
-
-    <div class="calc-row">
-      <div class="calc-label">Liittimet (kpl)</div>
-      <input type="range" class="calc-slider" id="sliderConn" min="2" max="12" step="1" value="4">
-      <div class="calc-value" id="valConn">4 × 0.3 dB</div>
-    </div>
-    <div class="calc-row">
-      <div class="calc-label" style="font-size:11px; color:#64748b; padding-left:12px;">↳ Yhteensä liittimet</div>
-      <div class="calc-value" id="valConnTotal" style="color:#06b6d4;">1.20 dB</div>
-    </div>
-
-    <div class="calc-row">
-      <div class="calc-label">Jatkokset (kpl)</div>
-      <input type="range" class="calc-slider" id="sliderSplice" min="0" max="20" step="1" value="4">
-      <div class="calc-value" id="valSplice">4 × 0.1 dB</div>
-    </div>
-    <div class="calc-row">
-      <div class="calc-label" style="font-size:11px; color:#64748b; padding-left:12px;">↳ Yhteensä jatkokset</div>
-      <div class="calc-value" id="valSpliceTotal" style="color:#a78bfa;">0.40 dB</div>
-    </div>
-
-    <div class="calc-row">
-      <div class="calc-label">Huoltomarginaali</div>
-      <input type="range" class="calc-slider" id="sliderMargin" min="0" max="5" step="0.5" value="2">
-      <div class="calc-value" id="valMargin">2.0 dB</div>
-    </div>
-
-    <div class="calc-result ok" id="calcResult">
-      <div class="calc-total" id="calcTotal" style="color:#22c55e;">23.90 dB</div>
-      <div class="calc-budget" id="calcBudgetText">Budjetti: 28.0 dB — Marginaali: 4.10 dB ✓</div>
-      <div class="calc-bar-bg">
-        <div class="calc-bar-fill" id="calcBar" style="width:85%; background:#22c55e;"></div>
-      </div>
-    </div>
-  </div>
-
-  <table class="data-table" style="margin-top: 20px;">
-    <thead><tr><th>Komponentti</th><th>Tyypillinen häviö</th><th>Huomio</th></tr></thead>
-    <tbody>
-      <tr><td>SM-kuitu @1310nm</td><td class="hl">0.35 dB/km</td><td>GPON upstream</td></tr>
-      <tr><td>SM-kuitu @1490nm</td><td class="hl">0.30 dB/km</td><td>GPON downstream</td></tr>
-      <tr><td>SM-kuitu @1550nm</td><td class="hl">0.22 dB/km</td><td>Video overlay / CWDM</td></tr>
-      <tr><td>Splitteri 1:2</td><td>3.5 dB</td><td></td></tr>
-      <tr><td>Splitteri 1:4</td><td>7.0 dB</td><td></td></tr>
-      <tr><td>Splitteri 1:8</td><td>10.5 dB</td><td></td></tr>
-      <tr><td>Splitteri 1:16</td><td>14.0 dB</td><td></td></tr>
-      <tr><td>Splitteri 1:32</td><td class="hl">17.5 dB</td><td>Yleisin FTTH-split</td></tr>
-      <tr><td>Splitteri 1:64</td><td>21.0 dB</td><td>Vaatii Class C+ OLT:n</td></tr>
-      <tr><td>SC/APC-liitin</td><td>0.3 dB</td><td>Per liitin</td></tr>
-      <tr><td>Hitsausjatkos</td><td>0.1 dB</td><td>Per jatkos</td></tr>
-      <tr><td>Mekaaninen jatkos</td><td>0.5 dB</td><td>Vältä jos mahdollista</td></tr>
-    </tbody>
-  </table>
-</section>
-
-<!-- 6. SPLITTERITOPOLOGIAT -->
-<section class="section" data-label="Topologiat">
-  <div class="section-num">06</div>
-  <h2>Splitteritopologiat</h2>
-  <p class="subtitle">Miten 1:32 jakosuhde toteutetaan? Kolme perusstrategiaa, joilla on erilaiset kustannus- ja joustavuusprofiilit.</p>
-
-  <div class="card-grid" style="grid-template-columns: repeat(3, 1fr);">
-    <div class="card" style="border-color: rgba(250,204,21,0.3);">
-      <div class="card-label" style="color:#facc15;">Keskitetty</div>
-      <h3>1 × 1:32</h3>
-      <p>Yksi iso splitteri FDH:ssa. Yksinkertainen, halpa. Mutta kaikki 32 kuitua jakelukaapeliin — paksu kaapeli.</p>
-      <div style="margin-top:12px; padding:12px; background:rgba(250,204,21,0.05); border-radius:8px; font-size:11px; color:#facc15;">
-        OLT → [1:32] → 32 × drop
-      </div>
-    </div>
-    <div class="card" style="border-color: rgba(59,130,246,0.3);">
-      <div class="card-label">Kaskadoitu</div>
-      <h3>1:4 + 1:8</h3>
-      <p>Ensimmäinen jako FDH:ssa (1:4), toinen lähempänä asiakasta (1:8). Ohuemmat kaapelit, joustavampi. Yleisin.</p>
-      <div style="margin-top:12px; padding:12px; background:rgba(59,130,246,0.05); border-radius:8px; font-size:11px; color:#60a5fa;">
-        OLT → [1:4] → 4×[1:8] → 32 × drop
-      </div>
-    </div>
-    <div class="card" style="border-color: rgba(139,92,246,0.3);">
-      <div class="card-label" style="color:#a78bfa;">Hajautettu</div>
-      <h3>1:4 + 1:4 + 1:2</h3>
-      <p>Useita pieniä jakoja. Maksimaalinen joustavuus. Monimutkaisin hallita. Soveltuu haja-asutukseen.</p>
-      <div style="margin-top:12px; padding:12px; background:rgba(139,92,246,0.05); border-radius:8px; font-size:11px; color:#a78bfa;">
-        OLT → [1:4] → [1:4] → [1:2] → 32 × drop
-      </div>
-    </div>
-  </div>
-
-  <div class="diagram-box" style="margin-top: 20px;">
-    <svg class="diagram" viewBox="0 0 800 280">
-      <text x="400" y="20" fill="#94a3b8" font-size="12" font-weight="600" text-anchor="middle" letter-spacing="1">KASKADOITU 1:4 + 1:8 — YLEISIN MALLI</text>
-
-      <!-- OLT -->
-      <rect x="10" y="95" width="60" height="40" rx="6" fill="rgba(59,130,246,0.12)" stroke="#3b82f6" stroke-opacity="0.3"/>
-      <text x="40" y="119" fill="#60a5fa" font-size="11" font-weight="700" text-anchor="middle">OLT</text>
-
-      <!-- Trunk -->
-      <line x1="70" y1="115" x2="160" y2="115" stroke="#facc15" stroke-width="3" stroke-opacity="0.5"/>
-
-      <!-- 1st splitter -->
-      <polygon points="160,85 195,100 195,130 160,145" fill="rgba(250,204,21,0.1)" stroke="#facc15" stroke-opacity="0.4" stroke-width="1.5"/>
-      <text x="178" y="120" fill="#facc15" font-size="9" font-weight="600" text-anchor="middle">1:4</text>
-      <text x="178" y="77" fill="#facc15" font-size="9" text-anchor="middle" font-weight="500">FDH</text>
-
-      <!-- 4 distribution lines -->
-      <line x1="195" y1="98" x2="320" y2="55" stroke="#22c55e" stroke-width="2" stroke-opacity="0.4"/>
-      <line x1="195" y1="108" x2="320" y2="95" stroke="#22c55e" stroke-width="2" stroke-opacity="0.4"/>
-      <line x1="195" y1="122" x2="320" y2="145" stroke="#22c55e" stroke-width="2" stroke-opacity="0.4"/>
-      <line x1="195" y1="132" x2="320" y2="190" stroke="#22c55e" stroke-width="2" stroke-opacity="0.4"/>
-
-      <!-- 4 × 1:8 splitters — spread out -->
-      <polygon points="320,40 350,48 350,65 320,73" fill="rgba(6,182,212,0.1)" stroke="#06b6d4" stroke-opacity="0.3" stroke-width="1"/>
-      <text x="335" y="60" fill="#06b6d4" font-size="8" font-weight="600" text-anchor="middle">1:8</text>
-
-      <polygon points="320,80 350,88 350,105 320,113" fill="rgba(6,182,212,0.1)" stroke="#06b6d4" stroke-opacity="0.3" stroke-width="1"/>
-      <text x="335" y="100" fill="#06b6d4" font-size="8" font-weight="600" text-anchor="middle">1:8</text>
-
-      <polygon points="320,130 350,138 350,155 320,163" fill="rgba(6,182,212,0.1)" stroke="#06b6d4" stroke-opacity="0.3" stroke-width="1"/>
-      <text x="335" y="150" fill="#06b6d4" font-size="8" font-weight="600" text-anchor="middle">1:8</text>
-
-      <polygon points="320,175 350,183 350,200 320,208" fill="rgba(6,182,212,0.1)" stroke="#06b6d4" stroke-opacity="0.3" stroke-width="1"/>
-      <text x="335" y="195" fill="#06b6d4" font-size="8" font-weight="600" text-anchor="middle">1:8</text>
-
-      <text x="335" y="228" fill="#06b6d4" font-size="9" text-anchor="middle" font-weight="500">FDT</text>
-
-      <!-- Drops -->
-      <g opacity="0.5">
-        <line x1="350" y1="52" x2="420" y2="42" stroke="#a78bfa" stroke-width="1"/>
-        <line x1="350" y1="56" x2="420" y2="52" stroke="#a78bfa" stroke-width="1"/>
-        <line x1="350" y1="60" x2="420" y2="62" stroke="#a78bfa" stroke-width="1"/>
-
-        <line x1="350" y1="92" x2="420" y2="82" stroke="#a78bfa" stroke-width="1"/>
-        <line x1="350" y1="96" x2="420" y2="92" stroke="#a78bfa" stroke-width="1"/>
-        <line x1="350" y1="100" x2="420" y2="102" stroke="#a78bfa" stroke-width="1"/>
-
-        <line x1="350" y1="142" x2="420" y2="132" stroke="#a78bfa" stroke-width="1"/>
-        <line x1="350" y1="146" x2="420" y2="142" stroke="#a78bfa" stroke-width="1"/>
-        <line x1="350" y1="150" x2="420" y2="152" stroke="#a78bfa" stroke-width="1"/>
-
-        <line x1="350" y1="187" x2="420" y2="178" stroke="#a78bfa" stroke-width="1"/>
-        <line x1="350" y1="191" x2="420" y2="188" stroke="#a78bfa" stroke-width="1"/>
-        <line x1="350" y1="195" x2="420" y2="198" stroke="#a78bfa" stroke-width="1"/>
-      </g>
-
-      <!-- ONTs -->
-      <text x="440" y="55" fill="#22c55e" font-size="9" font-weight="600">→ 8 ONT</text>
-      <text x="440" y="95" fill="#22c55e" font-size="9" font-weight="600">→ 8 ONT</text>
-      <text x="440" y="145" fill="#22c55e" font-size="9" font-weight="600">→ 8 ONT</text>
-      <text x="440" y="190" fill="#22c55e" font-size="9" font-weight="600">→ 8 ONT</text>
-
-      <!-- Summary box -->
-      <rect x="500" y="55" width="280" height="120" rx="10" fill="rgba(59,130,246,0.04)" stroke="rgba(59,130,246,0.12)"/>
-      <text x="640" y="80" fill="#60a5fa" font-size="11" font-weight="600" text-anchor="middle">Miksi kaskadoitu?</text>
-      <text x="640" y="100" fill="#94a3b8" font-size="10" text-anchor="middle">✓ Ohuemmat jakelukaapelit (4 vs 32 kuitua)</text>
-      <text x="640" y="117" fill="#94a3b8" font-size="10" text-anchor="middle">✓ Pay-as-you-grow: lisää 1:8 tarpeen mukaan</text>
-      <text x="640" y="134" fill="#94a3b8" font-size="10" text-anchor="middle">✓ Vikaisoloiminen helpompaa</text>
-      <text x="640" y="151" fill="#94a3b8" font-size="10" text-anchor="middle">⚠ Häviö sama: 7 + 10.5 = 17.5 dB = 1×1:32</text>
-      <text x="640" y="168" fill="#94a3b8" font-size="10" text-anchor="middle">= 4 × 8 = 32 asiakasta yhteensä</text>
-    </svg>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════ -->
-<!-- OSA III: CWDM KÄYTÄNNÖSSÄ                       -->
-<!-- ═══════════════════════════════════════════════ -->
-<div class="part-header">
-  <div class="part-number">Osa III</div>
-  <div class="part-title">CWDM käytännössä</div>
-</div>
-
-<!-- 7. CWDM PERUSIDEA -->
+<!-- 01. CWDM PERUSIDEA -->
 <section class="section" data-label="CWDM-idea">
-  <div class="section-num">07</div>
+  <div class="section-num">01</div>
   <h2>CWDM — yksi kuitu, monta kanavaa</h2>
   <p class="subtitle">Coarse Wavelength Division Multiplexing. Eri aallonpituudet samassa kuidussa — kuten radiokanavat eri taajuuksilla. Passiivinen, ei sähköä.</p>
 
@@ -872,12 +232,76 @@
   </div>
 </section>
 
-<!-- 8. CWDM vs DWDM -->
+<!-- 02. CWDM vs DWDM -->
 <section class="section" data-label="CWDM vs DWDM">
-  <div class="section-num">08</div>
+  <div class="section-num">02</div>
   <h2>CWDM vs. DWDM</h2>
   <p class="subtitle">Coarse = 20 nm väli, halvat laserit. Dense = 0.8 nm väli, tarkkuuslaserit. Valinta riippuu kapasiteettitarpeesta ja budjetista.</p>
 
+  <!-- Detailed spectrum visualization (18 CWDM channels + 80 DWDM channels) -->
+  <div class="diagram-box">
+    <svg class="diagram" viewBox="0 0 900 340">
+      <text x="450" y="25" fill="#94a3b8" font-size="12" font-weight="600" text-anchor="middle" letter-spacing="1">SPEKTRIN KÄYTTÖ</text>
+
+      <!-- CWDM section -->
+      <text x="50" y="55" fill="#06b6d4" font-size="13" font-weight="700">CWDM</text>
+      <text x="50" y="70" fill="#94a3b8" font-size="10">18 kanavaa, 20 nm väli</text>
+
+      <!-- CWDM spectrum bar -->
+      <rect x="50" y="80" width="800" height="40" rx="6" fill="rgba(30,41,59,0.5)" stroke="var(--card-border)"/>
+      <!-- 18 CWDM channels from 1270 to 1610 nm -->
+      <rect x="62" y="85" width="28" height="30" rx="3" fill="rgba(59,130,246,0.4)" stroke="#3b82f6" stroke-opacity="0.5"/>
+      <rect x="106" y="85" width="28" height="30" rx="3" fill="rgba(59,130,246,0.35)"/>
+      <rect x="150" y="85" width="28" height="30" rx="3" fill="rgba(6,182,212,0.35)"/>
+      <rect x="194" y="85" width="28" height="30" rx="3" fill="rgba(6,182,212,0.3)"/>
+      <rect x="238" y="85" width="28" height="30" rx="3" fill="rgba(34,197,94,0.35)"/>
+      <rect x="282" y="85" width="28" height="30" rx="3" fill="rgba(34,197,94,0.3)"/>
+      <rect x="326" y="85" width="28" height="30" rx="3" fill="rgba(34,197,94,0.25)"/>
+      <rect x="370" y="85" width="28" height="30" rx="3" fill="rgba(250,204,21,0.3)"/>
+      <rect x="414" y="85" width="28" height="30" rx="3" fill="rgba(250,204,21,0.35)"/>
+      <rect x="458" y="85" width="28" height="30" rx="3" fill="rgba(250,204,21,0.3)"/>
+      <rect x="502" y="85" width="28" height="30" rx="3" fill="rgba(249,115,22,0.35)"/>
+      <rect x="546" y="85" width="28" height="30" rx="3" fill="rgba(249,115,22,0.3)"/>
+      <rect x="590" y="85" width="28" height="30" rx="3" fill="rgba(239,68,68,0.35)"/>
+      <rect x="634" y="85" width="28" height="30" rx="3" fill="rgba(239,68,68,0.3)"/>
+      <rect x="678" y="85" width="28" height="30" rx="3" fill="rgba(239,68,68,0.25)"/>
+      <rect x="722" y="85" width="28" height="30" rx="3" fill="rgba(139,92,246,0.3)"/>
+      <rect x="766" y="85" width="28" height="30" rx="3" fill="rgba(139,92,246,0.25)"/>
+      <rect x="810" y="85" width="28" height="30" rx="3" fill="rgba(139,92,246,0.2)"/>
+
+      <!-- CWDM labels -->
+      <text x="62" y="136" fill="#94a3b8" font-size="8">1270</text>
+      <text x="414" y="136" fill="#94a3b8" font-size="8">1450</text>
+      <text x="810" y="136" fill="#94a3b8" font-size="8">1610</text>
+
+      <!-- Spacing indicator -->
+      <line x1="76" y1="82" x2="120" y2="82" stroke="#06b6d4" stroke-opacity="0.5"/>
+      <text x="98" y="78" fill="#06b6d4" font-size="9" text-anchor="middle" font-weight="600">20 nm</text>
+      <text x="450" y="150" fill="#06b6d4" font-size="11" text-anchor="middle" font-weight="600">Alue: 1270–1610 nm (O, E, S, C, L -kaistat)</text>
+
+      <!-- DWDM section -->
+      <text x="50" y="185" fill="#facc15" font-size="13" font-weight="700">DWDM</text>
+      <text x="50" y="200" fill="#94a3b8" font-size="10">80+ kanavaa, 0.8 nm väli (100 GHz)</text>
+
+      <!-- DWDM spectrum - only C-band highlighted -->
+      <rect x="50" y="210" width="800" height="40" rx="6" fill="rgba(30,41,59,0.3)" stroke="var(--card-border)"/>
+      <!-- C-band region highlighted -->
+      <rect x="380" y="210" width="160" height="40" rx="0" fill="rgba(250,204,21,0.06)"/>
+      <!-- Dense thin bars for DWDM channels (generated by script) -->
+      <g id="dwdmChannels"></g>
+
+      <!-- DWDM labels -->
+      <text x="380" y="268" fill="#94a3b8" font-size="8">1528</text>
+      <text x="540" y="268" fill="#94a3b8" font-size="8">1568 nm</text>
+      <text x="460" y="280" fill="#facc15" font-size="11" text-anchor="middle" font-weight="600">C-band: 1528–1568 nm (vain 40 nm leveys!)</text>
+
+      <!-- Zoom comparison -->
+      <text x="450" y="310" fill="#94a3b8" font-size="10" text-anchor="middle">CWDM: koko spektri, harvat kanavat | DWDM: kapea kaista, tiiviit kanavat</text>
+      <text x="450" y="330" fill="#e2e8f0" font-size="11" text-anchor="middle" font-weight="500">Sama kuitu — eri lähestymistapa kapasiteetin lisäämiseen</text>
+    </svg>
+  </div>
+
+  <!-- Original simple spectrum bars -->
   <div class="spectrum-box">
     <div class="spectrum-title" style="color:#facc15;">CWDM — 1270–1610 nm</div>
     <div class="spectrum-bar" style="background:linear-gradient(90deg,#ef4444,#f97316,#facc15,#22c55e,#06b6d4,#3b82f6,#8b5cf6,#ec4899,#f43f5e);"></div>
@@ -895,19 +319,42 @@
   <table class="data-table" style="margin-top: 12px;">
     <thead><tr><th>Ominaisuus</th><th>CWDM</th><th>DWDM</th></tr></thead>
     <tbody>
-      <tr><td>Kanavaväli</td><td class="hl">20 nm</td><td>0.8 nm</td></tr>
-      <tr><td>Kanavia</td><td class="hl">~18</td><td>80–96+</td></tr>
-      <tr><td>Laserit</td><td>Halvat (ei jäähdytystä)</td><td>TEC-jäähdytys</td></tr>
+      <tr><td>Kanavaväli</td><td class="hl">20 nm</td><td>0.8 nm (100 GHz)</td></tr>
+      <tr><td>Kanavia</td><td class="hl">~18</td><td>80–96+ (C-band), 160+ (C+L)</td></tr>
+      <tr><td>Aallonpituusalue</td><td>1270–1610 nm</td><td>C-band 1528–1568 nm</td></tr>
+      <tr><td>Laserit</td><td>Jäähdyttämätön (DFB)</td><td>TEC-jäähdytetty (ITU-grid)</td></tr>
+      <tr><td>Vahvistus (EDFA)</td><td style="color:#ef4444;">Ei tuettu</td><td style="color:#22c55e;">Tuettu (C-band)</td></tr>
       <tr><td>Kantama</td><td>~40–80 km</td><td class="hl">100+ km (vahvistimilla 1000+)</td></tr>
-      <tr><td>Käyttö</td><td>Access, metro</td><td>Runkoverkko, DC</td></tr>
+      <tr><td>Käyttö</td><td>Access, metro, GPON-overlay</td><td>Runkoverkko, DC, merenalaiset</td></tr>
       <tr><td>Hinta / kanava</td><td class="hl">€</td><td>€€€€</td></tr>
     </tbody>
   </table>
+
+  <div class="card-grid">
+    <div class="card" style="border-left: 3px solid #06b6d4;">
+      <div class="card-label" style="color:#06b6d4;">Valitse CWDM kun</div>
+      <h3>Kustannustehokkuus</h3>
+      <p>Tarvitset muutamia lisäkanavia, matka on lyhyt (&lt;80 km), ja budjetti on rajallinen. Tyypillinen access-verkoissa ja GPON-overlay-toteutuksissa.</p>
+    </div>
+    <div class="card" style="border-left: 3px solid #facc15;">
+      <div class="card-label" style="color:#facc15;">Valitse DWDM kun</div>
+      <h3>Maksimaalinen kapasiteetti</h3>
+      <p>Tarvitset kymmeniä tai satoja kanavia, pitkiä matkoja, ja EDFA-vahvistusta. Runkoverkot, operaattorien väliset yhteydet, merenalaiset.</p>
+    </div>
+  </div>
 </section>
 
-<!-- 9. CWDM + GPON KÄYTÄNNÖSSÄ -->
+<!-- ═══════════════════════════════════════════════ -->
+<!-- KÄYTÄNTÖ                                        -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="part-header">
+  <div class="part-number">Käytäntö</div>
+  <div class="part-title">CWDM verkossa</div>
+</div>
+
+<!-- 03. CWDM + GPON KÄYTÄNNÖSSÄ -->
 <section class="section" data-label="CWDM+GPON">
-  <div class="section-num">09</div>
+  <div class="section-num">03</div>
   <h2>CWDM GPON-verkossa — käytännön esimerkki</h2>
   <p class="subtitle">Kylä 15 km päässä keskuksesta. Runkokaapelissa vain 12 kuitua. Tarvitaan 4 PON-porttia = 128 asiakasta. Miten CWDM auttaa?</p>
 
@@ -950,8 +397,9 @@
       <text x="185" y="200" fill="#94a3b8" font-size="8" text-anchor="middle">(ODF:ssä)</text>
 
       <!-- TRUNK FIBER (single) -->
+      <defs><linearGradient id="fgTrunk" x1="0%" x2="100%"><stop offset="0%" stop-color="#ef4444"/><stop offset="33%" stop-color="#f97316"/><stop offset="66%" stop-color="#facc15"/><stop offset="100%" stop-color="#22c55e"/></linearGradient></defs>
       <line x1="220" y1="177" x2="500" y2="177" stroke="#334155" stroke-width="10" stroke-linecap="round"/>
-      <line x1="220" y1="177" x2="500" y2="177" stroke="url(#fg2)" stroke-width="12" stroke-linecap="round" opacity="0.2"/>
+      <line x1="220" y1="177" x2="500" y2="177" stroke="url(#fgTrunk)" stroke-width="12" stroke-linecap="round" opacity="0.2"/>
 
       <!-- Animated pulses -->
       <circle r="5" fill="#ef4444" opacity="0.8"><animateMotion dur="3s" repeatCount="indefinite" path="M220,177 L500,177" begin="0s"/></circle>
@@ -1038,9 +486,9 @@
   </div>
 </section>
 
-<!-- 9b. SIGNAALITASON YHDISTELMÄKAAVIO -->
+<!-- 04. SIGNAALITASON YHDISTELMÄKAAVIO -->
 <section class="section" data-label="Signaalitaso">
-  <div class="section-num">⚡</div>
+  <div class="section-num">04</div>
   <h2>Koko kuva — GPON + CWDM signaalitasolla</h2>
   <p class="subtitle">Miten GPON:n broadcast/TDMA ja CWDM:n aallonpituusjako toimivat yhdessä? Tässä koko signaaliketju OLT:sta ONT:lle.</p>
 
@@ -1263,9 +711,9 @@
   </div>
 </section>
 
-<!-- 10. KUSTANNUSVERTAILU -->
+<!-- 05. KUSTANNUSVERTAILU -->
 <section class="section" data-label="Kustannus">
-  <div class="section-num">10</div>
+  <div class="section-num">05</div>
   <h2>Kustannusvertailu</h2>
   <p class="subtitle">Milloin CWDM on edullisempi kuin lisäkuitujen kaivaminen? Karkeasti: jos kaivuu maksaa yli 20 €/m, CWDM voittaa jo 500 metrissä.</p>
 
@@ -1310,16 +758,16 @@
 </section>
 
 <!-- ═══════════════════════════════════════════════ -->
-<!-- OSA IV: YHTEENVETO                              -->
+<!-- YHTEENVETO                                      -->
 <!-- ═══════════════════════════════════════════════ -->
 <div class="part-header">
-  <div class="part-number">Osa IV</div>
-  <div class="part-title">Yhteenveto</div>
+  <div class="part-number">Yhteenveto</div>
+  <div class="part-title">Päätöksenteko</div>
 </div>
 
-<!-- 11. PÄÄTÖSPUU -->
+<!-- 06. PÄÄTÖSPUU -->
 <section class="section" data-label="Päätöspuu">
-  <div class="section-num">11</div>
+  <div class="section-num">06</div>
   <h2>Milloin mitäkin?</h2>
   <p class="subtitle">Yksinkertainen päätöspuu verkkotekniikan valintaan.</p>
 
@@ -1390,49 +838,33 @@
   </div>
 </section>
 
-<!-- 12. SANASTO -->
+<!-- 07. SANASTO -->
 <section class="section" data-label="Sanasto">
-  <div class="section-num">12</div>
+  <div class="section-num">07</div>
   <h2>Sanasto</h2>
-  <p class="subtitle">Kaikki kuituverkon keskeiset termit.</p>
+  <p class="subtitle">CWDM- ja DWDM-tekniikan keskeiset termit.</p>
 
   <div class="glossary-grid">
-    <div class="glossary-item"><div class="glossary-term">AES-128</div><div class="glossary-def">Salausmenetelmä, jolla GPON suojaa downstream-datan ONT-kohtaisesti</div></div>
-    <div class="glossary-item"><div class="glossary-term">Class B+</div><div class="glossary-def">GPON-lähettimen teho- ja herkkyysluokka, 28 dB optinen budjetti</div></div>
+    <div class="glossary-item"><div class="glossary-term">C-band</div><div class="glossary-def">Conventional band, 1528–1568 nm — DWDM:n pääalue, EDFA toimii täällä</div></div>
     <div class="glossary-item"><div class="glossary-term">CWDM</div><div class="glossary-def">Coarse WDM — 20 nm kanavaväli, jopa 18 kanavaa, halvat laserit</div></div>
-    <div class="glossary-item"><div class="glossary-term">DBA</div><div class="glossary-def">Dynamic Bandwidth Allocation — OLT jakaa upstream-aikavälit dynaamisesti</div></div>
     <div class="glossary-item"><div class="glossary-term">DEMUX</div><div class="glossary-def">Demultiplekseri — erottaa aallonpituudet omille kanavilleen</div></div>
-    <div class="glossary-item"><div class="glossary-term">Drop-kaapeli</div><div class="glossary-def">1–4 kuidun kaapeli talojakaajasta asiakkaalle</div></div>
+    <div class="glossary-item"><div class="glossary-term">DFB-laser</div><div class="glossary-def">Distributed Feedback -laser, CWDM:ssä jäähdyttämätön, DWDM:ssä TEC-jäähdytetty</div></div>
     <div class="glossary-item"><div class="glossary-term">DWDM</div><div class="glossary-def">Dense WDM — 0.8 nm väli, 80+ kanavaa, runkoverkkoihin</div></div>
-    <div class="glossary-item"><div class="glossary-term">FAT</div><div class="glossary-def">Fiber Access Terminal — liityntäpiste lähellä asiakkaita</div></div>
-    <div class="glossary-item"><div class="glossary-term">FDH</div><div class="glossary-def">Fiber Distribution Hub — jakokaappi, sisältää splitterit</div></div>
-    <div class="glossary-item"><div class="glossary-term">FDT</div><div class="glossary-def">Fiber Distribution Terminal — talojakaaja</div></div>
-    <div class="glossary-item"><div class="glossary-term">FTTH</div><div class="glossary-def">Fiber To The Home — kuitu kotiin asti</div></div>
-    <div class="glossary-item"><div class="glossary-term">GEM Port</div><div class="glossary-def">GPON Encapsulation Method — virtuaaliyhteys eri palveluille</div></div>
-    <div class="glossary-item"><div class="glossary-term">GPON</div><div class="glossary-def">Gigabit PON (G.984) — 2.5G down / 1.25G up, yleisin FTTH</div></div>
-    <div class="glossary-item"><div class="glossary-term">Hitsausjatkos</div><div class="glossary-def">Pysyvä kuitujatkos hitsaamalla, häviö ~0.1 dB</div></div>
-    <div class="glossary-item"><div class="glossary-term">Jakelukaapeli</div><div class="glossary-def">12–48 kuidun kaapeli FDH:sta talojakaajiin</div></div>
-    <div class="glossary-item"><div class="glossary-term">LC-liitin</div><div class="glossary-def">Pieni kuituliitintyyppi, yleinen aktiivisissa laitteissa</div></div>
-    <div class="glossary-item"><div class="glossary-term">Loss Budget</div><div class="glossary-def">Häviöbudjetti — kuinka paljon signaali saa heikentyä OLT→ONT</div></div>
+    <div class="glossary-item"><div class="glossary-term">EDFA</div><div class="glossary-def">Erbium-Doped Fiber Amplifier — optinen vahvistin C-kaistalla (DWDM)</div></div>
+    <div class="glossary-item"><div class="glossary-term">ITU-grid</div><div class="glossary-def">ITU-T:n standardoima DWDM-kanavien aallonpituuskartta (100 GHz / 50 GHz väli)</div></div>
+    <div class="glossary-item"><div class="glossary-term">L-band</div><div class="glossary-def">Long band, 1568–1610 nm — DWDM-laajennus lisäkapasiteetille</div></div>
     <div class="glossary-item"><div class="glossary-term">MUX</div><div class="glossary-def">Multiplekseri — yhdistää aallonpituudet yhteen kuituun</div></div>
-    <div class="glossary-item"><div class="glossary-term">ODF</div><div class="glossary-def">Optical Distribution Frame — kuituristikkö keskuksessa</div></div>
-    <div class="glossary-item"><div class="glossary-term">OLT</div><div class="glossary-def">Optical Line Terminal — keskuslaite PON-verkon päässä</div></div>
-    <div class="glossary-item"><div class="glossary-term">ONT/ONU</div><div class="glossary-def">Optical Network Terminal/Unit — asiakaspääte</div></div>
-    <div class="glossary-item"><div class="glossary-term">P2P</div><div class="glossary-def">Point-to-Point — dedikoitu kuitu, ei jakoa</div></div>
-    <div class="glossary-item"><div class="glossary-term">PON</div><div class="glossary-def">Passive Optical Network — passiivinen optinen verkko</div></div>
-    <div class="glossary-item"><div class="glossary-term">Runkokaapeli</div><div class="glossary-def">48–288 kuidun kaapeli keskuksesta jakokappeihin</div></div>
-    <div class="glossary-item"><div class="glossary-term">SC/APC</div><div class="glossary-def">Vihreä kuituliitintyyppi, vinohiottu, matala heijastus</div></div>
-    <div class="glossary-item"><div class="glossary-term">SM-kuitu</div><div class="glossary-def">Single-mode, 9/125 µm, pitkät matkat, FTTH-standardi</div></div>
-    <div class="glossary-item"><div class="glossary-term">Splitteri</div><div class="glossary-def">Passiivinen optinen jakaja (1:2...1:64)</div></div>
-    <div class="glossary-item"><div class="glossary-term">T-CONT</div><div class="glossary-def">Traffic Container — upstream-kaistanvaraus ONT:lle</div></div>
-    <div class="glossary-item"><div class="glossary-term">TDMA</div><div class="glossary-def">Time Division Multiple Access — aikajako upstreamissa</div></div>
-    <div class="glossary-item"><div class="glossary-term">XGS-PON</div><div class="glossary-def">10G symmetrinen PON (G.9807), seuraava sukupolvi</div></div>
+    <div class="glossary-item"><div class="glossary-term">OADM</div><div class="glossary-def">Optical Add-Drop Multiplexer — lisää/poistaa yksittäisiä λ-kanavia reitillä</div></div>
+    <div class="glossary-item"><div class="glossary-term">TEC</div><div class="glossary-def">Thermoelectric Cooler — DWDM-laserien jäähdytys aallonpituusstabiliteetin takaamiseksi</div></div>
+    <div class="glossary-item"><div class="glossary-term">TFF</div><div class="glossary-def">Thin Film Filter — ohutkalvosuodatin, CWDM MUX/DEMUX:n peruskomponentti</div></div>
+    <div class="glossary-item"><div class="glossary-term">WDM</div><div class="glossary-def">Wavelength Division Multiplexing — aallonpituusjako, yläkäsite CWDM:lle ja DWDM:lle</div></div>
+    <div class="glossary-item"><div class="glossary-term">λ (lambda)</div><div class="glossary-def">Aallonpituus — valon "väri", nanometreinä (nm). Eri λ = eri kanava.</div></div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <div style="text-align:center; padding: 40px; color: var(--text-dim); font-size: 12px;">
-  Kuituverkko & CWDM — Koulutusmateriaalit 2026
+  CWDM & DWDM — Koulutusmateriaalit 2026
 </div>
 
 <!-- SCRIPTS -->
@@ -1456,73 +888,29 @@ const observer = new IntersectionObserver((entries) => {
     if (entry.isIntersecting) {
       const idx = Array.from(sections).indexOf(entry.target);
       dots.forEach((d, i) => d.classList.toggle('active', i === idx));
-      navLabel.textContent = (idx + 1) + '/12 — ' + (entry.target.dataset.label || '');
+      navLabel.textContent = (idx + 1) + '/7 — ' + (entry.target.dataset.label || '');
     }
   });
 }, { threshold: 0.3 });
 
 sections.forEach(s => observer.observe(s));
 
-// Loss budget calculator
-const sliderKm = document.getElementById('sliderKm');
-const selectSplit = document.getElementById('selectSplit');
-const sliderConn = document.getElementById('sliderConn');
-const sliderSplice = document.getElementById('sliderSplice');
-const sliderMargin = document.getElementById('sliderMargin');
-
-function updateCalc() {
-  const km = parseFloat(sliderKm.value);
-  const fiberLoss = km * 0.35;
-  const splitLoss = parseFloat(selectSplit.value);
-  const connCount = parseInt(sliderConn.value);
-  const connLoss = connCount * 0.3;
-  const spliceCount = parseInt(sliderSplice.value);
-  const spliceLoss = spliceCount * 0.1;
-  const margin = parseFloat(sliderMargin.value);
-
-  const total = fiberLoss + splitLoss + connLoss + spliceLoss + margin;
-  const budget = 28.0;
-  const remaining = budget - total;
-
-  document.getElementById('valKm').textContent = km.toFixed(1) + ' km';
-  document.getElementById('valFiber').textContent = fiberLoss.toFixed(2) + ' dB';
-  document.getElementById('valConn').textContent = connCount + ' × 0.3 dB';
-  document.getElementById('valConnTotal').textContent = connLoss.toFixed(2) + ' dB';
-  document.getElementById('valSplice').textContent = spliceCount + ' × 0.1 dB';
-  document.getElementById('valSpliceTotal').textContent = spliceLoss.toFixed(2) + ' dB';
-  document.getElementById('valMargin').textContent = margin.toFixed(1) + ' dB';
-
-  const totalEl = document.getElementById('calcTotal');
-  const resultEl = document.getElementById('calcResult');
-  const budgetTextEl = document.getElementById('calcBudgetText');
-  const barEl = document.getElementById('calcBar');
-
-  totalEl.textContent = total.toFixed(2) + ' dB';
-  const pct = Math.min(100, (total / budget) * 100);
-  barEl.style.width = pct + '%';
-
-  if (remaining > 3) {
-    resultEl.className = 'calc-result ok';
-    totalEl.style.color = '#22c55e';
-    barEl.style.background = '#22c55e';
-    budgetTextEl.textContent = 'Budjetti: ' + budget + ' dB — Marginaali: ' + remaining.toFixed(2) + ' dB ✓';
-  } else if (remaining > 0) {
-    resultEl.className = 'calc-result warn';
-    totalEl.style.color = '#facc15';
-    barEl.style.background = '#facc15';
-    budgetTextEl.textContent = 'Budjetti: ' + budget + ' dB — Marginaali: ' + remaining.toFixed(2) + ' dB ⚠ Tiukka!';
-  } else {
-    resultEl.className = 'calc-result fail';
-    totalEl.style.color = '#ef4444';
-    barEl.style.background = '#ef4444';
-    budgetTextEl.textContent = 'BUDJETTI YLITTYY ' + Math.abs(remaining).toFixed(2) + ' dB:llä ✗';
+// Generate DWDM channel bars for spectrum visualization
+const dwdmGroup = document.getElementById('dwdmChannels');
+if (dwdmGroup) {
+  for (let i = 0; i < 80; i++) {
+    const x = 382 + (i * 1.95);
+    const bar = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    bar.setAttribute('x', x);
+    bar.setAttribute('y', '215');
+    bar.setAttribute('width', '1');
+    bar.setAttribute('height', '30');
+    bar.setAttribute('rx', '0.5');
+    bar.setAttribute('fill', '#facc15');
+    bar.setAttribute('opacity', '0.4');
+    dwdmGroup.appendChild(bar);
   }
 }
-
-[sliderKm, selectSplit, sliderConn, sliderSplice, sliderMargin].forEach(el => {
-  el.addEventListener('input', updateCalc);
-});
-updateCalc();
 </script>
 
 </body>
