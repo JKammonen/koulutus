@@ -402,7 +402,8 @@
   <div class="diagram-box">
     <svg class="diagram" viewBox="0 0 900 560">
       <text x="450" y="22" fill="#60a5fa" font-size="14" font-weight="800" text-anchor="middle" letter-spacing="2">DOWNSTREAM — 1490 nm</text>
-      <text x="450" y="40" fill="#94a3b8" font-size="11" text-anchor="middle">OLT lähettää KAIKEN datan KAIKILLE — splitteri kopioi signaalin jokaiseen haaraan</text>
+      <text x="300" y="40" fill="#94a3b8" font-size="11" text-anchor="middle">OLT lähettää KAIKEN datan KAIKILLE</text>
+      <text x="300" y="54" fill="#94a3b8" font-size="11" text-anchor="middle">splitteri kopioi signaalin jokaiseen haaraan</text>
 
       <!-- OLT with data stream visualization -->
       <rect x="20" y="65" width="100" height="60" rx="10" fill="rgba(59,130,246,0.15)" stroke="#3b82f6" stroke-opacity="0.5" stroke-width="2"/>
@@ -1043,8 +1044,9 @@
   <h2>Koko kuva — GPON + CWDM signaalitasolla</h2>
   <p class="subtitle">Miten GPON:n broadcast/TDMA ja CWDM:n aallonpituusjako toimivat yhdessä? Tässä koko signaaliketju OLT:sta ONT:lle.</p>
 
-  <div class="diagram-box" style="padding: 24px;">
-    <svg class="diagram" viewBox="0 0 950 580">
+  <!-- Signaaliketju: OLT → MUX → kuitu → DEMUX → splitterit -->
+  <div class="diagram-box" style="padding: 24px; transform: scale(1.2); transform-origin: top center; margin-bottom: 50px;">
+    <svg class="diagram" viewBox="0 0 950 280">
       <!-- Title -->
       <text x="475" y="20" fill="#e2e8f0" font-size="13" font-weight="800" text-anchor="middle" letter-spacing="2">SIGNAALIN MATKA: OLT → KUITU → ONT</text>
 
@@ -1187,72 +1189,76 @@
       <text x="754" y="248" fill="#22c55e" font-size="6" text-anchor="middle">ONT D2</text>
       <text x="795" y="240" fill="#94a3b8" font-size="7">...32 kpl</text>
 
-      <!-- ═══ BOTTOM: Side-by-side comparison ═══ -->
-      <line x1="20" y1="290" x2="930" y2="290" stroke="#1e293b" stroke-width="1.5"/>
+    </svg>
+  </div>
+
+  <!-- Vertailu: GPON ajassa vs. CWDM aallonpituudessa -->
+  <div class="diagram-box" style="padding: 24px; transform: scale(1.2); transform-origin: top center; margin-bottom: 50px;">
+    <svg class="diagram" viewBox="0 0 950 290">
 
       <!-- GPON jakaa AJASSA -->
-      <rect x="20" y="310" width="440" height="255" rx="12" fill="rgba(59,130,246,0.03)" stroke="#3b82f6" stroke-opacity="0.1"/>
-      <text x="240" y="335" fill="#60a5fa" font-size="12" font-weight="800" text-anchor="middle" letter-spacing="1">GPON JAKAA AJASSA</text>
-      <text x="240" y="352" fill="#94a3b8" font-size="9" text-anchor="middle">1 aallonpituus, N asiakasta vuorottelee</text>
+      <rect x="20" y="10" width="440" height="255" rx="12" fill="rgba(59,130,246,0.03)" stroke="#3b82f6" stroke-opacity="0.1"/>
+      <text x="240" y="35" fill="#60a5fa" font-size="12" font-weight="800" text-anchor="middle" letter-spacing="1">GPON JAKAA AJASSA</text>
+      <text x="240" y="52" fill="#94a3b8" font-size="9" text-anchor="middle">1 aallonpituus, N asiakasta vuorottelee</text>
 
       <!-- Time axis -->
-      <line x1="50" y1="390" x2="430" y2="390" stroke="#334155" stroke-width="2"/>
-      <text x="240" y="410" fill="#64748b" font-size="9" text-anchor="middle">Aika →</text>
+      <line x1="50" y1="100" x2="430" y2="100" stroke="#334155" stroke-width="2"/>
+      <text x="240" y="118" fill="#64748b" font-size="9" text-anchor="middle">Aika →</text>
 
       <!-- Single wavelength bar with time slots -->
-      <text x="40" y="380" fill="#60a5fa" font-size="8" font-weight="600">λ1</text>
-      <rect x="60" y="370" width="80" height="24" rx="3" fill="rgba(239,68,68,0.2)" stroke="#ef4444" stroke-opacity="0.3"/>
-      <text x="100" y="386" fill="#ef4444" font-size="9" font-weight="600" text-anchor="middle">ONT 1</text>
-      <rect x="148" y="370" width="50" height="24" rx="3" fill="rgba(249,115,22,0.2)" stroke="#f97316" stroke-opacity="0.3"/>
-      <text x="173" y="386" fill="#f97316" font-size="9" font-weight="600" text-anchor="middle">ONT 2</text>
-      <rect x="206" y="370" width="100" height="24" rx="3" fill="rgba(250,204,21,0.2)" stroke="#facc15" stroke-opacity="0.3"/>
-      <text x="256" y="386" fill="#facc15" font-size="9" font-weight="600" text-anchor="middle">ONT 3</text>
-      <rect x="314" y="370" width="40" height="24" rx="3" fill="rgba(34,197,94,0.2)" stroke="#22c55e" stroke-opacity="0.3"/>
-      <text x="334" y="386" fill="#22c55e" font-size="8" font-weight="600" text-anchor="middle">ONT4</text>
+      <text x="40" y="80" fill="#60a5fa" font-size="8" font-weight="600">λ1</text>
+      <rect x="60" y="70" width="80" height="24" rx="3" fill="rgba(239,68,68,0.2)" stroke="#ef4444" stroke-opacity="0.3"/>
+      <text x="100" y="86" fill="#ef4444" font-size="9" font-weight="600" text-anchor="middle">ONT 1</text>
+      <rect x="148" y="70" width="50" height="24" rx="3" fill="rgba(249,115,22,0.2)" stroke="#f97316" stroke-opacity="0.3"/>
+      <text x="173" y="86" fill="#f97316" font-size="9" font-weight="600" text-anchor="middle">ONT 2</text>
+      <rect x="206" y="70" width="100" height="24" rx="3" fill="rgba(250,204,21,0.2)" stroke="#facc15" stroke-opacity="0.3"/>
+      <text x="256" y="86" fill="#facc15" font-size="9" font-weight="600" text-anchor="middle">ONT 3</text>
+      <rect x="314" y="70" width="40" height="24" rx="3" fill="rgba(34,197,94,0.2)" stroke="#22c55e" stroke-opacity="0.3"/>
+      <text x="334" y="86" fill="#22c55e" font-size="8" font-weight="600" text-anchor="middle">ONT4</text>
 
       <!-- Key properties -->
-      <text x="60" y="440" fill="#e2e8f0" font-size="10" font-weight="600">Ominaisuudet:</text>
-      <text x="60" y="458" fill="#94a3b8" font-size="9">• Yksi λ jaetaan monelle asiakkaalle</text>
-      <text x="60" y="473" fill="#94a3b8" font-size="9">• Downstream: broadcast + salaus (AES-128)</text>
-      <text x="60" y="488" fill="#94a3b8" font-size="9">• Upstream: TDMA — vuorotellaan aikavälein</text>
-      <text x="60" y="503" fill="#94a3b8" font-size="9">• Splitteri kopioi/yhdistää optisesti</text>
-      <text x="60" y="518" fill="#94a3b8" font-size="9">• Jaettu kapasiteetti: 2.5G / 32 ONT = ~78 Mbps/ONT</text>
-      <text x="60" y="540" fill="#60a5fa" font-size="9" font-weight="600">→ Jakaa yhden kuidun AJASSA monelle</text>
+      <text x="60" y="140" fill="#e2e8f0" font-size="10" font-weight="600">Ominaisuudet:</text>
+      <text x="60" y="158" fill="#94a3b8" font-size="9">• Yksi λ jaetaan monelle asiakkaalle</text>
+      <text x="60" y="173" fill="#94a3b8" font-size="9">• Downstream: broadcast + salaus (AES-128)</text>
+      <text x="60" y="188" fill="#94a3b8" font-size="9">• Upstream: TDMA — vuorotellaan aikavälein</text>
+      <text x="60" y="203" fill="#94a3b8" font-size="9">• Splitteri kopioi/yhdistää optisesti</text>
+      <text x="60" y="218" fill="#94a3b8" font-size="9">• Jaettu kapasiteetti: 2.5G / 32 ONT = ~78 Mbps/ONT</text>
+      <text x="60" y="240" fill="#60a5fa" font-size="9" font-weight="600">→ Jakaa yhden kuidun AJASSA monelle</text>
 
       <!-- CWDM jakaa AALLONPITUUDESSA -->
-      <rect x="480" y="310" width="460" height="255" rx="12" fill="rgba(139,92,246,0.03)" stroke="#8b5cf6" stroke-opacity="0.1"/>
-      <text x="710" y="335" fill="#a78bfa" font-size="12" font-weight="800" text-anchor="middle" letter-spacing="1">CWDM JAKAA AALLONPITUUDESSA</text>
-      <text x="710" y="352" fill="#94a3b8" font-size="9" text-anchor="middle">1 kuitu, N aallonpituutta samanaikaisesti</text>
+      <rect x="480" y="10" width="460" height="255" rx="12" fill="rgba(139,92,246,0.03)" stroke="#8b5cf6" stroke-opacity="0.1"/>
+      <text x="710" y="35" fill="#a78bfa" font-size="12" font-weight="800" text-anchor="middle" letter-spacing="1">CWDM JAKAA AALLONPITUUDESSA</text>
+      <text x="710" y="52" fill="#94a3b8" font-size="9" text-anchor="middle">1 kuitu, N aallonpituutta samanaikaisesti</text>
 
       <!-- Wavelength axis -->
-      <line x1="510" y1="390" x2="900" y2="390" stroke="#334155" stroke-width="2"/>
-      <text x="710" y="410" fill="#64748b" font-size="9" text-anchor="middle">Aallonpituus (nm) →</text>
+      <line x1="510" y1="100" x2="900" y2="100" stroke="#334155" stroke-width="2"/>
+      <text x="710" y="118" fill="#64748b" font-size="9" text-anchor="middle">Aallonpituus (nm) →</text>
 
       <!-- Parallel wavelength bars -->
-      <rect x="520" y="365" width="85" height="24" rx="3" fill="rgba(239,68,68,0.2)" stroke="#ef4444" stroke-opacity="0.3"/>
-      <text x="562" y="381" fill="#ef4444" font-size="9" font-weight="600" text-anchor="middle">λ1 1270nm</text>
+      <rect x="520" y="65" width="85" height="24" rx="3" fill="rgba(239,68,68,0.2)" stroke="#ef4444" stroke-opacity="0.3"/>
+      <text x="562" y="81" fill="#ef4444" font-size="9" font-weight="600" text-anchor="middle">λ1 1270nm</text>
 
-      <rect x="615" y="365" width="85" height="24" rx="3" fill="rgba(249,115,22,0.2)" stroke="#f97316" stroke-opacity="0.3"/>
-      <text x="657" y="381" fill="#f97316" font-size="9" font-weight="600" text-anchor="middle">λ2 1290nm</text>
+      <rect x="615" y="65" width="85" height="24" rx="3" fill="rgba(249,115,22,0.2)" stroke="#f97316" stroke-opacity="0.3"/>
+      <text x="657" y="81" fill="#f97316" font-size="9" font-weight="600" text-anchor="middle">λ2 1290nm</text>
 
-      <rect x="710" y="365" width="85" height="24" rx="3" fill="rgba(250,204,21,0.2)" stroke="#facc15" stroke-opacity="0.3"/>
-      <text x="752" y="381" fill="#facc15" font-size="9" font-weight="600" text-anchor="middle">λ3 1310nm</text>
+      <rect x="710" y="65" width="85" height="24" rx="3" fill="rgba(250,204,21,0.2)" stroke="#facc15" stroke-opacity="0.3"/>
+      <text x="752" y="81" fill="#facc15" font-size="9" font-weight="600" text-anchor="middle">λ3 1310nm</text>
 
-      <rect x="805" y="365" width="85" height="24" rx="3" fill="rgba(34,197,94,0.2)" stroke="#22c55e" stroke-opacity="0.3"/>
-      <text x="847" y="381" fill="#22c55e" font-size="9" font-weight="600" text-anchor="middle">λ4 1330nm</text>
+      <rect x="805" y="65" width="85" height="24" rx="3" fill="rgba(34,197,94,0.2)" stroke="#22c55e" stroke-opacity="0.3"/>
+      <text x="847" y="81" fill="#22c55e" font-size="9" font-weight="600" text-anchor="middle">λ4 1330nm</text>
 
       <!-- Key properties -->
-      <text x="520" y="440" fill="#e2e8f0" font-size="10" font-weight="600">Ominaisuudet:</text>
-      <text x="520" y="458" fill="#94a3b8" font-size="9">• Monta λ:aa kulkee samassa kuidussa yhtä aikaa</text>
-      <text x="520" y="473" fill="#94a3b8" font-size="9">• Jokainen λ on itsenäinen signaali (esim. GPON)</text>
-      <text x="520" y="488" fill="#94a3b8" font-size="9">• MUX yhdistää, DEMUX erottaa (passiivinen)</text>
-      <text x="520" y="503" fill="#94a3b8" font-size="9">• 20 nm kanavaväli — signaalit eivät häiritse toisiaan</text>
-      <text x="520" y="518" fill="#94a3b8" font-size="9">• Dedikoitu kapasiteetti per λ: 2.5G per PON, ei jaeta</text>
-      <text x="520" y="540" fill="#a78bfa" font-size="9" font-weight="600">→ Jakaa yhden kuidun AALLONPITUUDESSA monelle</text>
+      <text x="520" y="140" fill="#e2e8f0" font-size="10" font-weight="600">Ominaisuudet:</text>
+      <text x="520" y="158" fill="#94a3b8" font-size="9">• Monta λ:aa kulkee samassa kuidussa yhtä aikaa</text>
+      <text x="520" y="173" fill="#94a3b8" font-size="9">• Jokainen λ on itsenäinen signaali (esim. GPON)</text>
+      <text x="520" y="188" fill="#94a3b8" font-size="9">• MUX yhdistää, DEMUX erottaa (passiivinen)</text>
+      <text x="520" y="203" fill="#94a3b8" font-size="9">• 20 nm kanavaväli — signaalit eivät häiritse toisiaan</text>
+      <text x="520" y="218" fill="#94a3b8" font-size="9">• Dedikoitu kapasiteetti per λ: 2.5G per PON, ei jaeta</text>
+      <text x="520" y="240" fill="#a78bfa" font-size="9" font-weight="600">→ Jakaa yhden kuidun AALLONPITUUDESSA monelle</text>
 
       <!-- Center: COMBINED -->
-      <rect x="360" y="548" width="230" height="28" rx="8" fill="rgba(250,204,21,0.08)" stroke="#facc15" stroke-opacity="0.3"/>
-      <text x="475" y="566" fill="#facc15" font-size="10" font-weight="700" text-anchor="middle">YHDESSÄ: 4λ × 32 ONT = 128 asiakasta / kuitu</text>
+      <rect x="360" y="248" width="230" height="28" rx="8" fill="rgba(250,204,21,0.08)" stroke="#facc15" stroke-opacity="0.3"/>
+      <text x="475" y="266" fill="#facc15" font-size="10" font-weight="700" text-anchor="middle">YHDESSÄ: 4λ × 32 ONT = 128 asiakasta / kuitu</text>
     </svg>
   </div>
 </section>
