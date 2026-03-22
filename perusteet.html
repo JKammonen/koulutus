@@ -435,154 +435,154 @@
   <p class="subtitle">FTTH-verkko koostuu aktiivisista laitteista (OLT, ONT) ja passiivisesta infrasta (kaapelit, splitterit, jatkokset, kanavistot).</p>
 
   <!-- Verkkokaavio: OLT → ODF → runkokaapeli → jatkos → FDH → jakelukaapeli → FDT/FAT → drop → ONT -->
-  <div class="diagram-box" style="padding: 24px;">
-    <svg class="diagram" viewBox="0 0 1000 480">
+  <div class="diagram-box" style="padding: 24px; transform: scale(1.35); transform-origin: top center; margin-bottom: 140px;">
+    <svg class="diagram" viewBox="0 0 1050 480">
       <!-- ═══ TAUSTA: kanavisto/maaperä ═══ -->
-      <rect x="0" y="200" width="1000" height="8" rx="3" fill="rgba(100,116,139,0.08)" stroke="#334155" stroke-opacity="0.15"/>
-      <text x="500" y="222" fill="#475569" font-size="8" text-anchor="middle" letter-spacing="1">KANAVISTO / MAANALAINEN INFRA</text>
+      <rect x="0" y="200" width="1050" height="8" rx="3" fill="rgba(100,116,139,0.08)" stroke="#334155" stroke-opacity="0.15"/>
+      <text x="525" y="222" fill="#475569" font-size="8" text-anchor="middle" letter-spacing="1">KANAVISTO / MAANALAINEN INFRA</text>
 
       <!-- ═══ VYÖHYKKEET ═══ -->
-      <rect x="5" y="10" width="200" height="180" rx="12" fill="rgba(59,130,246,0.03)" stroke="#3b82f6" stroke-opacity="0.08"/>
-      <text x="105" y="30" fill="#3b82f6" font-size="11" font-weight="700" text-anchor="middle" letter-spacing="2" opacity="0.6">KESKUS</text>
+      <rect x="5" y="10" width="240" height="180" rx="12" fill="rgba(59,130,246,0.03)" stroke="#3b82f6" stroke-opacity="0.08"/>
+      <text x="125" y="30" fill="#3b82f6" font-size="11" font-weight="700" text-anchor="middle" letter-spacing="2" opacity="0.6">KESKUS</text>
 
-      <rect x="215" y="10" width="370" height="180" rx="12" fill="rgba(6,182,212,0.02)" stroke="#06b6d4" stroke-opacity="0.06"/>
-      <text x="400" y="30" fill="#06b6d4" font-size="11" font-weight="700" text-anchor="middle" letter-spacing="2" opacity="0.6">JAKELU</text>
+      <rect x="255" y="10" width="370" height="180" rx="12" fill="rgba(6,182,212,0.02)" stroke="#06b6d4" stroke-opacity="0.06"/>
+      <text x="440" y="30" fill="#06b6d4" font-size="11" font-weight="700" text-anchor="middle" letter-spacing="2" opacity="0.6">JAKELU</text>
 
-      <rect x="595" y="10" width="400" height="180" rx="12" fill="rgba(34,197,94,0.02)" stroke="#22c55e" stroke-opacity="0.06"/>
-      <text x="795" y="30" fill="#22c55e" font-size="11" font-weight="700" text-anchor="middle" letter-spacing="2" opacity="0.6">ASIAKKAAT</text>
+      <rect x="635" y="10" width="410" height="180" rx="12" fill="rgba(34,197,94,0.02)" stroke="#22c55e" stroke-opacity="0.06"/>
+      <text x="840" y="30" fill="#22c55e" font-size="11" font-weight="700" text-anchor="middle" letter-spacing="2" opacity="0.6">ASIAKKAAT</text>
 
       <!-- ═══ OLT ═══ -->
-      <rect x="15" y="55" width="80" height="100" rx="10" fill="rgba(59,130,246,0.12)" stroke="#3b82f6" stroke-opacity="0.5" stroke-width="2"/>
-      <rect x="25" y="70" width="60" height="6" rx="1" fill="#3b82f6" opacity="0.3"/>
-      <rect x="25" y="80" width="60" height="6" rx="1" fill="#3b82f6" opacity="0.2"/>
-      <rect x="25" y="90" width="60" height="6" rx="1" fill="#3b82f6" opacity="0.15"/>
-      <circle cx="80" cy="73" r="3" fill="#22c55e" opacity="0.8"/>
-      <circle cx="80" cy="83" r="3" fill="#22c55e" opacity="0.6"/>
-      <circle cx="80" cy="93" r="3" fill="#facc15" opacity="0.5"/>
-      <text x="55" y="120" fill="#60a5fa" font-size="15" font-weight="800" text-anchor="middle">OLT</text>
-      <text x="55" y="135" fill="#94a3b8" font-size="8" text-anchor="middle">Keskuslaite</text>
-      <text x="55" y="147" fill="#64748b" font-size="7" text-anchor="middle">4–16 PON-porttia</text>
+      <rect x="20" y="55" width="85" height="100" rx="10" fill="rgba(59,130,246,0.12)" stroke="#3b82f6" stroke-opacity="0.5" stroke-width="2"/>
+      <rect x="30" y="70" width="60" height="6" rx="1" fill="#3b82f6" opacity="0.3"/>
+      <rect x="30" y="80" width="60" height="6" rx="1" fill="#3b82f6" opacity="0.2"/>
+      <rect x="30" y="90" width="60" height="6" rx="1" fill="#3b82f6" opacity="0.15"/>
+      <circle cx="85" cy="73" r="3" fill="#22c55e" opacity="0.8"/>
+      <circle cx="85" cy="83" r="3" fill="#22c55e" opacity="0.6"/>
+      <circle cx="85" cy="93" r="3" fill="#facc15" opacity="0.5"/>
+      <text x="62" y="120" fill="#60a5fa" font-size="15" font-weight="800" text-anchor="middle">OLT</text>
+      <text x="62" y="135" fill="#94a3b8" font-size="8" text-anchor="middle">Keskuslaite</text>
+      <text x="62" y="147" fill="#64748b" font-size="7" text-anchor="middle">4–16 PON-porttia</text>
 
       <!-- ═══ ODF ═══ -->
-      <rect x="110" y="70" width="40" height="70" rx="6" fill="rgba(139,92,246,0.08)" stroke="#8b5cf6" stroke-opacity="0.3" stroke-width="1.5"/>
-      <line x1="118" y1="82" x2="142" y2="82" stroke="#a78bfa" stroke-width="1" opacity="0.4"/>
-      <line x1="118" y1="90" x2="142" y2="90" stroke="#a78bfa" stroke-width="1" opacity="0.4"/>
-      <line x1="118" y1="98" x2="142" y2="98" stroke="#a78bfa" stroke-width="1" opacity="0.4"/>
-      <line x1="118" y1="106" x2="142" y2="106" stroke="#a78bfa" stroke-width="1" opacity="0.4"/>
-      <line x1="118" y1="114" x2="142" y2="114" stroke="#a78bfa" stroke-width="1" opacity="0.4"/>
-      <circle cx="120" cy="82" r="2" fill="#22c55e" opacity="0.7"/>
-      <circle cx="120" cy="90" r="2" fill="#22c55e" opacity="0.7"/>
-      <circle cx="120" cy="98" r="2" fill="#facc15" opacity="0.5"/>
-      <text x="130" y="150" fill="#a78bfa" font-size="10" font-weight="600" text-anchor="middle">ODF</text>
-      <text x="130" y="162" fill="#64748b" font-size="7" text-anchor="middle">Kuituristikkö</text>
-      <text x="130" y="172" fill="#64748b" font-size="6" text-anchor="middle">SC/APC-liittimet</text>
+      <rect x="130" y="65" width="45" height="75" rx="6" fill="rgba(139,92,246,0.08)" stroke="#8b5cf6" stroke-opacity="0.3" stroke-width="1.5"/>
+      <line x1="138" y1="78" x2="167" y2="78" stroke="#a78bfa" stroke-width="1" opacity="0.4"/>
+      <line x1="138" y1="87" x2="167" y2="87" stroke="#a78bfa" stroke-width="1" opacity="0.4"/>
+      <line x1="138" y1="96" x2="167" y2="96" stroke="#a78bfa" stroke-width="1" opacity="0.4"/>
+      <line x1="138" y1="105" x2="167" y2="105" stroke="#a78bfa" stroke-width="1" opacity="0.4"/>
+      <line x1="138" y1="114" x2="167" y2="114" stroke="#a78bfa" stroke-width="1" opacity="0.4"/>
+      <circle cx="140" cy="78" r="2" fill="#22c55e" opacity="0.7"/>
+      <circle cx="140" cy="87" r="2" fill="#22c55e" opacity="0.7"/>
+      <circle cx="140" cy="96" r="2" fill="#facc15" opacity="0.5"/>
+      <text x="152" y="152" fill="#a78bfa" font-size="10" font-weight="600" text-anchor="middle">ODF</text>
+      <text x="152" y="164" fill="#64748b" font-size="7" text-anchor="middle">Kuituristikkö</text>
+      <text x="152" y="174" fill="#64748b" font-size="6" text-anchor="middle">SC/APC-liittimet</text>
 
       <!-- ═══ PATCHCORD: OLT → ODF ═══ -->
-      <line x1="95" y1="105" x2="110" y2="105" stroke="#facc15" stroke-width="2" opacity="0.4"/>
-      <text x="102" y="100" fill="#64748b" font-size="6" text-anchor="middle">patch</text>
+      <line x1="105" y1="100" x2="130" y2="100" stroke="#facc15" stroke-width="2" opacity="0.4"/>
+      <text x="117" y="94" fill="#64748b" font-size="6" text-anchor="middle">patch</text>
 
       <!-- ═══ RUNKOKAAPELI: ODF → jatkos → FDH ═══ -->
-      <line x1="150" y1="105" x2="340" y2="105" stroke="#facc15" stroke-width="5" stroke-opacity="0.5" stroke-linecap="round"/>
-      <line x1="150" y1="105" x2="340" y2="105" stroke="#facc15" stroke-width="2" stroke-opacity="0.8"/>
+      <line x1="175" y1="100" x2="380" y2="100" stroke="#facc15" stroke-width="5" stroke-opacity="0.5" stroke-linecap="round"/>
+      <line x1="175" y1="100" x2="380" y2="100" stroke="#facc15" stroke-width="2" stroke-opacity="0.8"/>
       <!-- Animated pulses -->
-      <circle r="4" fill="#60a5fa" opacity="0.9"><animateMotion dur="3s" repeatCount="indefinite" path="M155,105 L335,105"/></circle>
-      <circle r="4" fill="#22c55e" opacity="0.7"><animateMotion dur="3s" repeatCount="indefinite" path="M335,105 L155,105" begin="0.5s"/></circle>
-      <text x="245" y="95" fill="#facc15" font-size="11" font-weight="600" text-anchor="middle">Runkokaapeli</text>
-      <text x="245" y="120" fill="#94a3b8" font-size="9" text-anchor="middle">48–288 kuitua</text>
+      <circle r="4" fill="#60a5fa" opacity="0.9"><animateMotion dur="3s" repeatCount="indefinite" path="M180,100 L375,100"/></circle>
+      <circle r="4" fill="#22c55e" opacity="0.7"><animateMotion dur="3s" repeatCount="indefinite" path="M375,100 L180,100" begin="0.5s"/></circle>
+      <text x="278" y="90" fill="#facc15" font-size="11" font-weight="600" text-anchor="middle">Runkokaapeli</text>
+      <text x="278" y="115" fill="#94a3b8" font-size="9" text-anchor="middle">48–288 kuitua</text>
 
       <!-- Kanavisto-symboli runkokaapelin alla -->
-      <rect x="160" y="196" width="170" height="12" rx="3" fill="rgba(250,204,21,0.06)" stroke="#facc15" stroke-opacity="0.15"/>
-      <text x="245" y="205" fill="#facc15" font-size="6" text-anchor="middle" opacity="0.5">HDPE-putki Ø110mm</text>
+      <rect x="190" y="196" width="175" height="12" rx="3" fill="rgba(250,204,21,0.06)" stroke="#facc15" stroke-opacity="0.15"/>
+      <text x="278" y="205" fill="#facc15" font-size="6" text-anchor="middle" opacity="0.5">HDPE-putki Ø110mm</text>
 
       <!-- ═══ JATKOSKOTELO ═══ -->
-      <rect x="225" y="130" width="40" height="22" rx="4" fill="rgba(250,204,21,0.08)" stroke="#facc15" stroke-opacity="0.25"/>
-      <text x="245" y="145" fill="#facc15" font-size="7" font-weight="600" text-anchor="middle">Jatkos</text>
-      <text x="245" y="160" fill="#64748b" font-size="6" text-anchor="middle">~0.1 dB/kpl</text>
+      <rect x="258" y="125" width="40" height="22" rx="4" fill="rgba(250,204,21,0.08)" stroke="#facc15" stroke-opacity="0.25"/>
+      <text x="278" y="140" fill="#facc15" font-size="7" font-weight="600" text-anchor="middle">Jatkos</text>
+      <text x="278" y="155" fill="#64748b" font-size="6" text-anchor="middle">~0.1 dB/kpl</text>
 
       <!-- Etäisyyslabel -->
-      <line x1="155" y1="175" x2="335" y2="175" stroke="#475569" stroke-width="0.5" stroke-dasharray="3 2"/>
-      <text x="245" y="185" fill="#475569" font-size="8" text-anchor="middle">1–20 km</text>
+      <line x1="180" y1="175" x2="375" y2="175" stroke="#475569" stroke-width="0.5" stroke-dasharray="3 2"/>
+      <text x="278" y="185" fill="#475569" font-size="8" text-anchor="middle">1–20 km</text>
 
       <!-- ═══ FDH (Jakokaappi) ═══ -->
-      <rect x="340" y="50" width="100" height="120" rx="10" fill="rgba(6,182,212,0.08)" stroke="#06b6d4" stroke-opacity="0.4" stroke-width="2"/>
+      <rect x="380" y="50" width="100" height="120" rx="10" fill="rgba(6,182,212,0.08)" stroke="#06b6d4" stroke-opacity="0.4" stroke-width="2"/>
       <!-- Splitteri sisällä -->
-      <polygon points="360,95 395,85 395,125 360,115" fill="rgba(250,204,21,0.1)" stroke="#facc15" stroke-opacity="0.3" stroke-width="1.5"/>
-      <text x="378" y="108" fill="#facc15" font-size="8" font-weight="600" text-anchor="middle">1:N</text>
+      <polygon points="400,95 435,85 435,125 400,115" fill="rgba(250,204,21,0.1)" stroke="#facc15" stroke-opacity="0.3" stroke-width="1.5"/>
+      <text x="418" y="108" fill="#facc15" font-size="8" font-weight="600" text-anchor="middle">1:N</text>
       <!-- Haarautumiset -->
-      <line x1="395" y1="95" x2="425" y2="75" stroke="#06b6d4" stroke-width="1" opacity="0.4"/>
-      <line x1="395" y1="105" x2="425" y2="105" stroke="#06b6d4" stroke-width="1" opacity="0.4"/>
-      <line x1="395" y1="115" x2="425" y2="135" stroke="#06b6d4" stroke-width="1" opacity="0.4"/>
+      <line x1="435" y1="95" x2="465" y2="75" stroke="#06b6d4" stroke-width="1" opacity="0.4"/>
+      <line x1="435" y1="105" x2="465" y2="105" stroke="#06b6d4" stroke-width="1" opacity="0.4"/>
+      <line x1="435" y1="115" x2="465" y2="135" stroke="#06b6d4" stroke-width="1" opacity="0.4"/>
       <!-- Kytkentäpaneelit -->
-      <rect x="405" y="68" width="28" height="18" rx="2" fill="rgba(6,182,212,0.05)" stroke="#06b6d4" stroke-opacity="0.15"/>
-      <rect x="405" y="98" width="28" height="18" rx="2" fill="rgba(6,182,212,0.05)" stroke="#06b6d4" stroke-opacity="0.15"/>
-      <rect x="405" y="128" width="28" height="18" rx="2" fill="rgba(6,182,212,0.05)" stroke="#06b6d4" stroke-opacity="0.15"/>
-      <text x="390" y="58" fill="#06b6d4" font-size="14" font-weight="700" text-anchor="middle">FDH</text>
-      <text x="390" y="155" fill="#94a3b8" font-size="9" text-anchor="middle">Jakokaappi</text>
-      <text x="390" y="167" fill="#64748b" font-size="7" text-anchor="middle">Splitteri + kytkennät</text>
+      <rect x="445" y="68" width="28" height="18" rx="2" fill="rgba(6,182,212,0.05)" stroke="#06b6d4" stroke-opacity="0.15"/>
+      <rect x="445" y="98" width="28" height="18" rx="2" fill="rgba(6,182,212,0.05)" stroke="#06b6d4" stroke-opacity="0.15"/>
+      <rect x="445" y="128" width="28" height="18" rx="2" fill="rgba(6,182,212,0.05)" stroke="#06b6d4" stroke-opacity="0.15"/>
+      <text x="430" y="58" fill="#06b6d4" font-size="14" font-weight="700" text-anchor="middle">FDH</text>
+      <text x="430" y="155" fill="#94a3b8" font-size="9" text-anchor="middle">Jakokaappi</text>
+      <text x="430" y="167" fill="#64748b" font-size="7" text-anchor="middle">Splitteri + kytkennät</text>
 
       <!-- ═══ JAKELUKAAPELIT: FDH → FDT/FAT ═══ -->
-      <line x1="440" y1="77" x2="600" y2="55" stroke="#22c55e" stroke-width="3" stroke-opacity="0.4" stroke-linecap="round"/>
-      <line x1="440" y1="107" x2="600" y2="115" stroke="#22c55e" stroke-width="3" stroke-opacity="0.4" stroke-linecap="round"/>
-      <line x1="440" y1="137" x2="600" y2="165" stroke="#22c55e" stroke-width="3" stroke-opacity="0.4" stroke-linecap="round"/>
-      <text x="520" y="45" fill="#22c55e" font-size="10" font-weight="600" text-anchor="middle">Jakelukaapeli</text>
-      <text x="520" y="145" fill="#94a3b8" font-size="8" text-anchor="middle">12–48 kuitua</text>
+      <line x1="480" y1="77" x2="640" y2="55" stroke="#22c55e" stroke-width="3" stroke-opacity="0.4" stroke-linecap="round"/>
+      <line x1="480" y1="107" x2="640" y2="115" stroke="#22c55e" stroke-width="3" stroke-opacity="0.4" stroke-linecap="round"/>
+      <line x1="480" y1="137" x2="640" y2="165" stroke="#22c55e" stroke-width="3" stroke-opacity="0.4" stroke-linecap="round"/>
+      <text x="560" y="45" fill="#22c55e" font-size="10" font-weight="600" text-anchor="middle">Jakelukaapeli</text>
+      <text x="560" y="145" fill="#94a3b8" font-size="8" text-anchor="middle">12–48 kuitua</text>
 
       <!-- Etäisyyslabel -->
-      <line x1="445" y1="175" x2="595" y2="175" stroke="#475569" stroke-width="0.5" stroke-dasharray="3 2"/>
-      <text x="520" y="185" fill="#475569" font-size="8" text-anchor="middle">0.5–5 km</text>
+      <line x1="485" y1="175" x2="635" y2="175" stroke="#475569" stroke-width="0.5" stroke-dasharray="3 2"/>
+      <text x="560" y="185" fill="#475569" font-size="8" text-anchor="middle">0.5–5 km</text>
 
       <!-- ═══ FDT (Talojakaaja) ═══ -->
-      <rect x="600" y="38" width="75" height="40" rx="7" fill="rgba(249,115,22,0.1)" stroke="#f97316" stroke-opacity="0.35" stroke-width="1.5"/>
-      <text x="637" y="57" fill="#f97316" font-size="12" font-weight="700" text-anchor="middle">FDT</text>
-      <text x="637" y="72" fill="#94a3b8" font-size="7" text-anchor="middle">Talojakaaja</text>
+      <rect x="640" y="38" width="75" height="40" rx="7" fill="rgba(249,115,22,0.1)" stroke="#f97316" stroke-opacity="0.35" stroke-width="1.5"/>
+      <text x="677" y="57" fill="#f97316" font-size="12" font-weight="700" text-anchor="middle">FDT</text>
+      <text x="677" y="72" fill="#94a3b8" font-size="7" text-anchor="middle">Talojakaaja</text>
 
       <!-- ═══ FAT (Liityntäpiste) ═══ -->
-      <rect x="600" y="100" width="75" height="40" rx="7" fill="rgba(249,115,22,0.1)" stroke="#f97316" stroke-opacity="0.35" stroke-width="1.5"/>
-      <text x="637" y="119" fill="#f97316" font-size="12" font-weight="700" text-anchor="middle">FAT</text>
-      <text x="637" y="134" fill="#94a3b8" font-size="7" text-anchor="middle">Liityntäpiste</text>
+      <rect x="640" y="100" width="75" height="40" rx="7" fill="rgba(249,115,22,0.1)" stroke="#f97316" stroke-opacity="0.35" stroke-width="1.5"/>
+      <text x="677" y="119" fill="#f97316" font-size="12" font-weight="700" text-anchor="middle">FAT</text>
+      <text x="677" y="134" fill="#94a3b8" font-size="7" text-anchor="middle">Liityntäpiste</text>
 
       <!-- ═══ FDT (toinen) ═══ -->
-      <rect x="600" y="150" width="75" height="40" rx="7" fill="rgba(249,115,22,0.1)" stroke="#f97316" stroke-opacity="0.35" stroke-width="1.5"/>
-      <text x="637" y="169" fill="#f97316" font-size="12" font-weight="700" text-anchor="middle">FDT</text>
-      <text x="637" y="184" fill="#94a3b8" font-size="7" text-anchor="middle">Talojakaaja</text>
+      <rect x="640" y="150" width="75" height="40" rx="7" fill="rgba(249,115,22,0.1)" stroke="#f97316" stroke-opacity="0.35" stroke-width="1.5"/>
+      <text x="677" y="169" fill="#f97316" font-size="12" font-weight="700" text-anchor="middle">FDT</text>
+      <text x="677" y="184" fill="#94a3b8" font-size="7" text-anchor="middle">Talojakaaja</text>
 
       <!-- ═══ DROP-KAAPELIT ═══ -->
-      <line x1="675" y1="50" x2="760" y2="42" stroke="#a78bfa" stroke-width="1.5" stroke-opacity="0.35" stroke-dasharray="5 3"/>
-      <line x1="675" y1="62" x2="760" y2="72" stroke="#a78bfa" stroke-width="1.5" stroke-opacity="0.35" stroke-dasharray="5 3"/>
-      <line x1="675" y1="112" x2="760" y2="102" stroke="#a78bfa" stroke-width="1.5" stroke-opacity="0.35" stroke-dasharray="5 3"/>
-      <line x1="675" y1="124" x2="760" y2="132" stroke="#a78bfa" stroke-width="1.5" stroke-opacity="0.35" stroke-dasharray="5 3"/>
-      <line x1="675" y1="162" x2="760" y2="155" stroke="#a78bfa" stroke-width="1.5" stroke-opacity="0.35" stroke-dasharray="5 3"/>
-      <line x1="675" y1="174" x2="760" y2="182" stroke="#a78bfa" stroke-width="1.5" stroke-opacity="0.35" stroke-dasharray="5 3"/>
-      <text x="720" y="195" fill="#a78bfa" font-size="9" font-weight="500" text-anchor="middle">Drop 1–4 kuitua</text>
+      <line x1="715" y1="50" x2="800" y2="42" stroke="#a78bfa" stroke-width="1.5" stroke-opacity="0.35" stroke-dasharray="5 3"/>
+      <line x1="715" y1="62" x2="800" y2="72" stroke="#a78bfa" stroke-width="1.5" stroke-opacity="0.35" stroke-dasharray="5 3"/>
+      <line x1="715" y1="112" x2="800" y2="102" stroke="#a78bfa" stroke-width="1.5" stroke-opacity="0.35" stroke-dasharray="5 3"/>
+      <line x1="715" y1="124" x2="800" y2="132" stroke="#a78bfa" stroke-width="1.5" stroke-opacity="0.35" stroke-dasharray="5 3"/>
+      <line x1="715" y1="162" x2="800" y2="155" stroke="#a78bfa" stroke-width="1.5" stroke-opacity="0.35" stroke-dasharray="5 3"/>
+      <line x1="715" y1="174" x2="800" y2="182" stroke="#a78bfa" stroke-width="1.5" stroke-opacity="0.35" stroke-dasharray="5 3"/>
+      <text x="760" y="195" fill="#a78bfa" font-size="9" font-weight="500" text-anchor="middle">Drop 1–4 kuitua</text>
 
       <!-- ═══ ONT:t + palvelut ═══ -->
-      <rect x="762" y="32" width="55" height="22" rx="5" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-opacity="0.35"/><text x="789" y="47" fill="#22c55e" font-size="10" font-weight="700" text-anchor="middle">ONT</text>
-      <rect x="762" y="62" width="55" height="22" rx="5" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-opacity="0.35"/><text x="789" y="77" fill="#22c55e" font-size="10" font-weight="700" text-anchor="middle">ONT</text>
-      <rect x="762" y="92" width="55" height="22" rx="5" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-opacity="0.35"/><text x="789" y="107" fill="#22c55e" font-size="10" font-weight="700" text-anchor="middle">ONT</text>
-      <rect x="762" y="122" width="55" height="22" rx="5" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-opacity="0.35"/><text x="789" y="137" fill="#22c55e" font-size="10" font-weight="700" text-anchor="middle">ONT</text>
-      <rect x="762" y="148" width="55" height="22" rx="5" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-opacity="0.35"/><text x="789" y="163" fill="#22c55e" font-size="10" font-weight="700" text-anchor="middle">ONT</text>
-      <rect x="762" y="175" width="55" height="22" rx="5" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-opacity="0.35"/><text x="789" y="190" fill="#22c55e" font-size="10" font-weight="700" text-anchor="middle">ONT</text>
+      <rect x="802" y="32" width="55" height="22" rx="5" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-opacity="0.35"/><text x="829" y="47" fill="#22c55e" font-size="10" font-weight="700" text-anchor="middle">ONT</text>
+      <rect x="802" y="62" width="55" height="22" rx="5" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-opacity="0.35"/><text x="829" y="77" fill="#22c55e" font-size="10" font-weight="700" text-anchor="middle">ONT</text>
+      <rect x="802" y="92" width="55" height="22" rx="5" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-opacity="0.35"/><text x="829" y="107" fill="#22c55e" font-size="10" font-weight="700" text-anchor="middle">ONT</text>
+      <rect x="802" y="122" width="55" height="22" rx="5" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-opacity="0.35"/><text x="829" y="137" fill="#22c55e" font-size="10" font-weight="700" text-anchor="middle">ONT</text>
+      <rect x="802" y="148" width="55" height="22" rx="5" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-opacity="0.35"/><text x="829" y="163" fill="#22c55e" font-size="10" font-weight="700" text-anchor="middle">ONT</text>
+      <rect x="802" y="175" width="55" height="22" rx="5" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-opacity="0.35"/><text x="829" y="190" fill="#22c55e" font-size="10" font-weight="700" text-anchor="middle">ONT</text>
 
       <!-- Palvelut -->
-      <line x1="817" y1="43" x2="840" y2="43" stroke="#64748b" stroke-width="0.5"/>
-      <line x1="817" y1="73" x2="840" y2="73" stroke="#64748b" stroke-width="0.5"/>
-      <line x1="817" y1="103" x2="840" y2="103" stroke="#64748b" stroke-width="0.5"/>
+      <line x1="857" y1="43" x2="880" y2="43" stroke="#64748b" stroke-width="0.5"/>
+      <line x1="857" y1="73" x2="880" y2="73" stroke="#64748b" stroke-width="0.5"/>
+      <line x1="857" y1="103" x2="880" y2="103" stroke="#64748b" stroke-width="0.5"/>
 
-      <rect x="842" y="32" width="55" height="22" rx="4" fill="rgba(59,130,246,0.06)" stroke="#3b82f6" stroke-opacity="0.15"/>
-      <text x="858" y="46" fill="#60a5fa" font-size="8">📶 WiFi</text>
-      <rect x="842" y="62" width="55" height="22" rx="4" fill="rgba(239,68,68,0.06)" stroke="#ef4444" stroke-opacity="0.15"/>
-      <text x="858" y="76" fill="#f87171" font-size="8">📺 IPTV</text>
-      <rect x="842" y="92" width="55" height="22" rx="4" fill="rgba(34,197,94,0.06)" stroke="#22c55e" stroke-opacity="0.15"/>
-      <text x="858" y="106" fill="#22c55e" font-size="8">📞 VoIP</text>
+      <rect x="882" y="32" width="55" height="22" rx="4" fill="rgba(59,130,246,0.06)" stroke="#3b82f6" stroke-opacity="0.15"/>
+      <text x="898" y="46" fill="#60a5fa" font-size="8">📶 WiFi</text>
+      <rect x="882" y="62" width="55" height="22" rx="4" fill="rgba(239,68,68,0.06)" stroke="#ef4444" stroke-opacity="0.15"/>
+      <text x="898" y="76" fill="#f87171" font-size="8">📺 IPTV</text>
+      <rect x="882" y="92" width="55" height="22" rx="4" fill="rgba(34,197,94,0.06)" stroke="#22c55e" stroke-opacity="0.15"/>
+      <text x="898" y="106" fill="#22c55e" font-size="8">📞 VoIP</text>
 
       <!-- ═══ ALAOSA: Kaapelityypit, liittimet, häviöt ═══ -->
-      <line x1="20" y1="240" x2="980" y2="240" stroke="#1e293b" stroke-width="1"/>
+      <line x1="20" y1="240" x2="1030" y2="240" stroke="#1e293b" stroke-width="1"/>
 
       <!-- Kaapelityypit -->
-      <text x="500" y="260" fill="#e2e8f0" font-size="11" font-weight="700" text-anchor="middle" letter-spacing="1">KAAPELIT JA LIITOKSET</text>
+      <text x="525" y="260" fill="#e2e8f0" font-size="11" font-weight="700" text-anchor="middle" letter-spacing="1">KAAPELIT JA LIITOKSET</text>
 
       <!-- Runkokaapeli -->
-      <rect x="30" y="275" width="180" height="70" rx="8" fill="rgba(250,204,21,0.04)" stroke="#facc15" stroke-opacity="0.15"/>
+      <rect x="30" y="275" width="185" height="70" rx="8" fill="rgba(250,204,21,0.04)" stroke="#facc15" stroke-opacity="0.15"/>
       <line x1="40" y1="295" x2="70" y2="295" stroke="#facc15" stroke-width="4" stroke-linecap="round" opacity="0.6"/>
       <text x="80" y="290" fill="#facc15" font-size="10" font-weight="600">Runkokaapeli</text>
       <text x="80" y="305" fill="#94a3b8" font-size="8">48–288 kuitua</text>
@@ -590,10 +590,10 @@
       <text x="40" y="338" fill="#64748b" font-size="8">G.652.D SM-kuitu</text>
 
       <!-- Jakelukaapeli -->
-      <rect x="230" y="275" width="180" height="70" rx="8" fill="rgba(34,197,94,0.04)" stroke="#22c55e" stroke-opacity="0.15"/>
-      <line x1="240" y1="295" x2="270" y2="295" stroke="#22c55e" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
-      <text x="280" y="290" fill="#22c55e" font-size="10" font-weight="600">Jakelukaapeli</text>
-      <text x="280" y="305" fill="#94a3b8" font-size="8">12–48 kuitua</text>
+      <rect x="235" y="275" width="185" height="70" rx="8" fill="rgba(34,197,94,0.04)" stroke="#22c55e" stroke-opacity="0.15"/>
+      <line x1="245" y1="295" x2="275" y2="295" stroke="#22c55e" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+      <text x="285" y="290" fill="#22c55e" font-size="10" font-weight="600">Jakelukaapeli</text>
+      <text x="285" y="305" fill="#94a3b8" font-size="8">12–48 kuitua</text>
       <text x="240" y="325" fill="#64748b" font-size="8">FDH:sta talojakaajiin</text>
       <text x="240" y="338" fill="#64748b" font-size="8">Mikroputki tai suorakaapeli</text>
 
@@ -616,28 +616,28 @@
       <text x="662" y="347" fill="#94a3b8" font-size="8">Hitsaus ~0.1 dB</text>
 
       <!-- Etäisyystiedot alarivi -->
-      <rect x="830" y="275" width="150" height="70" rx="8" fill="rgba(59,130,246,0.04)" stroke="#3b82f6" stroke-opacity="0.15"/>
-      <text x="840" y="290" fill="#60a5fa" font-size="10" font-weight="600">Tyypilliset etäisyydet</text>
-      <text x="840" y="310" fill="#94a3b8" font-size="8">OLT → FDH: 1–20 km</text>
-      <text x="840" y="325" fill="#94a3b8" font-size="8">FDH → FDT: 0.5–5 km</text>
-      <text x="840" y="340" fill="#94a3b8" font-size="8">FDT → ONT: 50–500 m</text>
+      <rect x="850" y="275" width="170" height="70" rx="8" fill="rgba(59,130,246,0.04)" stroke="#3b82f6" stroke-opacity="0.15"/>
+      <text x="860" y="290" fill="#60a5fa" font-size="10" font-weight="600">Tyypilliset etäisyydet</text>
+      <text x="860" y="310" fill="#94a3b8" font-size="8">OLT → FDH: 1–20 km</text>
+      <text x="860" y="325" fill="#94a3b8" font-size="8">FDH → FDT: 0.5–5 km</text>
+      <text x="860" y="340" fill="#94a3b8" font-size="8">FDT → ONT: 50–500 m</text>
 
       <!-- ═══ Signaalin suunta ═══ -->
-      <text x="500" y="385" fill="#e2e8f0" font-size="11" font-weight="700" text-anchor="middle" letter-spacing="1">SIGNAALIN SUUNTA</text>
+      <text x="525" y="385" fill="#e2e8f0" font-size="11" font-weight="700" text-anchor="middle" letter-spacing="1">SIGNAALIN SUUNTA</text>
 
       <!-- Downstream -->
-      <rect x="100" y="400" width="350" height="30" rx="6" fill="rgba(59,130,246,0.05)" stroke="#3b82f6" stroke-opacity="0.15"/>
-      <text x="120" y="420" fill="#60a5fa" font-size="10" font-weight="600">↓ DOWNSTREAM 1490 nm</text>
-      <text x="360" y="420" fill="#94a3b8" font-size="9" text-anchor="end">OLT → kaikille ONT:ille (broadcast)</text>
+      <rect x="80" y="400" width="400" height="30" rx="6" fill="rgba(59,130,246,0.05)" stroke="#3b82f6" stroke-opacity="0.15"/>
+      <text x="100" y="420" fill="#60a5fa" font-size="10" font-weight="600">↓ DOWNSTREAM 1490 nm</text>
+      <text x="400" y="420" fill="#94a3b8" font-size="9" text-anchor="end">OLT → kaikille ONT:ille (broadcast)</text>
 
       <!-- Upstream -->
-      <rect x="550" y="400" width="350" height="30" rx="6" fill="rgba(34,197,94,0.05)" stroke="#22c55e" stroke-opacity="0.15"/>
-      <text x="570" y="420" fill="#22c55e" font-size="10" font-weight="600">↑ UPSTREAM 1310 nm</text>
-      <text x="810" y="420" fill="#94a3b8" font-size="9" text-anchor="end">ONT:t → OLT (TDMA vuorottelu)</text>
+      <rect x="560" y="400" width="400" height="30" rx="6" fill="rgba(34,197,94,0.05)" stroke="#22c55e" stroke-opacity="0.15"/>
+      <text x="580" y="420" fill="#22c55e" font-size="10" font-weight="600">↑ UPSTREAM 1310 nm</text>
+      <text x="870" y="420" fill="#94a3b8" font-size="9" text-anchor="end">ONT:t → OLT (TDMA vuorottelu)</text>
 
       <!-- Passiivinen verkko -huomautus -->
-      <rect x="200" y="445" width="600" height="28" rx="8" fill="rgba(250,204,21,0.05)" stroke="#facc15" stroke-opacity="0.15"/>
-      <text x="500" y="464" fill="#facc15" font-size="10" font-weight="600" text-anchor="middle">🔋 OLT:n ja ONT:n välillä EI sähköä — kaikki passiivista (splitteri, kaapeli, liittimet)</text>
+      <rect x="200" y="445" width="650" height="28" rx="8" fill="rgba(250,204,21,0.05)" stroke="#facc15" stroke-opacity="0.15"/>
+      <text x="525" y="464" fill="#facc15" font-size="10" font-weight="600" text-anchor="middle">🔋 OLT:n ja ONT:n välillä EI sähköä — kaikki passiivista (splitteri, kaapeli, liittimet)</text>
     </svg>
   </div>
 
