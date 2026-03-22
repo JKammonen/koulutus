@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aallonpituudet & WDM — Koulutus</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #0a0e1a;
+    --card: #111827;
+    --card-border: #1e293b;
+    --text: #e2e8f0;
+    --text-dim: #94a3b8;
+    --accent: #3b82f6;
+    --fiber-glow: #facc15;
+    --green: #22c55e;
+    --red: #ef4444;
+    --orange: #f97316;
+    --purple: #8b5cf6;
+    --cyan: #06b6d4;
+  }
+  body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+
+  /* Nav */
+  .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(10,14,26,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--card-border); padding: 10px 24px; display: flex; align-items: center; gap: 12px; }
+  .nav-title { font-weight: 700; font-size: 13px; color: var(--fiber-glow); text-transform: uppercase; letter-spacing: 2px; }
+  .nav-dots { display: flex; gap: 6px; margin-left: auto; }
+  .nav-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--card-border); cursor: pointer; transition: all 0.3s; }
+  .nav-dot.active { background: var(--accent); box-shadow: 0 0 8px var(--accent); }
+  .nav-label { font-size: 11px; color: var(--text-dim); margin-left: 8px; min-width: 120px; }
+
+  /* Part headers */
+  .part-header { width: 100%; padding: 100px 40px 20px; text-align: center; }
+  .part-number { font-size: 12px; text-transform: uppercase; letter-spacing: 3px; color: var(--accent); margin-bottom: 8px; }
+  .part-title { font-size: 28px; font-weight: 800; color: var(--fiber-glow); }
+
+  /* Sections */
+  .section { min-height: 100vh; padding: 80px 40px 40px; display: flex; flex-direction: column; align-items: center; position: relative; }
+  .section-num { position: absolute; top: 70px; left: 40px; font-size: 100px; font-weight: 800; color: rgba(59,130,246,0.05); line-height: 1; pointer-events: none; }
+  h2 { font-size: 28px; font-weight: 700; margin-bottom: 6px; text-align: center; }
+  .subtitle { font-size: 15px; color: var(--text-dim); margin-bottom: 36px; text-align: center; max-width: 650px; line-height: 1.6; }
+
+  /* Cards */
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; max-width: 900px; width: 100%; }
+  .card { background: var(--card); border: 1px solid var(--card-border); border-radius: 12px; padding: 24px; transition: all 0.3s; }
+  .card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(59,130,246,0.08); }
+  .card-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--accent); margin-bottom: 6px; }
+  .card h3 { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+  .card p { font-size: 13px; color: var(--text-dim); line-height: 1.6; }
+
+  /* Diagram containers */
+  .diagram-box { max-width: 1000px; width: 100%; background: var(--card); border: 1px solid var(--card-border); border-radius: 16px; padding: 32px; margin-bottom: 20px; overflow: hidden; }
+  svg.diagram { width: 100%; height: auto; display: block; }
+
+  /* Tables */
+  .data-table { max-width: 900px; width: 100%; border-collapse: separate; border-spacing: 0; background: var(--card); border-radius: 12px; overflow: hidden; border: 1px solid var(--card-border); margin-bottom: 20px; }
+  .data-table th { background: rgba(59,130,246,0.08); padding: 12px 16px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); font-weight: 600; }
+  .data-table td { padding: 10px 16px; font-size: 13px; border-top: 1px solid var(--card-border); color: var(--text-dim); }
+  .data-table tr:hover td { background: rgba(59,130,246,0.02); }
+  .hl { color: var(--fiber-glow) !important; font-weight: 600; }
+
+  /* Spectrum bars */
+  .spectrum-box { max-width: 900px; width: 100%; background: var(--card); border: 1px solid var(--card-border); border-radius: 16px; padding: 32px; margin-bottom: 16px; }
+  .spectrum-title { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+
+  /* Insight box */
+  .insight-box { max-width: 700px; width: 100%; background: rgba(250,204,21,0.06); border: 1px solid rgba(250,204,21,0.2); border-radius: 12px; padding: 20px 28px; margin-bottom: 20px; text-align: center; }
+  .insight-box .insight-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--fiber-glow); margin-bottom: 6px; }
+  .insight-box p { font-size: 15px; color: var(--text); line-height: 1.6; }
+
+  /* Comparison side-by-side */
+  .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 900px; width: 100%; }
+  .compare-card { background: var(--card); border: 1px solid var(--card-border); border-radius: 12px; padding: 24px; text-align: center; }
+  .compare-card h3 { font-size: 15px; margin-bottom: 10px; }
+  .compare-card .big-num { font-size: 44px; font-weight: 800; line-height: 1; margin-bottom: 4px; }
+  .compare-card .unit { font-size: 13px; color: var(--text-dim); }
+
+  /* Summary card */
+  .summary-card { max-width: 700px; width: 100%; background: rgba(59,130,246,0.06); border: 1px solid rgba(59,130,246,0.2); border-radius: 16px; padding: 28px 32px; text-align: center; margin-top: 20px; }
+  .summary-card h3 { font-size: 20px; font-weight: 700; color: var(--fiber-glow); margin-bottom: 8px; }
+  .summary-card p { font-size: 14px; color: var(--text-dim); line-height: 1.7; }
+
+  /* Analogy box */
+  .analogy-box { max-width: 700px; width: 100%; background: rgba(139,92,246,0.06); border: 1px solid rgba(139,92,246,0.2); border-radius: 12px; padding: 20px 28px; margin-bottom: 20px; }
+  .analogy-box .analogy-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--purple); margin-bottom: 6px; }
+  .analogy-box p { font-size: 14px; color: var(--text-dim); line-height: 1.6; }
+
+  /* Animated sine wave */
+  @keyframes sineMove { 0% { transform: translateX(0); } 100% { transform: translateX(-100px); } }
+  @keyframes pulseFlow { 0% { transform: translateX(-300px); } 100% { transform: translateX(900px); } }
+  @keyframes flow { 0% { transform: translateX(-200%); } 100% { transform: translateX(200%); } }
+
+  @media (max-width: 700px) {
+    .section { padding: 70px 16px 20px; }
+    h2 { font-size: 22px; }
+    .compare-grid { grid-template-columns: 1fr; }
+    .diagram-box { padding: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-title">Aallonpituudet & WDM</div>
+  <div class="nav-dots" id="navDots"></div>
+  <div class="nav-label" id="navLabel"></div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- OSA I: VALON PERUSTEET                          -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="part-header" style="padding-top:70px;">
+  <div class="part-number">Osa I</div>
+  <div class="part-title">Valon perusteet</div>
+</div>
+
+<!-- 01. MITÄ VALO ON? -->
+<section class="section" data-label="Mitä valo on?">
+  <div class="section-num">01</div>
+  <h2>Mitä valo on?</h2>
+  <p class="subtitle">Valo on sähkömagneettista säteilyä. Kuituverkossa käytetään infrapunavaloa, joka on ihmissilmälle näkymätöntä — aallonpituudet 850–1625 nm.</p>
+
+  <!-- EM Spectrum -->
+  <div class="diagram-box">
+    <svg class="diagram" viewBox="0 0 900 260">
+      <text x="450" y="25" fill="#94a3b8" font-size="12" font-weight="600" text-anchor="middle" letter-spacing="1">SÄHKÖMAGNEETTINEN SPEKTRI</text>
+
+      <!-- Spectrum band backgrounds -->
+      <rect x="40" y="50" width="100" height="50" rx="6" fill="rgba(239,68,68,0.08)" stroke="#ef4444" stroke-opacity="0.2"/>
+      <rect x="150" y="50" width="100" height="50" rx="6" fill="rgba(249,115,22,0.08)" stroke="#f97316" stroke-opacity="0.2"/>
+      <rect x="260" y="50" width="110" height="50" rx="6" fill="rgba(250,204,21,0.08)" stroke="#facc15" stroke-opacity="0.2"/>
+      <!-- Visible light - rainbow gradient -->
+      <defs>
+        <linearGradient id="visGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#8b00ff"/>
+          <stop offset="20%" stop-color="#0000ff"/>
+          <stop offset="40%" stop-color="#00ff00"/>
+          <stop offset="60%" stop-color="#ffff00"/>
+          <stop offset="80%" stop-color="#ff7700"/>
+          <stop offset="100%" stop-color="#ff0000"/>
+        </linearGradient>
+        <linearGradient id="irGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="rgba(239,68,68,0.4)"/>
+          <stop offset="100%" stop-color="rgba(250,204,21,0.15)"/>
+        </linearGradient>
+      </defs>
+      <rect x="380" y="50" width="90" height="50" rx="6" fill="url(#visGrad)" opacity="0.5"/>
+      <rect x="480" y="50" width="130" height="50" rx="6" fill="url(#irGrad)" stroke="#facc15" stroke-opacity="0.3" stroke-width="2"/>
+      <rect x="620" y="50" width="100" height="50" rx="6" fill="rgba(139,92,246,0.08)" stroke="#8b5cf6" stroke-opacity="0.2"/>
+      <rect x="730" y="50" width="130" height="50" rx="6" fill="rgba(59,130,246,0.08)" stroke="#3b82f6" stroke-opacity="0.2"/>
+
+      <!-- Labels -->
+      <text x="90" y="80" fill="#ef4444" font-size="11" text-anchor="middle" font-weight="500">Radio</text>
+      <text x="200" y="80" fill="#f97316" font-size="11" text-anchor="middle" font-weight="500">Mikroaalto</text>
+      <text x="315" y="80" fill="#facc15" font-size="11" text-anchor="middle" font-weight="500">Infrapuna</text>
+      <text x="425" y="80" fill="#e2e8f0" font-size="11" text-anchor="middle" font-weight="600">Näkyvä</text>
+      <text x="545" y="72" fill="#facc15" font-size="11" text-anchor="middle" font-weight="700">Lähi-IR</text>
+      <text x="545" y="88" fill="#facc15" font-size="9" text-anchor="middle">KUITUIKKUNA</text>
+      <text x="670" y="80" fill="#a78bfa" font-size="11" text-anchor="middle" font-weight="500">UV</text>
+      <text x="795" y="80" fill="#60a5fa" font-size="11" text-anchor="middle" font-weight="500">Röntgen</text>
+
+      <!-- Wavelength scale arrow -->
+      <line x1="40" y1="120" x2="860" y2="120" stroke="#94a3b8" stroke-opacity="0.3"/>
+      <text x="40" y="138" fill="#94a3b8" font-size="9">km</text>
+      <text x="150" y="138" fill="#94a3b8" font-size="9">cm</text>
+      <text x="315" y="138" fill="#94a3b8" font-size="9">µm</text>
+      <text x="425" y="138" fill="#94a3b8" font-size="9">380–700 nm</text>
+      <text x="545" y="138" fill="#facc15" font-size="9" text-anchor="middle" font-weight="600">850–1625 nm</text>
+      <text x="670" y="138" fill="#94a3b8" font-size="9">nm</text>
+      <text x="795" y="138" fill="#94a3b8" font-size="9">pm</text>
+      <text x="450" y="156" fill="#94a3b8" font-size="10" text-anchor="middle">Aallonpituus (λ) →  lyhyempi</text>
+
+      <!-- Visible vs Fiber window comparison -->
+      <text x="450" y="185" fill="#94a3b8" font-size="11" font-weight="600" text-anchor="middle" letter-spacing="1">KUITUVERKON AALLONPITUUDET</text>
+
+      <!-- Visible range bar -->
+      <rect x="120" y="200" width="130" height="16" rx="4" fill="url(#visGrad)" opacity="0.6"/>
+      <text x="120" y="230" fill="#94a3b8" font-size="9">380 nm</text>
+      <text x="250" y="230" fill="#94a3b8" font-size="9" text-anchor="end">700 nm</text>
+      <text x="185" y="250" fill="#94a3b8" font-size="10" text-anchor="middle">Näkyvä valo</text>
+
+      <!-- Fiber range bar -->
+      <rect x="380" y="200" width="400" height="16" rx="4" fill="rgba(250,204,21,0.15)" stroke="#facc15" stroke-opacity="0.4" stroke-width="1"/>
+      <!-- Key wavelengths -->
+      <rect x="380" y="200" width="8" height="16" rx="2" fill="rgba(6,182,212,0.6)"/>
+      <rect x="560" y="200" width="8" height="16" rx="2" fill="rgba(59,130,246,0.6)"/>
+      <rect x="700" y="200" width="8" height="16" rx="2" fill="rgba(239,68,68,0.6)"/>
+      <text x="380" y="230" fill="#94a3b8" font-size="9">850</text>
+      <text x="560" y="230" fill="#60a5fa" font-size="9" font-weight="600">1310</text>
+      <text x="700" y="230" fill="#ef4444" font-size="9" font-weight="600">1550</text>
+      <text x="780" y="230" fill="#94a3b8" font-size="9" text-anchor="end">1625 nm</text>
+      <text x="580" y="250" fill="#facc15" font-size="10" text-anchor="middle" font-weight="600">Kuituverkon ikkuna — näkymätöntä valoa</text>
+    </svg>
+  </div>
+
+  <div class="insight-box">
+    <div class="insight-label">Avainasia</div>
+    <p><strong>Näkymätöntä valoa</strong> — kuituverkossa kulkeva valo on infrapunaa, jota silmä ei näe. Aallonpituudet 850–1625 nm ovat pidempiä kuin punaisen valon 700 nm.</p>
+  </div>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-label">Aallonpituus</div>
+      <h3>λ (lambda)</h3>
+      <p>Valon "värin" mitta nanometreissä (nm). Pidempi aallonpituus = matalampi taajuus. Kuidussa käytetään 850–1625 nm.</p>
+    </div>
+    <div class="card">
+      <div class="card-label">Taajuus</div>
+      <h3>f (frekvenssi)</h3>
+      <p>Kuinka monta värähtelyä sekunnissa (THz). Taajuus ja aallonpituus ovat kääntäen verrannollisia: f = c / λ.</p>
+    </div>
+    <div class="card">
+      <div class="card-label">Valon nopeus</div>
+      <h3>c = λ × f</h3>
+      <p>Valo kulkee tyhjiössä 299 792 km/s. Kuidussa noin 200 000 km/s (taitekerroin ~1.47).</p>
+    </div>
+  </div>
+</section>
+
+<!-- 02. AALLONPITUUS HAVAINNOLLISESTI -->
+<section class="section" data-label="Aallonpituus">
+  <div class="section-num">02</div>
+  <h2>Aallonpituus havainnollisesti</h2>
+  <p class="subtitle">Aallonpituus on etäisyys kahden peräkkäisen aallon huipun välillä. Lyhyempi aallonpituus tarkoittaa tiheämpää värähtelyä.</p>
+
+  <!-- Animated sine wave diagram -->
+  <div class="diagram-box">
+    <svg class="diagram" viewBox="0 0 900 320" id="wavesSvg">
+      <text x="450" y="25" fill="#94a3b8" font-size="12" font-weight="600" text-anchor="middle" letter-spacing="1">AALLONPITUUDEN VERTAILU</text>
+
+      <!-- Long wavelength (red light ~700nm) -->
+      <text x="40" y="70" fill="#ef4444" font-size="11" font-weight="600">Punainen valo — 700 nm</text>
+      <text x="40" y="85" fill="#94a3b8" font-size="10">Pitkä aallonpituus, harva värähtely</text>
+      <g>
+        <path id="waveLong" d="" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-opacity="0.8"/>
+        <!-- Wavelength bracket -->
+        <line x1="140" y1="135" x2="300" y2="135" stroke="#ef4444" stroke-opacity="0.4" stroke-dasharray="4"/>
+        <text x="220" y="152" fill="#ef4444" font-size="10" text-anchor="middle">λ = 700 nm</text>
+      </g>
+
+      <!-- Short wavelength (violet ~380nm) -->
+      <text x="40" y="190" fill="#8b5cf6" font-size="11" font-weight="600">Violetti valo — 380 nm</text>
+      <text x="40" y="205" fill="#94a3b8" font-size="10">Lyhyt aallonpituus, tiheä värähtely</text>
+      <g>
+        <path id="waveShort" d="" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-opacity="0.8"/>
+        <line x1="140" y1="255" x2="228" y2="255" stroke="#8b5cf6" stroke-opacity="0.4" stroke-dasharray="4"/>
+        <text x="184" y="272" fill="#8b5cf6" font-size="10" text-anchor="middle">λ = 380 nm</text>
+      </g>
+
+      <!-- Amplitude label -->
+      <line x1="110" y1="95" x2="110" y2="127" stroke="#94a3b8" stroke-opacity="0.3" stroke-dasharray="3"/>
+      <text x="95" y="115" fill="#94a3b8" font-size="9" text-anchor="end">Amplitudi</text>
+
+      <!-- Fiber wavelengths at bottom -->
+      <line x1="0" y1="285" x2="900" y2="285" stroke="#94a3b8" stroke-opacity="0.1"/>
+      <text x="450" y="305" fill="#facc15" font-size="11" text-anchor="middle" font-weight="600">Kuidussa: 1310 nm ja 1550 nm — vielä pidempiä kuin punainen valo</text>
+      <text x="450" y="318" fill="#94a3b8" font-size="10" text-anchor="middle">Pidempi aallonpituus = matalampi häviö kuidussa</text>
+    </svg>
+  </div>
+
+  <div class="compare-grid">
+    <div class="compare-card">
+      <div class="card-label" style="color:#60a5fa;">Upstream-konventio</div>
+      <div class="big-num" style="color:#60a5fa;">1310</div>
+      <div class="unit">nm — esitetään sinisellä</div>
+      <p style="font-size:12px; color:var(--text-dim); margin-top:8px;">Vaikka näkymätöntä, kuitudiagrammeissa käytetään sinistä väriä 1310 nm aallonpituudelle (O-band).</p>
+    </div>
+    <div class="compare-card">
+      <div class="card-label" style="color:#ef4444;">Downstream-konventio</div>
+      <div class="big-num" style="color:#ef4444;">1550</div>
+      <div class="unit">nm — esitetään punaisella</div>
+      <p style="font-size:12px; color:var(--text-dim); margin-top:8px;">1550 nm (C-band) esitetään punaisella. Pienin häviö kuidussa: vain ~0.2 dB/km.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 03. VALO KUIDUSSA -->
+<section class="section" data-label="Valo kuidussa">
+  <div class="section-num">03</div>
+  <h2>Valo kuidussa — kokonaisheijastus</h2>
+  <p class="subtitle">Valon kokonaisheijastus (total internal reflection) pitää valopulssit kuidun ytimessä. Ytimen taitekerroin on suurempi kuin kuoren, joten valo heijastuu takaisin rajapinnalta.</p>
+
+  <div class="diagram-box">
+    <svg class="diagram" viewBox="0 0 900 300">
+      <!-- Fiber cross-section -->
+      <text x="180" y="25" fill="#94a3b8" font-size="12" font-weight="600" text-anchor="middle" letter-spacing="1">KUIDUN POIKKILEIKKAUS</text>
+
+      <!-- Cladding circle -->
+      <circle cx="180" cy="150" r="90" fill="rgba(59,130,246,0.06)" stroke="#3b82f6" stroke-opacity="0.3" stroke-width="2"/>
+      <text x="180" y="260" fill="#60a5fa" font-size="10" text-anchor="middle">Kuori (cladding) 125 µm</text>
+
+      <!-- Core - SM -->
+      <circle cx="180" cy="150" r="10" fill="rgba(250,204,21,0.25)" stroke="#facc15" stroke-opacity="0.6" stroke-width="2"/>
+      <!-- Animated glow on core -->
+      <circle cx="180" cy="150" r="10" fill="none" stroke="#facc15" stroke-opacity="0.3" stroke-width="1">
+        <animate attributeName="r" values="10;18;10" dur="2s" repeatCount="indefinite"/>
+        <animate attributeName="stroke-opacity" values="0.3;0;0.3" dur="2s" repeatCount="indefinite"/>
+      </circle>
+      <text x="275" y="148" fill="#facc15" font-size="10" font-weight="600">Ydin (core)</text>
+      <line x1="190" y1="150" x2="270" y2="148" stroke="#facc15" stroke-opacity="0.3"/>
+      <text x="275" y="165" fill="#94a3b8" font-size="9">n₁ = 1.4677</text>
+      <text x="275" y="115" fill="#60a5fa" font-size="9">n₂ = 1.4624</text>
+      <text x="275" y="130" fill="#94a3b8" font-size="9">n₁ > n₂ → kokonaisheijastus</text>
+
+      <!-- Total internal reflection side view -->
+      <text x="640" y="25" fill="#94a3b8" font-size="12" font-weight="600" text-anchor="middle" letter-spacing="1">KOKONAISHEIJASTUS</text>
+
+      <!-- Fiber tube -->
+      <rect x="430" y="70" width="420" height="160" rx="10" fill="rgba(59,130,246,0.03)" stroke="#3b82f6" stroke-opacity="0.15"/>
+      <!-- Core area -->
+      <rect x="430" y="110" width="420" height="80" rx="4" fill="rgba(250,204,21,0.04)" stroke="#facc15" stroke-opacity="0.1"/>
+      <text x="440" y="105" fill="#60a5fa" font-size="9">Kuori (n₂)</text>
+      <text x="440" y="185" fill="#facc15" font-size="9">Ydin (n₁)</text>
+      <text x="440" y="225" fill="#60a5fa" font-size="9">Kuori (n₂)</text>
+
+      <!-- Bouncing light ray -->
+      <polyline points="450,150 500,115 560,175 620,115 680,175 740,115 800,150" fill="none" stroke="#facc15" stroke-width="2.5" stroke-opacity="0.8" stroke-linejoin="round"/>
+      <!-- Animated light pulse -->
+      <circle r="4" fill="#facc15">
+        <animateMotion dur="3s" repeatCount="indefinite" path="M450,150 L500,115 L560,175 L620,115 L680,175 L740,115 L800,150"/>
+      </circle>
+
+      <!-- Reflection angle labels -->
+      <text x="640" y="260" fill="#94a3b8" font-size="10" text-anchor="middle">Valo heijastuu ytimen ja kuoren rajapinnasta</text>
+    </svg>
+  </div>
+
+  <!-- SM vs MM comparison -->
+  <div class="compare-grid" style="margin-bottom: 20px;">
+    <div class="compare-card">
+      <div class="card-label">Yksimuotokuitu</div>
+      <h3 style="color: var(--fiber-glow);">Single-mode (SM)</h3>
+      <svg viewBox="0 0 300 100" style="width:100%; margin: 12px 0;">
+        <rect x="10" y="20" width="280" height="60" rx="8" fill="rgba(59,130,246,0.05)" stroke="#3b82f6" stroke-opacity="0.2"/>
+        <rect x="10" y="42" width="280" height="16" rx="3" fill="rgba(250,204,21,0.1)" stroke="#facc15" stroke-opacity="0.2"/>
+        <line x1="20" y1="50" x2="280" y2="50" stroke="#facc15" stroke-width="2" stroke-opacity="0.6"/>
+        <circle r="3" fill="#facc15">
+          <animateMotion dur="2s" repeatCount="indefinite" path="M20,50 L280,50"/>
+        </circle>
+        <text x="150" y="92" fill="#94a3b8" font-size="9" text-anchor="middle">Yksi valopolku — ydin 9 µm</text>
+      </svg>
+      <p style="font-size:12px; color:var(--text-dim);">Ydin: <strong style="color:var(--fiber-glow)">9 µm</strong>. Vain yksi valomoodi. Pitkät matkat (jopa 100+ km). Käytetään televerkossa ja FTTH:ssä.</p>
+    </div>
+    <div class="compare-card">
+      <div class="card-label">Monimuotokuitu</div>
+      <h3 style="color: var(--orange);">Multi-mode (MM)</h3>
+      <svg viewBox="0 0 300 100" style="width:100%; margin: 12px 0;">
+        <rect x="10" y="20" width="280" height="60" rx="8" fill="rgba(59,130,246,0.05)" stroke="#3b82f6" stroke-opacity="0.2"/>
+        <rect x="10" y="28" width="280" height="44" rx="3" fill="rgba(249,115,22,0.08)" stroke="#f97316" stroke-opacity="0.2"/>
+        <!-- Multiple light paths -->
+        <polyline points="20,50 80,32 140,68 200,32 260,68 280,50" fill="none" stroke="#f97316" stroke-width="1.5" stroke-opacity="0.4"/>
+        <line x1="20" y1="50" x2="280" y2="50" stroke="#f97316" stroke-width="1.5" stroke-opacity="0.6"/>
+        <polyline points="20,50 70,38 130,62 190,38 250,62 280,50" fill="none" stroke="#f97316" stroke-width="1.5" stroke-opacity="0.3"/>
+        <circle r="3" fill="#f97316">
+          <animateMotion dur="2s" repeatCount="indefinite" path="M20,50 L80,32 L140,68 L200,32 L260,68 L280,50"/>
+        </circle>
+        <text x="150" y="92" fill="#94a3b8" font-size="9" text-anchor="middle">Monta valopolkua — ydin 50/62.5 µm</text>
+      </svg>
+      <p style="font-size:12px; color:var(--text-dim);">Ydin: <strong style="color:var(--orange)">50 tai 62.5 µm</strong>. Monta valomoodia. Lyhyet matkat (&lt;550 m). Käytetään datakeskuksissa.</p>
+    </div>
+  </div>
+
+  <div class="data-table">
+    <table style="width:100%; border-collapse:collapse;">
+      <tr><th>Ominaisuus</th><th>Single-mode (SM)</th><th>Multi-mode (MM)</th></tr>
+      <tr><td>Ytimen halkaisija</td><td class="hl">9 µm</td><td>50 / 62.5 µm</td></tr>
+      <tr><td>Kuoren halkaisija</td><td>125 µm</td><td>125 µm</td></tr>
+      <tr><td>Aallonpituudet</td><td class="hl">1310 / 1550 nm</td><td>850 / 1300 nm</td></tr>
+      <tr><td>Kantama</td><td class="hl">jopa 100+ km</td><td>&lt; 550 m (OM4)</td></tr>
+      <tr><td>Käyttö</td><td>FTTH, televerkko, WDM</td><td>Datakeskus, LAN</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- OSA II: AALLONPITUUSIKKUNAT                     -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="part-header">
+  <div class="part-number">Osa II</div>
+  <div class="part-title">Aallonpituusikkunat</div>
+</div>
+
+<!-- 04. KUITUVERKON AALLONPITUUSIKKUNAT -->
+<section class="section" data-label="Aallonpituusikkunat">
+  <div class="section-num">04</div>
+  <h2>Kuituverkon aallonpituusikkunat</h2>
+  <p class="subtitle">Silikakuidun vaimennus vaihtelee aallonpituuden mukaan. Tietyt alueet — "ikkunat" — tarjoavat erityisen matalan häviön datan siirtoon.</p>
+
+  <!-- Attenuation curve -->
+  <div class="diagram-box">
+    <svg class="diagram" viewBox="0 0 900 400" id="attenuationSvg">
+      <text x="450" y="25" fill="#94a3b8" font-size="12" font-weight="600" text-anchor="middle" letter-spacing="1">SILIKAKUIDUN VAIMENNUSKÄYRÄ</text>
+
+      <!-- Axes -->
+      <line x1="80" y1="50" x2="80" y2="330" stroke="#94a3b8" stroke-opacity="0.3"/>
+      <line x1="80" y1="330" x2="860" y2="330" stroke="#94a3b8" stroke-opacity="0.3"/>
+      <text x="30" y="190" fill="#94a3b8" font-size="10" text-anchor="middle" transform="rotate(-90,30,190)">Vaimennus (dB/km)</text>
+      <text x="470" y="360" fill="#94a3b8" font-size="10" text-anchor="middle">Aallonpituus (nm)</text>
+
+      <!-- Y-axis labels -->
+      <text x="72" y="74" fill="#94a3b8" font-size="9" text-anchor="end">3.0</text>
+      <text x="72" y="144" fill="#94a3b8" font-size="9" text-anchor="end">2.0</text>
+      <text x="72" y="214" fill="#94a3b8" font-size="9" text-anchor="end">1.0</text>
+      <text x="72" y="264" fill="#94a3b8" font-size="9" text-anchor="end">0.5</text>
+      <text x="72" y="304" fill="#94a3b8" font-size="9" text-anchor="end">0.2</text>
+      <line x1="78" y1="70" x2="860" y2="70" stroke="#94a3b8" stroke-opacity="0.05"/>
+      <line x1="78" y1="140" x2="860" y2="140" stroke="#94a3b8" stroke-opacity="0.05"/>
+      <line x1="78" y1="210" x2="860" y2="210" stroke="#94a3b8" stroke-opacity="0.05"/>
+      <line x1="78" y1="260" x2="860" y2="260" stroke="#94a3b8" stroke-opacity="0.05"/>
+      <line x1="78" y1="300" x2="860" y2="300" stroke="#94a3b8" stroke-opacity="0.05"/>
+
+      <!-- Band backgrounds -->
+      <!-- O-band 1260-1360 -->
+      <rect x="180" y="50" width="120" height="280" fill="rgba(59,130,246,0.04)"/>
+      <!-- E-band 1360-1460 -->
+      <rect x="300" y="50" width="120" height="280" fill="rgba(139,92,246,0.04)"/>
+      <!-- S-band 1460-1530 -->
+      <rect x="420" y="50" width="84" height="280" fill="rgba(6,182,212,0.04)"/>
+      <!-- C-band 1530-1565 -->
+      <rect x="504" y="50" width="42" height="280" fill="rgba(250,204,21,0.06)"/>
+      <!-- L-band 1565-1625 -->
+      <rect x="546" y="50" width="72" height="280" fill="rgba(249,115,22,0.04)"/>
+
+      <!-- Band labels at top -->
+      <text x="240" y="46" fill="#60a5fa" font-size="10" text-anchor="middle" font-weight="600">O</text>
+      <text x="360" y="46" fill="#a78bfa" font-size="10" text-anchor="middle" font-weight="600">E</text>
+      <text x="462" y="46" fill="#06b6d4" font-size="10" text-anchor="middle" font-weight="600">S</text>
+      <text x="525" y="46" fill="#facc15" font-size="10" text-anchor="middle" font-weight="700">C</text>
+      <text x="582" y="46" fill="#f97316" font-size="10" text-anchor="middle" font-weight="600">L</text>
+
+      <!-- X-axis wavelength labels -->
+      <text x="100" y="348" fill="#94a3b8" font-size="9" text-anchor="middle">800</text>
+      <text x="180" y="348" fill="#94a3b8" font-size="9" text-anchor="middle">1260</text>
+      <text x="300" y="348" fill="#94a3b8" font-size="9" text-anchor="middle">1360</text>
+      <text x="420" y="348" fill="#94a3b8" font-size="9" text-anchor="middle">1460</text>
+      <text x="504" y="348" fill="#94a3b8" font-size="9" text-anchor="middle">1530</text>
+      <text x="546" y="348" fill="#94a3b8" font-size="9" text-anchor="middle">1565</text>
+      <text x="618" y="348" fill="#94a3b8" font-size="9" text-anchor="middle">1625</text>
+      <text x="750" y="348" fill="#94a3b8" font-size="9" text-anchor="middle">1700</text>
+
+      <!-- Attenuation curve - characteristic silica fiber curve -->
+      <path d="M100,80 C120,100 140,170 180,230 Q200,260 240,275 Q280,280 300,260 Q330,220 350,170 Q360,155 370,200 Q380,230 385,210 Q395,180 420,285 Q440,300 480,305 Q505,308 520,310 Q545,312 560,308 Q580,303 610,295 Q680,280 750,270 Q820,260 860,255" fill="none" stroke="#facc15" stroke-width="2.5" stroke-opacity="0.8"/>
+
+      <!-- OH peak annotation -->
+      <line x1="350" y1="170" x2="350" y2="380" stroke="#ef4444" stroke-opacity="0.2" stroke-dasharray="3"/>
+      <text x="350" y="390" fill="#ef4444" font-size="9" text-anchor="middle">OH-piikki ~1383 nm</text>
+      <!-- Arrow to OH peak -->
+      <line x1="370" y1="160" x2="355" y2="168" stroke="#ef4444" stroke-opacity="0.5"/>
+      <text x="400" y="158" fill="#ef4444" font-size="9">Vesipiikki</text>
+
+      <!-- Lowest point annotation in C-band -->
+      <circle cx="525" cy="310" r="4" fill="none" stroke="#22c55e" stroke-width="2"/>
+      <text x="530" y="296" fill="#22c55e" font-size="9" font-weight="600">~0.2 dB/km</text>
+      <text x="530" y="284" fill="#22c55e" font-size="8">Pienin häviö</text>
+    </svg>
+  </div>
+
+  <!-- Band cards -->
+  <div class="card-grid" style="grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));">
+    <div class="card" style="border-left: 3px solid #3b82f6;">
+      <div class="card-label" style="color:#60a5fa;">O-Band</div>
+      <h3>1260–1360 nm</h3>
+      <p>Original. Yleisin upstream-ikkuna. GPON upstream 1310 nm. Nolladispersio ~1310 nm.</p>
+    </div>
+    <div class="card" style="border-left: 3px solid #8b5cf6;">
+      <div class="card-label" style="color:#a78bfa;">E-Band</div>
+      <h3>1360–1460 nm</h3>
+      <p>Extended. Historiallisesti vältettiin OH-piikin vuoksi. Moderni kuitu (G.652.D) käytettävissä.</p>
+    </div>
+    <div class="card" style="border-left: 3px solid #06b6d4;">
+      <div class="card-label" style="color:#06b6d4;">S-Band</div>
+      <h3>1460–1530 nm</h3>
+      <p>Short. Käytetään joissakin CWDM-kanavissa. Kasvava merkitys kapasiteetin kasvaessa.</p>
+    </div>
+    <div class="card" style="border-left: 3px solid #facc15;">
+      <div class="card-label" style="color:#facc15;">C-Band</div>
+      <h3>1530–1565 nm</h3>
+      <p>Conventional. <strong>DWDM:n pääalue.</strong> Pienin häviö ~0.2 dB/km. EDFA-vahvistin toimii täällä.</p>
+    </div>
+    <div class="card" style="border-left: 3px solid #f97316;">
+      <div class="card-label" style="color:#f97316;">L-Band</div>
+      <h3>1565–1625 nm</h3>
+      <p>Long. Lisäkapasiteetti C-bandin rinnalle. Käytetään pitkillä matkoilla ja merenalaisissa kaapeleissa.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 05. WDM — MONTA VÄRIÄ, YKSI KUITU -->
+<section class="section" data-label="WDM-periaate">
+  <div class="section-num">05</div>
+  <h2>WDM — monta väriä, yksi kuitu</h2>
+  <p class="subtitle">Wavelength Division Multiplexing yhdistää useita eri aallonpituuksia samaan kuituun. Jokainen aallonpituus kulkee itsenäisesti — kuin eri radiokanavat samalla taajuuskaistalla.</p>
+
+  <div class="analogy-box">
+    <div class="analogy-label">Analogia</div>
+    <p>Kuten radiokanavat eri taajuuksilla eivät häiritse toisiaan, eri aallonpituudet kulkevat samassa kuidussa riippumattomasti. Jokainen "väri" voi kuljettaa eri dataa, eri nopeudella.</p>
+  </div>
+
+  <!-- WDM principle diagram: MUX → fiber → DEMUX -->
+  <div class="diagram-box">
+    <svg class="diagram" viewBox="0 0 900 280">
+      <text x="450" y="25" fill="#94a3b8" font-size="12" font-weight="600" text-anchor="middle" letter-spacing="1">WDM-TOIMINTAPERIAATE</text>
+
+      <!-- Input signals (left) -->
+      <text x="60" y="55" fill="#94a3b8" font-size="10" text-anchor="middle">Signaalit sisään</text>
+
+      <!-- λ1 -->
+      <rect x="20" y="70" width="80" height="24" rx="4" fill="rgba(59,130,246,0.12)" stroke="#3b82f6" stroke-opacity="0.4"/>
+      <text x="60" y="86" fill="#60a5fa" font-size="10" text-anchor="middle" font-weight="600">λ₁ 1310 nm</text>
+      <line x1="100" y1="82" x2="170" y2="125" stroke="#3b82f6" stroke-width="2" stroke-opacity="0.6"/>
+
+      <!-- λ2 -->
+      <rect x="20" y="100" width="80" height="24" rx="4" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-opacity="0.4"/>
+      <text x="60" y="116" fill="#22c55e" font-size="10" text-anchor="middle" font-weight="600">λ₂ 1490 nm</text>
+      <line x1="100" y1="112" x2="170" y2="135" stroke="#22c55e" stroke-width="2" stroke-opacity="0.6"/>
+
+      <!-- λ3 -->
+      <rect x="20" y="130" width="80" height="24" rx="4" fill="rgba(250,204,21,0.12)" stroke="#facc15" stroke-opacity="0.4"/>
+      <text x="60" y="146" fill="#facc15" font-size="10" text-anchor="middle" font-weight="600">λ₃ 1550 nm</text>
+      <line x1="100" y1="142" x2="170" y2="145" stroke="#facc15" stroke-width="2" stroke-opacity="0.6"/>
+
+      <!-- λ4 -->
+      <rect x="20" y="160" width="80" height="24" rx="4" fill="rgba(239,68,68,0.12)" stroke="#ef4444" stroke-opacity="0.4"/>
+      <text x="60" y="176" fill="#ef4444" font-size="10" text-anchor="middle" font-weight="600">λ₄ 1610 nm</text>
+      <line x1="100" y1="172" x2="170" y2="155" stroke="#ef4444" stroke-width="2" stroke-opacity="0.6"/>
+
+      <!-- MUX box -->
+      <rect x="170" y="100" width="80" height="80" rx="8" fill="rgba(139,92,246,0.1)" stroke="#8b5cf6" stroke-opacity="0.5" stroke-width="2"/>
+      <text x="210" y="136" fill="#a78bfa" font-size="11" text-anchor="middle" font-weight="700">MUX</text>
+      <text x="210" y="152" fill="#94a3b8" font-size="8" text-anchor="middle">Yhdistäjä</text>
+
+      <!-- Combined fiber -->
+      <rect x="260" y="130" width="380" height="20" rx="10" fill="rgba(250,204,21,0.08)" stroke="#facc15" stroke-opacity="0.3"/>
+      <!-- Colored light pulses in fiber -->
+      <circle r="4" fill="#3b82f6" opacity="0.8">
+        <animateMotion dur="3s" repeatCount="indefinite" path="M270,140 L630,140"/>
+      </circle>
+      <circle r="4" fill="#22c55e" opacity="0.8">
+        <animateMotion dur="3s" repeatCount="indefinite" path="M270,140 L630,140" begin="0.75s"/>
+      </circle>
+      <circle r="4" fill="#facc15" opacity="0.8">
+        <animateMotion dur="3s" repeatCount="indefinite" path="M270,140 L630,140" begin="1.5s"/>
+      </circle>
+      <circle r="4" fill="#ef4444" opacity="0.8">
+        <animateMotion dur="3s" repeatCount="indefinite" path="M270,140 L630,140" begin="2.25s"/>
+      </circle>
+      <text x="450" y="125" fill="#facc15" font-size="10" text-anchor="middle" font-weight="600">Yksi kuitu — 4 aallonpituutta</text>
+
+      <!-- DEMUX box -->
+      <rect x="650" y="100" width="80" height="80" rx="8" fill="rgba(139,92,246,0.1)" stroke="#8b5cf6" stroke-opacity="0.5" stroke-width="2"/>
+      <text x="690" y="136" fill="#a78bfa" font-size="11" text-anchor="middle" font-weight="700">DEMUX</text>
+      <text x="690" y="152" fill="#94a3b8" font-size="8" text-anchor="middle">Erottaja</text>
+
+      <!-- Output signals (right) -->
+      <text x="830" y="55" fill="#94a3b8" font-size="10" text-anchor="middle">Signaalit ulos</text>
+      <line x1="730" y1="125" x2="790" y2="82" stroke="#3b82f6" stroke-width="2" stroke-opacity="0.6"/>
+      <rect x="790" y="70" width="80" height="24" rx="4" fill="rgba(59,130,246,0.12)" stroke="#3b82f6" stroke-opacity="0.4"/>
+      <text x="830" y="86" fill="#60a5fa" font-size="10" text-anchor="middle" font-weight="600">λ₁ 1310 nm</text>
+
+      <line x1="730" y1="135" x2="790" y2="112" stroke="#22c55e" stroke-width="2" stroke-opacity="0.6"/>
+      <rect x="790" y="100" width="80" height="24" rx="4" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-opacity="0.4"/>
+      <text x="830" y="116" fill="#22c55e" font-size="10" text-anchor="middle" font-weight="600">λ₂ 1490 nm</text>
+
+      <line x1="730" y1="145" x2="790" y2="142" stroke="#facc15" stroke-width="2" stroke-opacity="0.6"/>
+      <rect x="790" y="130" width="80" height="24" rx="4" fill="rgba(250,204,21,0.12)" stroke="#facc15" stroke-opacity="0.4"/>
+      <text x="830" y="146" fill="#facc15" font-size="10" text-anchor="middle" font-weight="600">λ₃ 1550 nm</text>
+
+      <line x1="730" y1="155" x2="790" y2="172" stroke="#ef4444" stroke-width="2" stroke-opacity="0.6"/>
+      <rect x="790" y="160" width="80" height="24" rx="4" fill="rgba(239,68,68,0.12)" stroke="#ef4444" stroke-opacity="0.4"/>
+      <text x="830" y="176" fill="#ef4444" font-size="10" text-anchor="middle" font-weight="600">λ₄ 1610 nm</text>
+
+      <!-- Key points -->
+      <text x="450" y="220" fill="#e2e8f0" font-size="12" text-anchor="middle" font-weight="600">Jokainen aallonpituus on itsenäinen kanava</text>
+      <text x="450" y="240" fill="#94a3b8" font-size="11" text-anchor="middle">Eri data, eri nopeudet, eri suunnat — samassa kuidussa</text>
+      <text x="450" y="265" fill="#94a3b8" font-size="10" text-anchor="middle">MUX = Multiplexer (yhdistää) | DEMUX = Demultiplexer (erottaa)</text>
+    </svg>
+  </div>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-label">Itsenäisyys</div>
+      <h3>Erilliset kanavat</h3>
+      <p>Jokainen aallonpituus on täysin riippumaton. Eri kanava voi kuljettaa eri protokollaa, eri nopeutta, eri suuntaan.</p>
+    </div>
+    <div class="card">
+      <div class="card-label">Skaalautuvuus</div>
+      <h3>Kapasiteetti kasvaa</h3>
+      <p>Lisää kanavia = lisää kapasiteettia ilman uusia kuituja. Yksi kuitu voi kuljettaa terabittejä sekunnissa.</p>
+    </div>
+    <div class="card">
+      <div class="card-label">Kustannustehokkuus</div>
+      <h3>Kuitu on kallista, valo halpaa</h3>
+      <p>Kuidun kaivaminen maksaa. WDM moninkertaistaa olemassa olevan kuidun kapasiteetin ilman uutta kaivuuta.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- OSA III: CWDM JA DWDM                          -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="part-header">
+  <div class="part-number">Osa III</div>
+  <div class="part-title">CWDM ja DWDM</div>
+</div>
+
+<!-- 06. CWDM vs DWDM VERTAILU -->
+<section class="section" data-label="CWDM vs DWDM">
+  <div class="section-num">06</div>
+  <h2>CWDM vs DWDM vertailu</h2>
+  <p class="subtitle">Molemmat ovat WDM-tekniikoita, mutta eroavat kanavatiheydessä: CWDM käyttää harvoja, leveitä kanavia — DWDM pakkaa kymmenittäin kanavia kapealle kaistalle.</p>
+
+  <div class="analogy-box">
+    <div class="analogy-label">Analogia</div>
+    <p><strong>CWDM = FM-radio:</strong> muutama kanava leveällä välillä. <strong>DWDM = digitaalinen TV:</strong> satoja kanavia tiiviisti pakattuna samalle kaistalle.</p>
+  </div>
+
+  <!-- CWDM spectrum visualization -->
+  <div class="diagram-box">
+    <svg class="diagram" viewBox="0 0 900 340">
+      <text x="450" y="25" fill="#94a3b8" font-size="12" font-weight="600" text-anchor="middle" letter-spacing="1">SPEKTRIN KÄYTTÖ</text>
+
+      <!-- CWDM section -->
+      <text x="50" y="55" fill="#06b6d4" font-size="13" font-weight="700">CWDM</text>
+      <text x="50" y="70" fill="#94a3b8" font-size="10">18 kanavaa, 20 nm väli</text>
+
+      <!-- CWDM spectrum bar -->
+      <rect x="50" y="80" width="800" height="40" rx="6" fill="rgba(30,41,59,0.5)" stroke="var(--card-border)"/>
+      <!-- 18 CWDM channels from 1270 to 1610 nm -->
+      <rect x="62" y="85" width="28" height="30" rx="3" fill="rgba(59,130,246,0.4)" stroke="#3b82f6" stroke-opacity="0.5"/>
+      <rect x="106" y="85" width="28" height="30" rx="3" fill="rgba(59,130,246,0.35)"/>
+      <rect x="150" y="85" width="28" height="30" rx="3" fill="rgba(6,182,212,0.35)"/>
+      <rect x="194" y="85" width="28" height="30" rx="3" fill="rgba(6,182,212,0.3)"/>
+      <rect x="238" y="85" width="28" height="30" rx="3" fill="rgba(34,197,94,0.35)"/>
+      <rect x="282" y="85" width="28" height="30" rx="3" fill="rgba(34,197,94,0.3)"/>
+      <rect x="326" y="85" width="28" height="30" rx="3" fill="rgba(34,197,94,0.25)"/>
+      <rect x="370" y="85" width="28" height="30" rx="3" fill="rgba(250,204,21,0.3)"/>
+      <rect x="414" y="85" width="28" height="30" rx="3" fill="rgba(250,204,21,0.35)"/>
+      <rect x="458" y="85" width="28" height="30" rx="3" fill="rgba(250,204,21,0.3)"/>
+      <rect x="502" y="85" width="28" height="30" rx="3" fill="rgba(249,115,22,0.35)"/>
+      <rect x="546" y="85" width="28" height="30" rx="3" fill="rgba(249,115,22,0.3)"/>
+      <rect x="590" y="85" width="28" height="30" rx="3" fill="rgba(239,68,68,0.35)"/>
+      <rect x="634" y="85" width="28" height="30" rx="3" fill="rgba(239,68,68,0.3)"/>
+      <rect x="678" y="85" width="28" height="30" rx="3" fill="rgba(239,68,68,0.25)"/>
+      <rect x="722" y="85" width="28" height="30" rx="3" fill="rgba(139,92,246,0.3)"/>
+      <rect x="766" y="85" width="28" height="30" rx="3" fill="rgba(139,92,246,0.25)"/>
+      <rect x="810" y="85" width="28" height="30" rx="3" fill="rgba(139,92,246,0.2)"/>
+
+      <!-- CWDM labels -->
+      <text x="62" y="136" fill="#94a3b8" font-size="8">1270</text>
+      <text x="414" y="136" fill="#94a3b8" font-size="8">1450</text>
+      <text x="810" y="136" fill="#94a3b8" font-size="8">1610</text>
+
+      <!-- Spacing indicator -->
+      <line x1="76" y1="82" x2="120" y2="82" stroke="#06b6d4" stroke-opacity="0.5"/>
+      <text x="98" y="78" fill="#06b6d4" font-size="9" text-anchor="middle" font-weight="600">20 nm</text>
+      <text x="450" y="150" fill="#06b6d4" font-size="11" text-anchor="middle" font-weight="600">Alue: 1270–1610 nm (O, E, S, C, L -kaistat)</text>
+
+      <!-- DWDM section -->
+      <text x="50" y="185" fill="#facc15" font-size="13" font-weight="700">DWDM</text>
+      <text x="50" y="200" fill="#94a3b8" font-size="10">80+ kanavaa, 0.8 nm väli (100 GHz)</text>
+
+      <!-- DWDM spectrum - only C-band highlighted -->
+      <rect x="50" y="210" width="800" height="40" rx="6" fill="rgba(30,41,59,0.3)" stroke="var(--card-border)"/>
+      <!-- C-band region highlighted -->
+      <rect x="380" y="210" width="160" height="40" rx="0" fill="rgba(250,204,21,0.06)"/>
+      <!-- Dense thin bars for DWDM channels -->
+      <g id="dwdmChannels"></g>
+      <!-- Script will fill these -->
+
+      <!-- DWDM labels -->
+      <text x="380" y="268" fill="#94a3b8" font-size="8">1528</text>
+      <text x="540" y="268" fill="#94a3b8" font-size="8">1568 nm</text>
+      <text x="460" y="280" fill="#facc15" font-size="11" text-anchor="middle" font-weight="600">C-band: 1528–1568 nm (vain 40 nm leveys!)</text>
+
+      <!-- Zoom comparison -->
+      <text x="450" y="310" fill="#94a3b8" font-size="10" text-anchor="middle">CWDM: koko spektri, harvat kanavat | DWDM: kapea kaista, tiiviit kanavat</text>
+      <text x="450" y="330" fill="#e2e8f0" font-size="11" text-anchor="middle" font-weight="500">Sama kuitu — eri lähestymistapa kapasiteetin lisäämiseen</text>
+    </svg>
+  </div>
+
+  <!-- Comparison table -->
+  <div class="data-table">
+    <table style="width:100%; border-collapse:collapse;">
+      <tr>
+        <th>Ominaisuus</th>
+        <th style="color:#06b6d4;">CWDM</th>
+        <th style="color:#facc15;">DWDM</th>
+      </tr>
+      <tr><td>Kanavia</td><td class="hl">18</td><td class="hl">80+ (C-band), 160+ (C+L)</td></tr>
+      <tr><td>Kanavien väli</td><td>20 nm</td><td>0.8 nm (100 GHz)</td></tr>
+      <tr><td>Aallonpituusalue</td><td>1270–1610 nm</td><td>C-band 1528–1568 nm</td></tr>
+      <tr><td>Lasertyyppi</td><td class="hl">Jäähdyttämätön (DFB)</td><td class="hl">TEC-jäähdytetty (ITU-grid)</td></tr>
+      <tr><td>Kustannus/kanava</td><td style="color:#22c55e;">Edullinen</td><td style="color:#f97316;">Kallis</td></tr>
+      <tr><td>Vahvistus (EDFA)</td><td style="color:#ef4444;">Ei tuettu</td><td style="color:#22c55e;">Tuettu (C-band)</td></tr>
+      <tr><td>Tyypillinen käyttö</td><td>Access, metro, GPON-overlay</td><td>Runkoverkko, merenalaiset</td></tr>
+      <tr><td>Kantama</td><td>&lt; 80 km</td><td>Tuhansia km (vahvistimilla)</td></tr>
+    </table>
+  </div>
+
+  <div class="card-grid">
+    <div class="card" style="border-left: 3px solid #06b6d4;">
+      <div class="card-label" style="color:#06b6d4;">Valitse CWDM kun</div>
+      <h3>Kustannustehokkuus</h3>
+      <p>Tarvitset muutamia lisäkanavia, matka on lyhyt (&lt;80 km), ja budjetti on rajallinen. Tyypillinen access-verkoissa ja GPON-overlay-toteutuksissa.</p>
+    </div>
+    <div class="card" style="border-left: 3px solid #facc15;">
+      <div class="card-label" style="color:#facc15;">Valitse DWDM kun</div>
+      <h3>Maksimaalinen kapasiteetti</h3>
+      <p>Tarvitset kymmeniä tai satoja kanavia, pitkiä matkoja, ja EDFA-vahvistusta. Runkoverkot, operaattorien väliset yhteydet, merenalaiset.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 07. KÄYTÄNNÖN AALLONPITUUDET -->
+<section class="section" data-label="Käytäntö">
+  <div class="section-num">07</div>
+  <h2>Käytännön aallonpituudet</h2>
+  <p class="subtitle">Eri teknologiat käyttävät eri aallonpituuksia downstream- ja upstream-suuntaan. Kaikki mahtuvat samaan kuituun — WDM mahdollistaa niiden rinnakkaisen käytön.</p>
+
+  <!-- Technology wavelength table -->
+  <div class="data-table">
+    <table style="width:100%; border-collapse:collapse;">
+      <tr>
+        <th>Teknologia</th>
+        <th>Downstream λ</th>
+        <th>Upstream λ</th>
+        <th>Kaista</th>
+        <th>Nopeus</th>
+      </tr>
+      <tr>
+        <td style="color:var(--text); font-weight:600;">GPON</td>
+        <td class="hl">1490 nm ↓</td>
+        <td style="color:#60a5fa; font-weight:600;">1310 nm ↑</td>
+        <td>S / O</td>
+        <td>2.5 / 1.25 Gbps</td>
+      </tr>
+      <tr>
+        <td style="color:var(--text); font-weight:600;">XGS-PON</td>
+        <td class="hl">1577 nm ↓</td>
+        <td style="color:#60a5fa; font-weight:600;">1270 nm ↑</td>
+        <td>L / O</td>
+        <td>10 / 10 Gbps</td>
+      </tr>
+      <tr>
+        <td style="color:var(--text); font-weight:600;">25G / 50G-PON</td>
+        <td class="hl">1342 nm ↓</td>
+        <td style="color:#60a5fa; font-weight:600;">1270 nm ↑</td>
+        <td>O / O</td>
+        <td>25–50 Gbps</td>
+      </tr>
+      <tr>
+        <td style="color:var(--text); font-weight:600;">CWDM</td>
+        <td colspan="2" style="color:#06b6d4; font-weight:600; text-align:center;">1270–1610 nm (mikä tahansa kanava)</td>
+        <td>O–L</td>
+        <td>Vaihtelee</td>
+      </tr>
+      <tr>
+        <td style="color:var(--text); font-weight:600;">DWDM</td>
+        <td colspan="2" style="color:#facc15; font-weight:600; text-align:center;">C-band 1528–1568 nm</td>
+        <td>C</td>
+        <td>100–400 Gbps/ch</td>
+      </tr>
+      <tr>
+        <td style="color:var(--text); font-weight:600;">P2P Ethernet</td>
+        <td class="hl">1550 nm</td>
+        <td style="color:#60a5fa; font-weight:600;">1310 nm</td>
+        <td>C / O</td>
+        <td>1–100 Gbps</td>
+      </tr>
+      <tr>
+        <td style="color:var(--text); font-weight:600;">P2P BiDi</td>
+        <td class="hl">1550 nm ↓</td>
+        <td style="color:#60a5fa; font-weight:600;">1310 nm ↑</td>
+        <td>C / O</td>
+        <td>1–10 Gbps</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Spectrum map with all technologies -->
+  <div class="diagram-box">
+    <svg class="diagram" viewBox="0 0 900 300">
+      <text x="450" y="25" fill="#94a3b8" font-size="12" font-weight="600" text-anchor="middle" letter-spacing="1">KAIKKI AALLONPITUUDET SPEKTRILLÄ</text>
+
+      <!-- Spectrum background with band regions -->
+      <rect x="60" y="50" width="780" height="180" rx="8" fill="rgba(30,41,59,0.3)"/>
+
+      <!-- Band backgrounds -->
+      <!-- O: 1260-1360, scale: 60px = 1260nm, 840px = 1625nm, so 1px ≈ 2.14nm -->
+      <!-- Using linear mapping: x = 60 + (nm - 1260) * (780/365) -->
+      <rect x="60" y="50" width="214" height="180" fill="rgba(59,130,246,0.04)" rx="0"/>
+      <rect x="274" y="50" width="214" height="180" fill="rgba(139,92,246,0.03)"/>
+      <rect x="488" y="50" width="149" height="180" fill="rgba(6,182,212,0.03)"/>
+      <rect x="637" y="50" width="75" height="180" fill="rgba(250,204,21,0.05)"/>
+      <rect x="712" y="50" width="128" height="180" fill="rgba(249,115,22,0.03)"/>
+
+      <!-- Band labels at top -->
+      <text x="167" y="45" fill="#60a5fa" font-size="10" text-anchor="middle" font-weight="600">O-band</text>
+      <text x="381" y="45" fill="#a78bfa" font-size="10" text-anchor="middle" font-weight="600">E-band</text>
+      <text x="562" y="45" fill="#06b6d4" font-size="10" text-anchor="middle" font-weight="600">S-band</text>
+      <text x="674" y="45" fill="#facc15" font-size="10" text-anchor="middle" font-weight="600">C-band</text>
+      <text x="776" y="45" fill="#f97316" font-size="10" text-anchor="middle" font-weight="600">L-band</text>
+
+      <!-- Technology markers -->
+      <!-- XGS-PON upstream 1270nm: x = 60 + (1270-1260)*2.14 = 81 -->
+      <line x1="81" y1="60" x2="81" y2="220" stroke="#60a5fa" stroke-width="3" stroke-opacity="0.6"/>
+      <text x="81" y="242" fill="#60a5fa" font-size="8" text-anchor="middle" font-weight="600">1270</text>
+      <text x="81" y="254" fill="#94a3b8" font-size="7" text-anchor="middle">XGS↑</text>
+
+      <!-- GPON upstream 1310nm: x = 60 + 50*2.14 = 167 -->
+      <line x1="167" y1="60" x2="167" y2="220" stroke="#3b82f6" stroke-width="3" stroke-opacity="0.6"/>
+      <text x="167" y="242" fill="#3b82f6" font-size="8" text-anchor="middle" font-weight="600">1310</text>
+      <text x="167" y="254" fill="#94a3b8" font-size="7" text-anchor="middle">GPON↑</text>
+
+      <!-- 25G/50G-PON downstream 1342nm: x = 60 + 82*2.14 = 235 -->
+      <line x1="235" y1="60" x2="235" y2="220" stroke="#22c55e" stroke-width="3" stroke-opacity="0.6"/>
+      <text x="235" y="242" fill="#22c55e" font-size="8" text-anchor="middle" font-weight="600">1342</text>
+      <text x="235" y="254" fill="#94a3b8" font-size="7" text-anchor="middle">25G↓</text>
+
+      <!-- GPON downstream 1490nm: x = 60 + 230*2.14 = 552 -->
+      <line x1="552" y1="60" x2="552" y2="220" stroke="#facc15" stroke-width="3" stroke-opacity="0.8"/>
+      <text x="552" y="242" fill="#facc15" font-size="8" text-anchor="middle" font-weight="600">1490</text>
+      <text x="552" y="254" fill="#94a3b8" font-size="7" text-anchor="middle">GPON↓</text>
+
+      <!-- P2P / DWDM 1550nm: x = 60 + 290*2.14 = 681 -->
+      <line x1="681" y1="60" x2="681" y2="220" stroke="#ef4444" stroke-width="3" stroke-opacity="0.7"/>
+      <text x="681" y="242" fill="#ef4444" font-size="8" text-anchor="middle" font-weight="600">1550</text>
+      <text x="681" y="254" fill="#94a3b8" font-size="7" text-anchor="middle">P2P/DWDM</text>
+
+      <!-- XGS-PON downstream 1577nm: x = 60 + 317*2.14 = 738 -->
+      <line x1="738" y1="60" x2="738" y2="220" stroke="#f97316" stroke-width="3" stroke-opacity="0.7"/>
+      <text x="738" y="242" fill="#f97316" font-size="8" text-anchor="middle" font-weight="600">1577</text>
+      <text x="738" y="254" fill="#94a3b8" font-size="7" text-anchor="middle">XGS↓</text>
+
+      <!-- CWDM range bracket -->
+      <line x1="81" y1="70" x2="810" y2="70" stroke="#06b6d4" stroke-width="1" stroke-opacity="0.4" stroke-dasharray="4"/>
+      <text x="445" y="85" fill="#06b6d4" font-size="9" text-anchor="middle" font-weight="600">CWDM: 1270–1610 nm</text>
+
+      <!-- DWDM C-band bracket -->
+      <rect x="637" y="95" width="75" height="14" rx="3" fill="rgba(250,204,21,0.15)" stroke="#facc15" stroke-opacity="0.3"/>
+      <text x="674" y="106" fill="#facc15" font-size="7" text-anchor="middle" font-weight="700">DWDM</text>
+
+      <!-- Technology labels inside spectrum -->
+      <!-- Row markers for each technology -->
+      <rect x="72" y="115" width="186" height="16" rx="3" fill="rgba(59,130,246,0.08)" stroke="#3b82f6" stroke-opacity="0.2"/>
+      <text x="165" y="127" fill="#60a5fa" font-size="8" text-anchor="middle">GPON: 1310↑ — 1490↓</text>
+
+      <rect x="72" y="138" width="680" height="16" rx="3" fill="rgba(249,115,22,0.06)" stroke="#f97316" stroke-opacity="0.15"/>
+      <text x="410" y="150" fill="#f97316" font-size="8" text-anchor="middle">XGS-PON: 1270↑ — 1577↓</text>
+
+      <rect x="72" y="161" width="175" height="16" rx="3" fill="rgba(34,197,94,0.06)" stroke="#22c55e" stroke-opacity="0.15"/>
+      <text x="160" y="173" fill="#22c55e" font-size="8" text-anchor="middle">25G-PON: 1270↑ — 1342↓</text>
+
+      <rect x="160" y="184" width="530" height="16" rx="3" fill="rgba(239,68,68,0.06)" stroke="#ef4444" stroke-opacity="0.15"/>
+      <text x="425" y="196" fill="#ef4444" font-size="8" text-anchor="middle">P2P: 1310↑ — 1550↓</text>
+
+      <!-- Wavelength axis -->
+      <text x="60" y="274" fill="#94a3b8" font-size="8">1260</text>
+      <text x="274" y="274" fill="#94a3b8" font-size="8">1360</text>
+      <text x="488" y="274" fill="#94a3b8" font-size="8">1460</text>
+      <text x="637" y="274" fill="#94a3b8" font-size="8">1530</text>
+      <text x="712" y="274" fill="#94a3b8" font-size="8">1565</text>
+      <text x="840" y="274" fill="#94a3b8" font-size="8" text-anchor="end">1625 nm</text>
+
+    </svg>
+  </div>
+
+  <div class="summary-card">
+    <h3>Yksi kuitu, rajaton potentiaali</h3>
+    <p>Yksittäinen lasikuitu voi kuljettaa samanaikaisesti GPON-, XGS-PON-, CWDM- ja DWDM-liikennettä — kukin omalla aallonpituudellaan. Teknologia kehittyy, mutta kuitu pysyy samana. Oikein rakennettu kuituverkko palvelee vuosikymmeniä.</p>
+  </div>
+</section>
+
+<!-- Footer -->
+<div style="text-align:center; padding: 40px; color: var(--text-dim); font-size: 12px;">
+  Aallonpituudet & WDM — Koulutusmateriaalit 2026
+</div>
+
+<!-- SCRIPTS -->
+<script>
+// Nav dots
+const sections = document.querySelectorAll('.section');
+const dotsContainer = document.getElementById('navDots');
+const navLabel = document.getElementById('navLabel');
+
+sections.forEach((s, i) => {
+  const dot = document.createElement('div');
+  dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+  dot.onclick = () => s.scrollIntoView({ behavior: 'smooth' });
+  dotsContainer.appendChild(dot);
+});
+
+const dots = dotsContainer.querySelectorAll('.nav-dot');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const idx = Array.from(sections).indexOf(entry.target);
+      dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+      navLabel.textContent = (idx + 1) + '/7 — ' + (entry.target.dataset.label || '');
+    }
+  });
+}, { threshold: 0.3 });
+
+sections.forEach(s => observer.observe(s));
+
+// Animated sine waves for section 02
+function drawWaves() {
+  const longPath = [];
+  const shortPath = [];
+  const t = Date.now() / 1000;
+  for (let x = 140; x <= 850; x += 2) {
+    // Long wavelength: fewer oscillations (period ~160px)
+    const yLong = 110 + Math.sin((x - 140) * 0.04 + t * 2) * 18;
+    longPath.push((x === 140 ? 'M' : 'L') + x + ',' + yLong);
+    // Short wavelength: more oscillations (period ~88px)
+    const yShort = 230 + Math.sin((x - 140) * 0.072 + t * 2) * 15;
+    shortPath.push((x === 140 ? 'M' : 'L') + x + ',' + yShort);
+  }
+  const wl = document.getElementById('waveLong');
+  const ws = document.getElementById('waveShort');
+  if (wl) wl.setAttribute('d', longPath.join(' '));
+  if (ws) ws.setAttribute('d', shortPath.join(' '));
+  requestAnimationFrame(drawWaves);
+}
+drawWaves();
+
+// Generate DWDM channel bars
+const dwdmGroup = document.getElementById('dwdmChannels');
+if (dwdmGroup) {
+  // 80 channels in C-band, x range 380-540 (160px for 40nm)
+  for (let i = 0; i < 80; i++) {
+    const x = 380 + (i / 80) * 160;
+    const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    rect.setAttribute('x', x);
+    rect.setAttribute('y', '215');
+    rect.setAttribute('width', '1');
+    rect.setAttribute('height', '30');
+    rect.setAttribute('fill', '#facc15');
+    rect.setAttribute('opacity', '0.5');
+    dwdmGroup.appendChild(rect);
+  }
+}
+</script>
+
+</body>
+</html>
