@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CWDM — Koulutus</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0a0e1a;
+    --card: #111827;
+    --card-border: #1e293b;
+    --text: #e2e8f0;
+    --text-dim: #94a3b8;
+    --accent: #3b82f6;
+    --fiber-glow: #facc15;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Navigation */
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(10, 14, 26, 0.9);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--card-border);
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .nav-title {
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--fiber-glow);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  .nav-dots {
+    display: flex;
+    gap: 8px;
+    margin-left: auto;
+  }
+  .nav-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--card-border);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .nav-dot.active {
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
+  }
+  .nav-label {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-left: 8px;
+  }
+
+  /* Sections */
+  .section {
+    min-height: 100vh;
+    padding: 80px 40px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .section-number {
+    position: absolute;
+    top: 80px;
+    left: 40px;
+    font-size: 120px;
+    font-weight: 800;
+    color: rgba(59, 130, 246, 0.06);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  h2 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    text-align: center;
+  }
+  .subtitle {
+    font-size: 16px;
+    color: var(--text-dim);
+    margin-bottom: 40px;
+    text-align: center;
+    max-width: 600px;
+  }
+
+  /* Card grid */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    max-width: 900px;
+    width: 100%;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 24px;
+    transition: all 0.3s;
+  }
+  .card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(59, 130, 246, 0.1);
+  }
+  .card-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .card h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .card p {
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+
+  /* Fiber animation */
+  .fiber-demo {
+    max-width: 900px;
+    width: 100%;
+    position: relative;
+  }
+
+  .fiber-container {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* SVG styles */
+  svg.diagram {
+    width: 100%;
+    height: auto;
+  }
+
+  /* Wavelength colors */
+  .wl-1270 { color: #ef4444; }
+  .wl-1290 { color: #f97316; }
+  .wl-1310 { color: #facc15; }
+  .wl-1330 { color: #22c55e; }
+  .wl-1350 { color: #06b6d4; }
+  .wl-1370 { color: #3b82f6; }
+  .wl-1390 { color: #8b5cf6; }
+  .wl-1410 { color: #ec4899; }
+
+  /* Animated pulses on fiber */
+  @keyframes pulse-right {
+    0% { transform: translateX(-100px); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateX(700px); opacity: 0; }
+  }
+
+  .light-pulse {
+    animation: pulse-right 3s linear infinite;
+  }
+
+  /* Comparison table */
+  .compare-table {
+    max-width: 800px;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: var(--card);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--card-border);
+  }
+  .compare-table th {
+    background: rgba(59, 130, 246, 0.1);
+    padding: 14px 20px;
+    text-align: left;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .compare-table td {
+    padding: 12px 20px;
+    font-size: 14px;
+    border-top: 1px solid var(--card-border);
+    color: var(--text-dim);
+  }
+  .compare-table tr:hover td {
+    background: rgba(59, 130, 246, 0.03);
+  }
+  .highlight-cell {
+    color: var(--fiber-glow) !important;
+    font-weight: 600;
+  }
+
+  /* Spectrum bar */
+  .spectrum-container {
+    max-width: 800px;
+    width: 100%;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 40px;
+  }
+  .spectrum-label {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+  }
+  .spectrum-bar {
+    height: 48px;
+    border-radius: 8px;
+    position: relative;
+    margin-bottom: 8px;
+    overflow: hidden;
+  }
+  .cwdm-spectrum {
+    background: linear-gradient(90deg,
+      #ef4444 0%, #f97316 12%, #facc15 24%, #22c55e 36%,
+      #06b6d4 48%, #3b82f6 60%, #8b5cf6 72%, #ec4899 84%,
+      #f43f5e 100%
+    );
+  }
+  .dwdm-spectrum {
+    background: linear-gradient(90deg,
+      #3b82f6 0%, #6366f1 25%, #8b5cf6 50%, #a78bfa 75%, #c4b5fd 100%
+    );
+  }
+  .spectrum-ticks {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-bottom: 4px;
+  }
+  .channel-markers {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 4px;
+  }
+  .channel-marker {
+    width: 2px;
+    height: 24px;
+    background: white;
+    opacity: 0.7;
+  }
+  .spacing-label {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 700;
+    margin-top: 12px;
+  }
+  .spacing-label span {
+    color: var(--fiber-glow);
+  }
+
+  /* PON use case */
+  .usecase-container {
+    max-width: 900px;
+    width: 100%;
+  }
+
+  .fiber-line {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 12px 0;
+    padding: 16px 20px;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+  }
+
+  .device-box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 13px;
+    white-space: nowrap;
+    min-width: 80px;
+  }
+  .olt-box {
+    background: rgba(59, 130, 246, 0.15);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    color: #60a5fa;
+  }
+  .mux-box {
+    background: rgba(250, 204, 21, 0.12);
+    border: 1px solid rgba(250, 204, 21, 0.3);
+    color: #facc15;
+  }
+  .demux-box {
+    background: rgba(250, 204, 21, 0.12);
+    border: 1px solid rgba(250, 204, 21, 0.3);
+    color: #facc15;
+  }
+  .split-box {
+    background: rgba(34, 197, 94, 0.12);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    color: #22c55e;
+  }
+
+  .fiber-segment {
+    flex: 1;
+    height: 4px;
+    border-radius: 2px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .fiber-multi {
+    background: linear-gradient(90deg, #ef4444, #f97316, #facc15, #22c55e);
+  }
+  .fiber-single-1 { background: #ef4444; }
+  .fiber-single-2 { background: #f97316; }
+  .fiber-single-3 { background: #facc15; }
+  .fiber-single-4 { background: #22c55e; }
+
+  @keyframes flow {
+    0% { transform: translateX(-200%); }
+    100% { transform: translateX(200%); }
+  }
+  .fiber-segment::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: 0;
+    width: 50%;
+    height: 8px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    animation: flow 2s linear infinite;
+  }
+
+  .fiber-count {
+    font-size: 12px;
+    color: var(--text-dim);
+    text-align: center;
+    margin-top: 4px;
+  }
+
+  /* Savings callout */
+  .savings-callout {
+    margin-top: 32px;
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    max-width: 900px;
+  }
+  .savings-card {
+    flex: 1;
+    padding: 24px;
+    border-radius: 12px;
+    text-align: center;
+  }
+  .savings-card.before {
+    background: rgba(239, 68, 68, 0.08);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+  }
+  .savings-card.after {
+    background: rgba(34, 197, 94, 0.08);
+    border: 1px solid rgba(34, 197, 94, 0.2);
+  }
+  .savings-number {
+    font-size: 48px;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .savings-card.before .savings-number { color: #ef4444; }
+  .savings-card.after .savings-number { color: #22c55e; }
+  .savings-unit {
+    font-size: 14px;
+    color: var(--text-dim);
+  }
+
+  /* When to use */
+  .when-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    max-width: 800px;
+    width: 100%;
+  }
+  .when-card {
+    padding: 24px;
+    border-radius: 12px;
+  }
+  .when-card.yes {
+    background: rgba(34, 197, 94, 0.06);
+    border: 1px solid rgba(34, 197, 94, 0.2);
+  }
+  .when-card.no {
+    background: rgba(239, 68, 68, 0.06);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+  }
+  .when-card h3 {
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+  .when-card.yes h3 { color: #22c55e; }
+  .when-card.no h3 { color: #ef4444; }
+  .when-card ul {
+    list-style: none;
+    padding: 0;
+  }
+  .when-card li {
+    font-size: 14px;
+    color: var(--text-dim);
+    padding: 4px 0;
+    padding-left: 20px;
+    position: relative;
+  }
+  .when-card.yes li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #22c55e;
+    font-weight: 700;
+  }
+  .when-card.no li::before {
+    content: '✗';
+    position: absolute;
+    left: 0;
+    color: #ef4444;
+    font-weight: 700;
+  }
+
+  /* Question section */
+  .question-box {
+    max-width: 700px;
+    width: 100%;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(139, 92, 246, 0.08));
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    border-radius: 16px;
+    padding: 40px;
+    text-align: center;
+  }
+  .question-box h3 {
+    font-size: 20px;
+    margin-bottom: 16px;
+    color: var(--accent);
+  }
+  .question-box p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--text);
+  }
+
+  /* Arrow */
+  .arrow {
+    font-size: 20px;
+    color: var(--text-dim);
+  }
+
+  /* Responsive */
+  @media (max-width: 700px) {
+    .section { padding: 80px 20px 20px; }
+    h2 { font-size: 24px; }
+    .savings-callout { flex-direction: column; }
+    .when-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav">
+  <div class="nav-title">CWDM Koulutus</div>
+  <div class="nav-dots">
+    <div class="nav-dot active" onclick="scrollToSection(0)"></div>
+    <div class="nav-dot" onclick="scrollToSection(1)"></div>
+    <div class="nav-dot" onclick="scrollToSection(2)"></div>
+    <div class="nav-dot" onclick="scrollToSection(3)"></div>
+    <div class="nav-dot" onclick="scrollToSection(4)"></div>
+    <div class="nav-dot" onclick="scrollToSection(5)"></div>
+  </div>
+  <div class="nav-label" id="navLabel">Perusidea</div>
+</nav>
+
+<!-- 1. PERUSIDEA -->
+<section class="section" id="s0">
+  <div class="section-number">01</div>
+  <h2>Yksi kuitu, monta väriä</h2>
+  <p class="subtitle">CWDM = Coarse Wavelength Division Multiplexing. Eri aallonpituudet kulkevat samassa kuidussa häiritsemättä toisiaan — kuten radiokanavat eri taajuuksilla.</p>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-label">Ilman CWDM</div>
+      <h3>1 kuitu = 1 signaali</h3>
+      <p>Jokainen yhteys vaatii oman kuidun. 8 yhteyttä → 8 kuitua. Kallis kaapelointi erityisesti pitkillä matkoilla.</p>
+    </div>
+    <div class="card">
+      <div class="card-label">CWDM:llä</div>
+      <h3>1 kuitu = jopa 18 signaalia</h3>
+      <p>MUX yhdistää eri aallonpituudet yhteen kuituun. DEMUX erottaa ne toisessa päässä. Fysiikka hoitaa erottelun.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 2. TOIMINTAPERIAATE -->
+<section class="section" id="s1">
+  <div class="section-number">02</div>
+  <h2>Miten se toimii?</h2>
+  <p class="subtitle">MUX yhdistää aallonpituudet yhteen kuituun, DEMUX erottaa ne. Molemmat ovat passiivisia — ei sähköä.</p>
+
+  <div class="fiber-demo">
+    <div class="fiber-container">
+      <svg class="diagram" viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg">
+        <!-- Transmitters -->
+        <g>
+          <text x="20" y="30" fill="#94a3b8" font-size="11" font-weight="600" text-transform="uppercase" letter-spacing="1">LÄHETTIMET</text>
+
+          <rect x="20" y="50" width="120" height="32" rx="6" fill="rgba(239,68,68,0.15)" stroke="#ef4444" stroke-opacity="0.4"/>
+          <text x="80" y="70" fill="#ef4444" font-size="12" font-weight="600" text-anchor="middle">TX 1270 nm</text>
+
+          <rect x="20" y="92" width="120" height="32" rx="6" fill="rgba(249,115,22,0.15)" stroke="#f97316" stroke-opacity="0.4"/>
+          <text x="80" y="112" fill="#f97316" font-size="12" font-weight="600" text-anchor="middle">TX 1290 nm</text>
+
+          <rect x="20" y="134" width="120" height="32" rx="6" fill="rgba(250,204,21,0.15)" stroke="#facc15" stroke-opacity="0.4"/>
+          <text x="80" y="154" fill="#facc15" font-size="12" font-weight="600" text-anchor="middle">TX 1310 nm</text>
+
+          <rect x="20" y="176" width="120" height="32" rx="6" fill="rgba(34,197,94,0.15)" stroke="#22c55e" stroke-opacity="0.4"/>
+          <text x="80" y="196" fill="#22c55e" font-size="12" font-weight="600" text-anchor="middle">TX 1330 nm</text>
+        </g>
+
+        <!-- Lines to MUX -->
+        <line x1="140" y1="66" x2="220" y2="120" stroke="#ef4444" stroke-width="2" stroke-opacity="0.6"/>
+        <line x1="140" y1="108" x2="220" y2="130" stroke="#f97316" stroke-width="2" stroke-opacity="0.6"/>
+        <line x1="140" y1="150" x2="220" y2="140" stroke="#facc15" stroke-width="2" stroke-opacity="0.6"/>
+        <line x1="140" y1="192" x2="220" y2="150" stroke="#22c55e" stroke-width="2" stroke-opacity="0.6"/>
+
+        <!-- MUX -->
+        <polygon points="220,90 280,120 280,160 220,190" fill="rgba(250,204,21,0.1)" stroke="#facc15" stroke-opacity="0.5" stroke-width="2"/>
+        <text x="250" y="145" fill="#facc15" font-size="12" font-weight="700" text-anchor="middle">MUX</text>
+
+        <!-- Single fiber with animated pulses -->
+        <line x1="280" y1="140" x2="520" y2="140" stroke="#334155" stroke-width="8" stroke-linecap="round"/>
+
+        <!-- Animated light pulses -->
+        <circle r="5" fill="#ef4444" opacity="0.9">
+          <animateMotion dur="2s" repeatCount="indefinite" path="M280,140 L520,140" begin="0s"/>
+        </circle>
+        <circle r="5" fill="#f97316" opacity="0.9">
+          <animateMotion dur="2s" repeatCount="indefinite" path="M280,140 L520,140" begin="0.4s"/>
+        </circle>
+        <circle r="5" fill="#facc15" opacity="0.9">
+          <animateMotion dur="2s" repeatCount="indefinite" path="M280,140 L520,140" begin="0.8s"/>
+        </circle>
+        <circle r="5" fill="#22c55e" opacity="0.9">
+          <animateMotion dur="2s" repeatCount="indefinite" path="M280,140 L520,140" begin="1.2s"/>
+        </circle>
+
+        <!-- Fiber glow -->
+        <line x1="280" y1="140" x2="520" y2="140" stroke="url(#fiberGlow)" stroke-width="12" stroke-linecap="round" opacity="0.3"/>
+
+        <defs>
+          <linearGradient id="fiberGlow" x1="0%" x2="100%">
+            <stop offset="0%" stop-color="#ef4444"/>
+            <stop offset="33%" stop-color="#f97316"/>
+            <stop offset="66%" stop-color="#facc15"/>
+            <stop offset="100%" stop-color="#22c55e"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Label -->
+        <text x="400" y="170" fill="#94a3b8" font-size="11" text-anchor="middle" font-weight="500">1 KUITU — 4 kanavaa</text>
+
+        <!-- DEMUX -->
+        <polygon points="520,90 580,120 580,160 520,190" fill="rgba(250,204,21,0.1)" stroke="#facc15" stroke-opacity="0.5" stroke-width="2" transform="scale(-1,1) translate(-1100,0)"/>
+        <text x="550" y="145" fill="#facc15" font-size="12" font-weight="700" text-anchor="middle">DEMUX</text>
+
+        <!-- Lines from DEMUX -->
+        <line x1="580" y1="120" x2="660" y2="66" stroke="#ef4444" stroke-width="2" stroke-opacity="0.6"/>
+        <line x1="580" y1="130" x2="660" y2="108" stroke="#f97316" stroke-width="2" stroke-opacity="0.6"/>
+        <line x1="580" y1="140" x2="660" y2="150" stroke="#facc15" stroke-width="2" stroke-opacity="0.6"/>
+        <line x1="580" y1="150" x2="660" y2="192" stroke="#22c55e" stroke-width="2" stroke-opacity="0.6"/>
+
+        <!-- Receivers -->
+        <g>
+          <text x="660" y="30" fill="#94a3b8" font-size="11" font-weight="600" text-transform="uppercase" letter-spacing="1">VASTAANOTTIMET</text>
+
+          <rect x="660" y="50" width="120" height="32" rx="6" fill="rgba(239,68,68,0.15)" stroke="#ef4444" stroke-opacity="0.4"/>
+          <text x="720" y="70" fill="#ef4444" font-size="12" font-weight="600" text-anchor="middle">RX 1270 nm</text>
+
+          <rect x="660" y="92" width="120" height="32" rx="6" fill="rgba(249,115,22,0.15)" stroke="#f97316" stroke-opacity="0.4"/>
+          <text x="720" y="112" fill="#f97316" font-size="12" font-weight="600" text-anchor="middle">RX 1290 nm</text>
+
+          <rect x="660" y="134" width="120" height="32" rx="6" fill="rgba(250,204,21,0.15)" stroke="#facc15" stroke-opacity="0.4"/>
+          <text x="720" y="154" fill="#facc15" font-size="12" font-weight="600" text-anchor="middle">RX 1310 nm</text>
+
+          <rect x="660" y="176" width="120" height="32" rx="6" fill="rgba(34,197,94,0.15)" stroke="#22c55e" stroke-opacity="0.4"/>
+          <text x="720" y="196" fill="#22c55e" font-size="12" font-weight="600" text-anchor="middle">RX 1330 nm</text>
+        </g>
+
+        <!-- Bottom explanation -->
+        <rect x="150" y="230" width="500" height="70" rx="10" fill="rgba(59,130,246,0.06)" stroke="rgba(59,130,246,0.15)"/>
+        <text x="400" y="255" fill="#60a5fa" font-size="13" font-weight="600" text-anchor="middle">Ohutkalvosuodatin (Thin Film Filter)</text>
+        <text x="400" y="275" fill="#94a3b8" font-size="12" text-anchor="middle">Heijastaa tai päästää läpi vain tietyn aallonpituuden.</text>
+        <text x="400" y="291" fill="#94a3b8" font-size="12" text-anchor="middle">Ei sähköä, ei elektroniikkaa — puhdasta optiikkaa.</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- 3. SPEKTRI: CWDM vs DWDM -->
+<section class="section" id="s2">
+  <div class="section-number">03</div>
+  <h2>CWDM vs. DWDM</h2>
+  <p class="subtitle">Coarse = karkea jaottelu (20 nm väli), Dense = tiheä jaottelu (0.8 nm). Ero on tarkkuudessa, hinnassa ja kapasiteetissa.</p>
+
+  <div class="spectrum-container" style="margin-bottom: 24px;">
+    <div class="spectrum-label" style="color: #facc15;">CWDM — 1270–1610 nm</div>
+    <div class="spectrum-bar cwdm-spectrum"></div>
+    <div class="spectrum-ticks">
+      <span>1270</span><span>1310</span><span>1350</span><span>1410</span><span>1470</span><span>1530</span><span>1570</span><span>1610</span>
+    </div>
+    <div class="channel-markers">
+      <div class="channel-marker"></div><div class="channel-marker"></div><div class="channel-marker"></div>
+      <div class="channel-marker"></div><div class="channel-marker"></div><div class="channel-marker"></div>
+      <div class="channel-marker"></div><div class="channel-marker"></div><div class="channel-marker"></div>
+      <div class="channel-marker"></div><div class="channel-marker"></div><div class="channel-marker"></div>
+      <div class="channel-marker"></div><div class="channel-marker"></div><div class="channel-marker"></div>
+      <div class="channel-marker"></div><div class="channel-marker"></div><div class="channel-marker"></div>
+    </div>
+    <div class="spacing-label"><span>20 nm</span> väli — 18 kanavaa — halvat laserit</div>
+  </div>
+
+  <div class="spectrum-container" style="margin-bottom: 32px;">
+    <div class="spectrum-label" style="color: #818cf8;">DWDM — C-kaista 1528–1568 nm</div>
+    <div class="spectrum-bar dwdm-spectrum"></div>
+    <div class="spectrum-ticks">
+      <span>1528</span><span>1536</span><span>1544</span><span>1552</span><span>1560</span><span>1568</span>
+    </div>
+    <div class="spacing-label"><span>0.8 nm</span> väli — 80+ kanavaa — kalliit tarkkuuslaserit</div>
+  </div>
+
+  <table class="compare-table">
+    <thead>
+      <tr><th>Ominaisuus</th><th>CWDM</th><th>DWDM</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Kanavaväli</td><td class="highlight-cell">20 nm</td><td>0.8 nm</td></tr>
+      <tr><td>Kanavia</td><td class="highlight-cell">~18</td><td>80–96+</td></tr>
+      <tr><td>Laserit</td><td>Halvat, ei jäähdytystä</td><td>TEC-jäähdytys, tarkka</td></tr>
+      <tr><td>Kantama</td><td>~40–80 km</td><td class="highlight-cell">100+ km (vahvistimilla 1000+)</td></tr>
+      <tr><td>Käyttö</td><td>Access, metro</td><td>Runkoverkko, DC</td></tr>
+      <tr><td>Hinta per kanava</td><td class="highlight-cell">€</td><td>€€€€</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 4. CWDM + GPON -->
+<section class="section" id="s3">
+  <div class="section-number">04</div>
+  <h2>CWDM + GPON</h2>
+  <p class="subtitle">Useita PON-portteja samaan runkokaapelin kuituun — moninkertaistaa kapasiteetin ilman uutta kaapelointia.</p>
+
+  <div class="usecase-container">
+    <!-- Without CWDM -->
+    <h3 style="color: #ef4444; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;">❌ Ilman CWDM — 4 kuitua</h3>
+
+    <div class="fiber-line">
+      <div class="device-box olt-box">OLT P1</div>
+      <div class="fiber-segment fiber-single-1"></div>
+      <div class="device-box split-box">1:32</div>
+      <span style="font-size:12px; color:#94a3b8;">→ 32 ONT</span>
+    </div>
+    <div class="fiber-line">
+      <div class="device-box olt-box">OLT P2</div>
+      <div class="fiber-segment fiber-single-2"></div>
+      <div class="device-box split-box">1:32</div>
+      <span style="font-size:12px; color:#94a3b8;">→ 32 ONT</span>
+    </div>
+    <div class="fiber-line">
+      <div class="device-box olt-box">OLT P3</div>
+      <div class="fiber-segment fiber-single-3"></div>
+      <div class="device-box split-box">1:32</div>
+      <span style="font-size:12px; color:#94a3b8;">→ 32 ONT</span>
+    </div>
+    <div class="fiber-line">
+      <div class="device-box olt-box">OLT P4</div>
+      <div class="fiber-segment fiber-single-4"></div>
+      <div class="device-box split-box">1:32</div>
+      <span style="font-size:12px; color:#94a3b8;">→ 32 ONT</span>
+    </div>
+
+    <div class="fiber-count" style="color: #ef4444; font-weight: 600; margin: 16px 0 32px;">= 4 erillistä kuitua runkokaapelissa</div>
+
+    <!-- With CWDM -->
+    <h3 style="color: #22c55e; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;">✓ CWDM:llä — 1 kuitu</h3>
+
+    <div class="fiber-line" style="border-color: rgba(34,197,94,0.3);">
+      <div style="display: flex; flex-direction: column; gap: 4px;">
+        <div class="device-box olt-box" style="font-size:11px; padding:4px 10px;">P1 λ1</div>
+        <div class="device-box olt-box" style="font-size:11px; padding:4px 10px;">P2 λ2</div>
+        <div class="device-box olt-box" style="font-size:11px; padding:4px 10px;">P3 λ3</div>
+        <div class="device-box olt-box" style="font-size:11px; padding:4px 10px;">P4 λ4</div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="device-box mux-box">MUX</div>
+      <div class="fiber-segment fiber-multi"></div>
+      <div class="device-box demux-box">DEMUX</div>
+      <div class="arrow">→</div>
+      <div style="display: flex; flex-direction: column; gap: 4px;">
+        <div class="device-box split-box" style="font-size:11px; padding:4px 10px;">1:32</div>
+        <div class="device-box split-box" style="font-size:11px; padding:4px 10px;">1:32</div>
+        <div class="device-box split-box" style="font-size:11px; padding:4px 10px;">1:32</div>
+        <div class="device-box split-box" style="font-size:11px; padding:4px 10px;">1:32</div>
+      </div>
+      <span style="font-size:12px; color:#94a3b8;">→ 128 ONT</span>
+    </div>
+
+    <div class="fiber-count" style="color: #22c55e; font-weight: 600; margin-top: 16px;">= 1 kuitu, 4 kanavaa → 128 asiakasta</div>
+  </div>
+
+  <div class="savings-callout">
+    <div class="savings-card before">
+      <div class="savings-number">4</div>
+      <div class="savings-unit">kuitua ilman CWDM</div>
+    </div>
+    <div class="savings-card after">
+      <div class="savings-number">1</div>
+      <div class="savings-unit">kuitu CWDM:llä</div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. MILLOIN CWDM -->
+<section class="section" id="s4">
+  <div class="section-number">05</div>
+  <h2>Milloin käyttää CWDM:ää?</h2>
+  <p class="subtitle">CWDM on kustannustehokas ratkaisu kun kuituja on rajoitetusti mutta kapasiteettia tarvitaan lisää.</p>
+
+  <div class="when-grid">
+    <div class="when-card yes">
+      <h3>✓ Käytä CWDM</h3>
+      <ul>
+        <li>Kuituja on vähän (vanha putkisto)</li>
+        <li>Runkoyhteys on pitkä (> 5 km)</li>
+        <li>Kapasiteettia pitää kasvattaa</li>
+        <li>Budjetti ei riitä DWDM:ään</li>
+        <li>Metro/access-verkko</li>
+      </ul>
+    </div>
+    <div class="when-card no">
+      <h3>✗ Ei tarvita</h3>
+      <ul>
+        <li>Kuituja on runsaasti käytettävissä</li>
+        <li>Lyhyet yhteydet (< 1 km)</li>
+        <li>Vähän asiakkaita</li>
+        <li>Tulevaisuuden kuitutarve pieni</li>
+        <li>Uusi kaapelointi edullisempi</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 6. KYSYMYS -->
+<section class="section" id="s5">
+  <div class="section-number">06</div>
+  <h2>Testaa ymmärryksesi</h2>
+  <p class="subtitle">Ennen kuin jatketaan.</p>
+
+  <div class="question-box">
+    <h3>🤔 Kysymys sinulle</h3>
+    <p>CWDM MUX/DEMUX -laitteet ovat täysin passiivisia (ei sähköä), mutta silti <strong>kalliimpia</strong> kuin tavalliset splitterit.</p>
+    <p style="margin-top: 16px;"><strong>Miksi?</strong> Mitä fysiikkaa niiden sisällä tapahtuu, mikä tekee niistä monimutkaisempia kuin splitteristä?</p>
+  </div>
+</section>
+
+<script>
+  const sections = document.querySelectorAll('.section');
+  const dots = document.querySelectorAll('.nav-dot');
+  const navLabel = document.getElementById('navLabel');
+  const labels = ['Perusidea', 'Toiminta', 'CWDM vs DWDM', 'CWDM + GPON', 'Milloin?', 'Kysymys'];
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const idx = Array.from(sections).indexOf(entry.target);
+        dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+        navLabel.textContent = labels[idx] || '';
+      }
+    });
+  }, { threshold: 0.4 });
+
+  sections.forEach(s => observer.observe(s));
+
+  function scrollToSection(i) {
+    sections[i].scrollIntoView({ behavior: 'smooth' });
+  }
+</script>
+
+</body>
+</html>
