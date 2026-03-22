@@ -401,90 +401,165 @@
 <!-- 4. GPON TOIMINTAPERIAATE -->
 <section class="section" data-label="GPON-toiminta">
   <div class="section-num">04</div>
-  <h2>GPON — toimintaperiaate</h2>
-  <p class="subtitle">Downstream: OLT lähettää kaiken kaikille (broadcast). Upstream: ONT:t vuorottelevat aikajaolla (TDMA). OLT hallitsee aikataulutuksen.</p>
+  <h2>GPON — signaalin jako</h2>
+  <p class="subtitle">GPON jakaa yhden kuidun monelle käyttäjälle kahdella mekanismilla: downstream broadcast + salaus, upstream aikajako (TDMA).</p>
 
+  <!-- GPON DOWNSTREAM: isompi, selkeämpi -->
   <div class="diagram-box">
-    <svg class="diagram" viewBox="0 0 800 300">
-      <!-- Downstream -->
-      <text x="400" y="20" fill="#60a5fa" font-size="13" font-weight="700" text-anchor="middle" letter-spacing="1">DOWNSTREAM — 1490 nm — BROADCAST</text>
+    <svg class="diagram" viewBox="0 0 900 480">
+      <text x="450" y="22" fill="#60a5fa" font-size="14" font-weight="800" text-anchor="middle" letter-spacing="2">DOWNSTREAM — 1490 nm</text>
+      <text x="450" y="40" fill="#94a3b8" font-size="11" text-anchor="middle">OLT lähettää KAIKEN datan KAIKILLE — splitteri kopioi signaalin jokaiseen haaraan</text>
 
-      <rect x="30" y="40" width="80" height="50" rx="8" fill="rgba(59,130,246,0.12)" stroke="#3b82f6" stroke-opacity="0.4" stroke-width="2"/>
-      <text x="70" y="70" fill="#60a5fa" font-size="12" font-weight="700" text-anchor="middle">OLT</text>
+      <!-- OLT with data stream visualization -->
+      <rect x="20" y="65" width="100" height="60" rx="10" fill="rgba(59,130,246,0.15)" stroke="#3b82f6" stroke-opacity="0.5" stroke-width="2"/>
+      <text x="70" y="92" fill="#60a5fa" font-size="14" font-weight="700" text-anchor="middle">OLT</text>
+      <text x="70" y="108" fill="#94a3b8" font-size="8" text-anchor="middle">Keskuslaite</text>
 
-      <!-- Broadcast arrow -->
-      <line x1="110" y1="65" x2="280" y2="65" stroke="#60a5fa" stroke-width="3" stroke-opacity="0.6"/>
-      <polygon points="280,58 295,65 280,72" fill="#60a5fa" opacity="0.6"/>
+      <!-- Data stream from OLT: colored packets -->
+      <rect x="140" y="78" width="24" height="14" rx="2" fill="#ef4444" opacity="0.8"/><text x="152" y="89" fill="white" font-size="7" text-anchor="middle" font-weight="700">A</text>
+      <rect x="168" y="78" width="24" height="14" rx="2" fill="#f97316" opacity="0.8"/><text x="180" y="89" fill="white" font-size="7" text-anchor="middle" font-weight="700">B</text>
+      <rect x="196" y="78" width="24" height="14" rx="2" fill="#facc15" opacity="0.8"/><text x="208" y="89" fill="#1e293b" font-size="7" text-anchor="middle" font-weight="700">C</text>
+      <rect x="224" y="78" width="24" height="14" rx="2" fill="#22c55e" opacity="0.8"/><text x="236" y="89" fill="white" font-size="7" text-anchor="middle" font-weight="700">D</text>
+      <rect x="252" y="78" width="24" height="14" rx="2" fill="#ef4444" opacity="0.8"/><text x="264" y="89" fill="white" font-size="7" text-anchor="middle" font-weight="700">A</text>
+      <rect x="280" y="78" width="24" height="14" rx="2" fill="#facc15" opacity="0.8"/><text x="292" y="89" fill="#1e293b" font-size="7" text-anchor="middle" font-weight="700">C</text>
 
-      <!-- Splitter -->
-      <polygon points="300,40 340,55 340,75 300,90" fill="rgba(250,204,21,0.1)" stroke="#facc15" stroke-opacity="0.4" stroke-width="1.5"/>
-      <text x="320" y="70" fill="#facc15" font-size="9" font-weight="600" text-anchor="middle">1:4</text>
+      <text x="230" y="72" fill="#94a3b8" font-size="8" text-anchor="middle">Kaikki paketit sekaisin →</text>
 
-      <!-- To ONTs -->
-      <line x1="340" y1="52" x2="450" y2="38" stroke="#60a5fa" stroke-width="1.5" stroke-opacity="0.4"/>
-      <line x1="340" y1="60" x2="450" y2="55" stroke="#60a5fa" stroke-width="1.5" stroke-opacity="0.4"/>
-      <line x1="340" y1="70" x2="450" y2="72" stroke="#60a5fa" stroke-width="1.5" stroke-opacity="0.4"/>
-      <line x1="340" y1="78" x2="450" y2="90" stroke="#60a5fa" stroke-width="1.5" stroke-opacity="0.4"/>
+      <!-- Animated pulses on main fiber -->
+      <line x1="120" y1="95" x2="350" y2="95" stroke="#60a5fa" stroke-width="4" stroke-opacity="0.3"/>
+      <circle r="4" fill="#ef4444"><animateMotion dur="1.5s" repeatCount="indefinite" path="M130,95 L340,95" begin="0s"/></circle>
+      <circle r="4" fill="#f97316"><animateMotion dur="1.5s" repeatCount="indefinite" path="M130,95 L340,95" begin="0.3s"/></circle>
+      <circle r="4" fill="#facc15"><animateMotion dur="1.5s" repeatCount="indefinite" path="M130,95 L340,95" begin="0.6s"/></circle>
+      <circle r="4" fill="#22c55e"><animateMotion dur="1.5s" repeatCount="indefinite" path="M130,95 L340,95" begin="0.9s"/></circle>
 
-      <!-- ONTs with data -->
-      <rect x="450" y="25" width="80" height="28" rx="5" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-opacity="0.3"/>
-      <text x="490" y="43" fill="#22c55e" font-size="10" font-weight="600" text-anchor="middle">ONT 1</text>
-      <rect x="450" y="42" width="80" height="28" rx="5" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-opacity="0.3"/>
-      <text x="490" y="60" fill="#22c55e" font-size="10" font-weight="600" text-anchor="middle">ONT 2</text>
-      <rect x="450" y="59" width="80" height="28" rx="5" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-opacity="0.3"/>
-      <text x="490" y="77" fill="#22c55e" font-size="10" font-weight="600" text-anchor="middle">ONT 3</text>
-      <rect x="450" y="76" width="80" height="28" rx="5" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-opacity="0.3"/>
-      <text x="490" y="94" fill="#22c55e" font-size="10" font-weight="600" text-anchor="middle">ONT 4</text>
+      <!-- BIG SPLITTER -->
+      <path d="M350,60 L400,80 L400,110 L350,130 Z" fill="rgba(250,204,21,0.12)" stroke="#facc15" stroke-opacity="0.5" stroke-width="2"/>
+      <text x="375" y="100" fill="#facc15" font-size="11" font-weight="700" text-anchor="middle">1:4</text>
+      <text x="375" y="145" fill="#facc15" font-size="9" text-anchor="middle">Splitteri</text>
+      <text x="375" y="157" fill="#94a3b8" font-size="8" text-anchor="middle">kopioi kaiken</text>
 
-      <!-- Data packets -->
-      <rect x="545" y="28" width="50" height="18" rx="3" fill="rgba(59,130,246,0.15)" stroke="#3b82f6" stroke-opacity="0.3"/>
-      <text x="570" y="40" fill="#60a5fa" font-size="8" text-anchor="middle">A B C D</text>
-      <text x="610" y="40" fill="#94a3b8" font-size="8">← lukee vain A</text>
+      <!-- 4 output fibers with identical data -->
+      <line x1="400" y1="82" x2="500" y2="55" stroke="#60a5fa" stroke-width="2" stroke-opacity="0.4"/>
+      <line x1="400" y1="90" x2="500" y2="82" stroke="#60a5fa" stroke-width="2" stroke-opacity="0.4"/>
+      <line x1="400" y1="100" x2="500" y2="108" stroke="#60a5fa" stroke-width="2" stroke-opacity="0.4"/>
+      <line x1="400" y1="108" x2="500" y2="135" stroke="#60a5fa" stroke-width="2" stroke-opacity="0.4"/>
 
-      <rect x="545" y="48" width="50" height="18" rx="3" fill="rgba(59,130,246,0.15)" stroke="#3b82f6" stroke-opacity="0.3"/>
-      <text x="570" y="60" fill="#60a5fa" font-size="8" text-anchor="middle">A B C D</text>
-      <text x="610" y="60" fill="#94a3b8" font-size="8">← lukee vain B</text>
+      <!-- ONT 1 -->
+      <rect x="500" y="38" width="85" height="34" rx="6" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-opacity="0.4" stroke-width="1.5"/>
+      <text x="542" y="60" fill="#22c55e" font-size="11" font-weight="700" text-anchor="middle">ONT 1</text>
+      <!-- Identical stream -->
+      <rect x="595" y="40" width="14" height="10" rx="1" fill="#ef4444" opacity="0.9"/><text x="602" y="48" fill="white" font-size="6" text-anchor="middle">A</text>
+      <rect x="611" y="40" width="14" height="10" rx="1" fill="#f97316" opacity="0.4"/><text x="618" y="48" fill="white" font-size="6" text-anchor="middle">B</text>
+      <rect x="627" y="40" width="14" height="10" rx="1" fill="#facc15" opacity="0.4"/><text x="634" y="48" fill="#1e293b" font-size="6" text-anchor="middle">C</text>
+      <rect x="643" y="40" width="14" height="10" rx="1" fill="#22c55e" opacity="0.4"/><text x="650" y="48" fill="white" font-size="6" text-anchor="middle">D</text>
+      <text x="625" y="64" fill="#ef4444" font-size="9" text-anchor="middle" font-weight="600">→ Purkaa vain A (oma avain)</text>
 
-      <rect x="545" y="68" width="50" height="18" rx="3" fill="rgba(59,130,246,0.15)" stroke="#3b82f6" stroke-opacity="0.3"/>
-      <text x="570" y="80" fill="#60a5fa" font-size="8" text-anchor="middle">A B C D</text>
-      <text x="610" y="80" fill="#94a3b8" font-size="8">← lukee vain C</text>
+      <!-- ONT 2 -->
+      <rect x="500" y="65" width="85" height="34" rx="6" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-opacity="0.4" stroke-width="1.5"/>
+      <text x="542" y="87" fill="#22c55e" font-size="11" font-weight="700" text-anchor="middle">ONT 2</text>
+      <rect x="595" y="67" width="14" height="10" rx="1" fill="#ef4444" opacity="0.4"/>
+      <rect x="611" y="67" width="14" height="10" rx="1" fill="#f97316" opacity="0.9"/><text x="618" y="75" fill="white" font-size="6" text-anchor="middle">B</text>
+      <rect x="627" y="67" width="14" height="10" rx="1" fill="#facc15" opacity="0.4"/>
+      <rect x="643" y="67" width="14" height="10" rx="1" fill="#22c55e" opacity="0.4"/>
+      <text x="625" y="91" fill="#f97316" font-size="9" text-anchor="middle" font-weight="600">→ Purkaa vain B (oma avain)</text>
 
-      <rect x="545" y="88" width="50" height="18" rx="3" fill="rgba(59,130,246,0.15)" stroke="#3b82f6" stroke-opacity="0.3"/>
-      <text x="570" y="100" fill="#60a5fa" font-size="8" text-anchor="middle">A B C D</text>
-      <text x="610" y="100" fill="#94a3b8" font-size="8">← lukee vain D</text>
+      <!-- ONT 3 -->
+      <rect x="500" y="92" width="85" height="34" rx="6" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-opacity="0.4" stroke-width="1.5"/>
+      <text x="542" y="114" fill="#22c55e" font-size="11" font-weight="700" text-anchor="middle">ONT 3</text>
+      <rect x="595" y="94" width="14" height="10" rx="1" fill="#ef4444" opacity="0.4"/>
+      <rect x="611" y="94" width="14" height="10" rx="1" fill="#f97316" opacity="0.4"/>
+      <rect x="627" y="94" width="14" height="10" rx="1" fill="#facc15" opacity="0.9"/><text x="634" y="102" fill="#1e293b" font-size="6" text-anchor="middle">C</text>
+      <rect x="643" y="94" width="14" height="10" rx="1" fill="#22c55e" opacity="0.4"/>
+      <text x="625" y="118" fill="#facc15" font-size="9" text-anchor="middle" font-weight="600">→ Purkaa vain C (oma avain)</text>
 
-      <!-- Separator -->
-      <line x1="30" y1="130" x2="770" y2="130" stroke="#1e293b" stroke-width="1"/>
+      <!-- ONT 4 -->
+      <rect x="500" y="119" width="85" height="34" rx="6" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-opacity="0.4" stroke-width="1.5"/>
+      <text x="542" y="141" fill="#22c55e" font-size="11" font-weight="700" text-anchor="middle">ONT 4</text>
+      <rect x="595" y="121" width="14" height="10" rx="1" fill="#ef4444" opacity="0.4"/>
+      <rect x="611" y="121" width="14" height="10" rx="1" fill="#f97316" opacity="0.4"/>
+      <rect x="627" y="121" width="14" height="10" rx="1" fill="#facc15" opacity="0.4"/>
+      <rect x="643" y="121" width="14" height="10" rx="1" fill="#22c55e" opacity="0.9"/><text x="650" y="129" fill="white" font-size="6" text-anchor="middle">D</text>
+      <text x="625" y="145" fill="#22c55e" font-size="9" text-anchor="middle" font-weight="600">→ Purkaa vain D (oma avain)</text>
 
-      <!-- Upstream TDMA -->
-      <text x="400" y="155" fill="#22c55e" font-size="13" font-weight="700" text-anchor="middle" letter-spacing="1">UPSTREAM — 1310 nm — TDMA</text>
+      <!-- Key insight box -->
+      <rect x="500" y="158" width="370" height="28" rx="6" fill="rgba(239,68,68,0.06)" stroke="rgba(239,68,68,0.15)"/>
+      <text x="685" y="176" fill="#f87171" font-size="10" text-anchor="middle" font-weight="600">🔒 AES-128 salaus — jokainen ONT näkee kaiken, mutta voi purkaa vain omansa</text>
 
-      <!-- Timeline -->
-      <line x1="50" y1="200" x2="750" y2="200" stroke="#334155" stroke-width="2"/>
-      <text x="400" y="220" fill="#94a3b8" font-size="10" text-anchor="middle">Aika →</text>
+      <!-- ═══ SEPARATOR ═══ -->
+      <line x1="20" y1="205" x2="880" y2="205" stroke="#1e293b" stroke-width="1.5"/>
 
-      <!-- Time slots -->
-      <rect x="80" y="175" width="120" height="30" rx="4" fill="rgba(239,68,68,0.15)" stroke="#ef4444" stroke-opacity="0.3"/>
-      <text x="140" y="194" fill="#ef4444" font-size="11" font-weight="600" text-anchor="middle">ONT 1</text>
+      <!-- UPSTREAM TDMA -->
+      <text x="450" y="230" fill="#22c55e" font-size="14" font-weight="800" text-anchor="middle" letter-spacing="2">UPSTREAM — 1310 nm</text>
+      <text x="450" y="248" fill="#94a3b8" font-size="11" text-anchor="middle">ONT:t lähettävät vuorotellen — OLT jakaa aikavälit (TDMA). Ei törmäyksiä.</text>
 
-      <rect x="210" y="175" width="80" height="30" rx="4" fill="rgba(249,115,22,0.15)" stroke="#f97316" stroke-opacity="0.3"/>
-      <text x="250" y="194" fill="#f97316" font-size="11" font-weight="600" text-anchor="middle">ONT 2</text>
+      <!-- ONTs sending one at a time -->
+      <rect x="30" y="270" width="70" height="30" rx="5" fill="rgba(239,68,68,0.12)" stroke="#ef4444" stroke-opacity="0.3"/>
+      <text x="65" y="289" fill="#ef4444" font-size="10" font-weight="600" text-anchor="middle">ONT 1</text>
 
-      <rect x="300" y="175" width="150" height="30" rx="4" fill="rgba(250,204,21,0.15)" stroke="#facc15" stroke-opacity="0.3"/>
-      <text x="375" y="194" fill="#facc15" font-size="11" font-weight="600" text-anchor="middle">ONT 3</text>
+      <rect x="30" y="308" width="70" height="30" rx="5" fill="rgba(249,115,22,0.12)" stroke="#f97316" stroke-opacity="0.3"/>
+      <text x="65" y="327" fill="#f97316" font-size="10" font-weight="600" text-anchor="middle">ONT 2</text>
 
-      <rect x="460" y="175" width="60" height="30" rx="4" fill="rgba(34,197,94,0.15)" stroke="#22c55e" stroke-opacity="0.3"/>
-      <text x="490" y="194" fill="#22c55e" font-size="11" font-weight="600" text-anchor="middle">ONT 4</text>
+      <rect x="30" y="346" width="70" height="30" rx="5" fill="rgba(250,204,21,0.12)" stroke="#facc15" stroke-opacity="0.3"/>
+      <text x="65" y="365" fill="#facc15" font-size="10" font-weight="600" text-anchor="middle">ONT 3</text>
 
-      <!-- Guard bands -->
-      <line x1="205" y1="170" x2="205" y2="210" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2 2" opacity="0.5"/>
-      <line x1="295" y1="170" x2="295" y2="210" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2 2" opacity="0.5"/>
-      <line x1="455" y1="170" x2="455" y2="210" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2 2" opacity="0.5"/>
+      <rect x="30" y="384" width="70" height="30" rx="5" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-opacity="0.3"/>
+      <text x="65" y="403" fill="#22c55e" font-size="10" font-weight="600" text-anchor="middle">ONT 4</text>
 
-      <!-- DBA explanation -->
-      <rect x="50" y="240" width="700" height="45" rx="8" fill="rgba(59,130,246,0.04)" stroke="rgba(59,130,246,0.12)"/>
-      <text x="400" y="258" fill="#60a5fa" font-size="11" font-weight="600" text-anchor="middle">DBA (Dynamic Bandwidth Allocation)</text>
-      <text x="400" y="275" fill="#94a3b8" font-size="10" text-anchor="middle">OLT jakaa aikavälit dynaamisesti tarpeen mukaan — enemmän dataa = pidempi aikaväli. Ei törmäyksiä.</text>
+      <!-- Arrows to timeline -->
+      <line x1="100" y1="285" x2="155" y2="285" stroke="#ef4444" stroke-width="1.5" stroke-opacity="0.4"/>
+      <line x1="100" y1="323" x2="155" y2="323" stroke="#f97316" stroke-width="1.5" stroke-opacity="0.4"/>
+      <line x1="100" y1="361" x2="155" y2="361" stroke="#facc15" stroke-width="1.5" stroke-opacity="0.4"/>
+      <line x1="100" y1="399" x2="155" y2="399" stroke="#22c55e" stroke-width="1.5" stroke-opacity="0.4"/>
+
+      <!-- Merged timeline -->
+      <text x="450" y="270" fill="#94a3b8" font-size="10" text-anchor="middle">Aika →</text>
+      <line x1="160" y1="280" x2="820" y2="280" stroke="#334155" stroke-width="2"/>
+
+      <!-- Time slots: visually show data fitting together like puzzle pieces -->
+      <rect x="160" y="290" width="140" height="40" rx="4" fill="rgba(239,68,68,0.12)" stroke="#ef4444" stroke-opacity="0.3" stroke-width="1.5"/>
+      <text x="230" y="315" fill="#ef4444" font-size="12" font-weight="700" text-anchor="middle">ONT 1 data</text>
+      <rect x="160" y="290" width="140" height="4" rx="1" fill="#ef4444" opacity="0.6"/>
+
+      <rect x="308" y="290" width="90" height="40" rx="4" fill="rgba(249,115,22,0.12)" stroke="#f97316" stroke-opacity="0.3" stroke-width="1.5"/>
+      <text x="353" y="315" fill="#f97316" font-size="12" font-weight="700" text-anchor="middle">ONT 2</text>
+      <rect x="308" y="290" width="90" height="4" rx="1" fill="#f97316" opacity="0.6"/>
+
+      <rect x="406" y="290" width="180" height="40" rx="4" fill="rgba(250,204,21,0.12)" stroke="#facc15" stroke-opacity="0.3" stroke-width="1.5"/>
+      <text x="496" y="315" fill="#facc15" font-size="12" font-weight="700" text-anchor="middle">ONT 3 data</text>
+      <rect x="406" y="290" width="180" height="4" rx="1" fill="#facc15" opacity="0.6"/>
+
+      <rect x="594" y="290" width="70" height="40" rx="4" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-opacity="0.3" stroke-width="1.5"/>
+      <text x="629" y="315" fill="#22c55e" font-size="11" font-weight="700" text-anchor="middle">ONT 4</text>
+      <rect x="594" y="290" width="70" height="4" rx="1" fill="#22c55e" opacity="0.6"/>
+
+      <!-- Guard time markers -->
+      <line x1="304" y1="286" x2="304" y2="334" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3 2" opacity="0.4"/>
+      <line x1="402" y1="286" x2="402" y2="334" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3 2" opacity="0.4"/>
+      <line x1="590" y1="286" x2="590" y2="334" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3 2" opacity="0.4"/>
+      <text x="304" y="346" fill="#64748b" font-size="7" text-anchor="middle">guard</text>
+      <text x="402" y="346" fill="#64748b" font-size="7" text-anchor="middle">guard</text>
+      <text x="590" y="346" fill="#64748b" font-size="7" text-anchor="middle">guard</text>
+
+      <!-- Combined to OLT -->
+      <line x1="670" y1="310" x2="770" y2="310" stroke="#22c55e" stroke-width="3" stroke-opacity="0.4"/>
+      <polygon points="770,304 785,310 770,316" fill="#22c55e" opacity="0.5"/>
+      <rect x="790" y="290" width="80" height="40" rx="8" fill="rgba(59,130,246,0.12)" stroke="#3b82f6" stroke-opacity="0.3"/>
+      <text x="830" y="314" fill="#60a5fa" font-size="12" font-weight="700" text-anchor="middle">OLT</text>
+
+      <!-- DBA box -->
+      <rect x="160" y="360" width="660" height="55" rx="8" fill="rgba(59,130,246,0.04)" stroke="rgba(59,130,246,0.15)"/>
+      <text x="490" y="380" fill="#60a5fa" font-size="12" font-weight="700" text-anchor="middle">DBA — Dynamic Bandwidth Allocation</text>
+      <text x="490" y="397" fill="#94a3b8" font-size="10" text-anchor="middle">OLT päättää kuka lähettää milloinkin ja kuinka kauan. Enemmän dataa = pidempi aikaväli.</text>
+      <text x="490" y="410" fill="#94a3b8" font-size="10" text-anchor="middle">Siksi ONT 3:n lohko on isompi kuin ONT 4:n — dynaaminen allokointi tarpeen mukaan.</text>
+
+      <!-- Wavelength labels on sides -->
+      <rect x="20" y="430" width="420" height="40" rx="8" fill="rgba(59,130,246,0.04)" stroke="rgba(59,130,246,0.1)"/>
+      <text x="230" y="450" fill="#60a5fa" font-size="10" text-anchor="middle" font-weight="600">↓ DOWNSTREAM 1490 nm — Broadcast, salattu</text>
+      <text x="230" y="464" fill="#94a3b8" font-size="9" text-anchor="middle">Sama signaali kaikille, AES-128 avain per ONT</text>
+
+      <rect x="460" y="430" width="420" height="40" rx="8" fill="rgba(34,197,94,0.04)" stroke="rgba(34,197,94,0.1)"/>
+      <text x="670" y="450" fill="#22c55e" font-size="10" text-anchor="middle" font-weight="600">↑ UPSTREAM 1310 nm — TDMA, vuorottelu</text>
+      <text x="670" y="464" fill="#94a3b8" font-size="9" text-anchor="middle">ONT:t lähettävät eri aikoina, OLT hallitsee</text>
     </svg>
   </div>
 
@@ -965,6 +1040,226 @@
       <h3>Aloita 1 PON, lisää tarpeen mukaan</h3>
       <p>Ensimmäinen vaihe: 1 PON = 32 asiakasta. Lisätään λ-kanava ja splitteri sitä mukaa kun tilaajia tulee. Pay-as-you-grow.</p>
     </div>
+  </div>
+</section>
+
+<!-- 9b. SIGNAALITASON YHDISTELMÄKAAVIO -->
+<section class="section" data-label="Signaalitaso">
+  <div class="section-num">⚡</div>
+  <h2>Koko kuva — GPON + CWDM signaalitasolla</h2>
+  <p class="subtitle">Miten GPON:n broadcast/TDMA ja CWDM:n aallonpituusjako toimivat yhdessä? Tässä koko signaaliketju OLT:sta ONT:lle.</p>
+
+  <div class="diagram-box" style="padding: 24px;">
+    <svg class="diagram" viewBox="0 0 950 580">
+      <!-- Title -->
+      <text x="475" y="20" fill="#e2e8f0" font-size="13" font-weight="800" text-anchor="middle" letter-spacing="2">SIGNAALIN MATKA: OLT → KUITU → ONT</text>
+
+      <!-- ═══ STEP 1: OLT creates 4 independent GPON streams ═══ -->
+      <rect x="10" y="40" width="230" height="220" rx="10" fill="rgba(59,130,246,0.04)" stroke="#3b82f6" stroke-opacity="0.15"/>
+      <text x="125" y="58" fill="#60a5fa" font-size="10" font-weight="700" text-anchor="middle" letter-spacing="1">① OLT — 4 PON-PORTTIA</text>
+      <text x="125" y="72" fill="#94a3b8" font-size="8" text-anchor="middle">Jokainen portti = oma GPON-signaali, oma λ</text>
+
+      <!-- PON 1: λ1 -->
+      <rect x="20" y="85" width="210" height="38" rx="6" fill="rgba(239,68,68,0.06)" stroke="#ef4444" stroke-opacity="0.2"/>
+      <text x="30" y="100" fill="#ef4444" font-size="9" font-weight="700">PON 1</text>
+      <text x="30" y="115" fill="#94a3b8" font-size="7">λ1 = 1270 nm</text>
+      <!-- Mini data packets -->
+      <rect x="90" y="90" width="16" height="10" rx="1" fill="#ef4444" opacity="0.7"/><text x="98" y="98" fill="white" font-size="5" text-anchor="middle">A1</text>
+      <rect x="108" y="90" width="16" height="10" rx="1" fill="#ef4444" opacity="0.5"/><text x="116" y="98" fill="white" font-size="5" text-anchor="middle">B1</text>
+      <rect x="126" y="90" width="16" height="10" rx="1" fill="#ef4444" opacity="0.3"/><text x="134" y="98" fill="white" font-size="5" text-anchor="middle">C1</text>
+      <text x="160" y="98" fill="#94a3b8" font-size="7">↓+↑ TDMA</text>
+
+      <!-- PON 2: λ2 -->
+      <rect x="20" y="128" width="210" height="38" rx="6" fill="rgba(249,115,22,0.06)" stroke="#f97316" stroke-opacity="0.2"/>
+      <text x="30" y="143" fill="#f97316" font-size="9" font-weight="700">PON 2</text>
+      <text x="30" y="158" fill="#94a3b8" font-size="7">λ2 = 1290 nm</text>
+      <rect x="90" y="133" width="16" height="10" rx="1" fill="#f97316" opacity="0.7"/>
+      <rect x="108" y="133" width="16" height="10" rx="1" fill="#f97316" opacity="0.5"/>
+      <rect x="126" y="133" width="16" height="10" rx="1" fill="#f97316" opacity="0.3"/>
+      <text x="160" y="141" fill="#94a3b8" font-size="7">↓+↑ TDMA</text>
+
+      <!-- PON 3: λ3 -->
+      <rect x="20" y="171" width="210" height="38" rx="6" fill="rgba(250,204,21,0.06)" stroke="#facc15" stroke-opacity="0.2"/>
+      <text x="30" y="186" fill="#facc15" font-size="9" font-weight="700">PON 3</text>
+      <text x="30" y="201" fill="#94a3b8" font-size="7">λ3 = 1310 nm</text>
+      <rect x="90" y="176" width="16" height="10" rx="1" fill="#facc15" opacity="0.7"/>
+      <rect x="108" y="176" width="16" height="10" rx="1" fill="#facc15" opacity="0.5"/>
+      <rect x="126" y="176" width="16" height="10" rx="1" fill="#facc15" opacity="0.3"/>
+
+      <!-- PON 4: λ4 -->
+      <rect x="20" y="214" width="210" height="38" rx="6" fill="rgba(34,197,94,0.06)" stroke="#22c55e" stroke-opacity="0.2"/>
+      <text x="30" y="229" fill="#22c55e" font-size="9" font-weight="700">PON 4</text>
+      <text x="30" y="244" fill="#94a3b8" font-size="7">λ4 = 1330 nm</text>
+      <rect x="90" y="219" width="16" height="10" rx="1" fill="#22c55e" opacity="0.7"/>
+      <rect x="108" y="219" width="16" height="10" rx="1" fill="#22c55e" opacity="0.5"/>
+      <rect x="126" y="219" width="16" height="10" rx="1" fill="#22c55e" opacity="0.3"/>
+
+      <!-- ═══ STEP 2: CWDM MUX combines into one fiber ═══ -->
+      <!-- Arrows from PON ports to MUX -->
+      <line x1="230" y1="104" x2="270" y2="140" stroke="#ef4444" stroke-width="2" stroke-opacity="0.5"/>
+      <line x1="230" y1="147" x2="270" y2="155" stroke="#f97316" stroke-width="2" stroke-opacity="0.5"/>
+      <line x1="230" y1="190" x2="270" y2="170" stroke="#facc15" stroke-width="2" stroke-opacity="0.5"/>
+      <line x1="230" y1="233" x2="270" y2="185" stroke="#22c55e" stroke-width="2" stroke-opacity="0.5"/>
+
+      <rect x="270" y="120" width="70" height="85" rx="8" fill="rgba(139,92,246,0.1)" stroke="#8b5cf6" stroke-opacity="0.4" stroke-width="2"/>
+      <text x="305" y="155" fill="#a78bfa" font-size="10" font-weight="700" text-anchor="middle">CWDM</text>
+      <text x="305" y="168" fill="#a78bfa" font-size="10" font-weight="700" text-anchor="middle">MUX</text>
+      <text x="305" y="195" fill="#94a3b8" font-size="7" text-anchor="middle">② Yhdistää 4 λ</text>
+
+      <!-- ═══ STEP 3: Single fiber with all wavelengths ═══ -->
+      <line x1="340" y1="162" x2="540" y2="162" stroke="#1e293b" stroke-width="14" stroke-linecap="round"/>
+      <defs><linearGradient id="fgAll" x1="0%" x2="100%"><stop offset="0%" stop-color="#ef4444"/><stop offset="25%" stop-color="#f97316"/><stop offset="50%" stop-color="#facc15"/><stop offset="100%" stop-color="#22c55e"/></linearGradient></defs>
+      <line x1="340" y1="162" x2="540" y2="162" stroke="url(#fgAll)" stroke-width="16" stroke-linecap="round" opacity="0.25"/>
+
+      <!-- Animated pulses on combined fiber -->
+      <circle r="5" fill="#ef4444" opacity="0.9"><animateMotion dur="2.5s" repeatCount="indefinite" path="M345,162 L535,162" begin="0s"/></circle>
+      <circle r="5" fill="#f97316" opacity="0.9"><animateMotion dur="2.5s" repeatCount="indefinite" path="M345,162 L535,162" begin="0.5s"/></circle>
+      <circle r="5" fill="#facc15" opacity="0.9"><animateMotion dur="2.5s" repeatCount="indefinite" path="M345,162 L535,162" begin="1s"/></circle>
+      <circle r="5" fill="#22c55e" opacity="0.9"><animateMotion dur="2.5s" repeatCount="indefinite" path="M345,162 L535,162" begin="1.5s"/></circle>
+
+      <text x="440" y="148" fill="#e2e8f0" font-size="10" text-anchor="middle" font-weight="600">③ 1 KUITU</text>
+      <text x="440" y="183" fill="#94a3b8" font-size="8" text-anchor="middle">4 λ samanaikaisesti</text>
+      <text x="440" y="195" fill="#64748b" font-size="8" text-anchor="middle">eivät häiritse toisiaan</text>
+
+      <!-- Wavelength spectrum mini-visualization -->
+      <rect x="370" y="200" width="140" height="30" rx="4" fill="rgba(30,41,59,0.8)" stroke="#334155"/>
+      <rect x="380" y="208" width="20" height="14" rx="2" fill="#ef4444" opacity="0.5"/><text x="390" y="218" fill="white" font-size="6" text-anchor="middle">λ1</text>
+      <rect x="405" y="208" width="20" height="14" rx="2" fill="#f97316" opacity="0.5"/><text x="415" y="218" fill="white" font-size="6" text-anchor="middle">λ2</text>
+      <rect x="430" y="208" width="20" height="14" rx="2" fill="#facc15" opacity="0.5"/><text x="440" y="218" fill="#1e293b" font-size="6" text-anchor="middle">λ3</text>
+      <rect x="455" y="208" width="20" height="14" rx="2" fill="#22c55e" opacity="0.5"/><text x="465" y="218" fill="white" font-size="6" text-anchor="middle">λ4</text>
+      <text x="490" y="220" fill="#64748b" font-size="7">20 nm väli</text>
+
+      <!-- ═══ STEP 4: CWDM DEMUX separates wavelengths ═══ -->
+      <rect x="540" y="120" width="70" height="85" rx="8" fill="rgba(139,92,246,0.1)" stroke="#8b5cf6" stroke-opacity="0.4" stroke-width="2"/>
+      <text x="575" y="155" fill="#a78bfa" font-size="10" font-weight="700" text-anchor="middle">CWDM</text>
+      <text x="575" y="168" fill="#a78bfa" font-size="10" font-weight="700" text-anchor="middle">DEMUX</text>
+      <text x="575" y="195" fill="#94a3b8" font-size="7" text-anchor="middle">④ Erottaa λ:t</text>
+
+      <!-- Lines from DEMUX to splitters -->
+      <line x1="610" y1="140" x2="660" y2="85" stroke="#ef4444" stroke-width="2" stroke-opacity="0.5"/>
+      <line x1="610" y1="155" x2="660" y2="135" stroke="#f97316" stroke-width="2" stroke-opacity="0.5"/>
+      <line x1="610" y1="170" x2="660" y2="190" stroke="#facc15" stroke-width="2" stroke-opacity="0.5"/>
+      <line x1="610" y1="185" x2="660" y2="240" stroke="#22c55e" stroke-width="2" stroke-opacity="0.5"/>
+
+      <!-- ═══ STEP 5: Splitters divide each PON to customers ═══ -->
+      <rect x="650" y="40" width="290" height="225" rx="10" fill="rgba(6,182,212,0.03)" stroke="#06b6d4" stroke-opacity="0.1"/>
+      <text x="795" y="58" fill="#06b6d4" font-size="9" font-weight="600" text-anchor="middle" letter-spacing="1">⑤ SPLITTERIT + ONT:t</text>
+
+      <!-- Splitter 1 + ONTs -->
+      <polygon points="660,72 685,78 685,95 660,101" fill="rgba(250,204,21,0.08)" stroke="#facc15" stroke-opacity="0.3"/>
+      <text x="672" y="90" fill="#facc15" font-size="7" font-weight="600" text-anchor="middle">1:32</text>
+      <line x1="685" y1="82" x2="730" y2="72" stroke="#ef4444" stroke-width="1" stroke-opacity="0.3"/>
+      <line x1="685" y1="86" x2="730" y2="82" stroke="#ef4444" stroke-width="1" stroke-opacity="0.3"/>
+      <line x1="685" y1="90" x2="730" y2="92" stroke="#ef4444" stroke-width="1" stroke-opacity="0.3"/>
+      <rect x="732" y="67" width="45" height="14" rx="3" fill="rgba(239,68,68,0.1)" stroke="#ef4444" stroke-opacity="0.2"/>
+      <text x="754" y="77" fill="#ef4444" font-size="6" text-anchor="middle">ONT A1</text>
+      <rect x="732" y="83" width="45" height="14" rx="3" fill="rgba(239,68,68,0.1)" stroke="#ef4444" stroke-opacity="0.2"/>
+      <text x="754" y="93" fill="#ef4444" font-size="6" text-anchor="middle">ONT A2</text>
+      <text x="795" y="80" fill="#94a3b8" font-size="7">...32 kpl</text>
+
+      <!-- Splitter 2 + ONTs -->
+      <polygon points="660,122 685,128 685,145 660,151" fill="rgba(250,204,21,0.08)" stroke="#facc15" stroke-opacity="0.3"/>
+      <text x="672" y="140" fill="#facc15" font-size="7" font-weight="600" text-anchor="middle">1:32</text>
+      <line x1="685" y1="132" x2="730" y2="122" stroke="#f97316" stroke-width="1" stroke-opacity="0.3"/>
+      <line x1="685" y1="136" x2="730" y2="132" stroke="#f97316" stroke-width="1" stroke-opacity="0.3"/>
+      <line x1="685" y1="140" x2="730" y2="142" stroke="#f97316" stroke-width="1" stroke-opacity="0.3"/>
+      <rect x="732" y="117" width="45" height="14" rx="3" fill="rgba(249,115,22,0.1)" stroke="#f97316" stroke-opacity="0.2"/>
+      <text x="754" y="127" fill="#f97316" font-size="6" text-anchor="middle">ONT B1</text>
+      <rect x="732" y="133" width="45" height="14" rx="3" fill="rgba(249,115,22,0.1)" stroke="#f97316" stroke-opacity="0.2"/>
+      <text x="754" y="143" fill="#f97316" font-size="6" text-anchor="middle">ONT B2</text>
+      <text x="795" y="130" fill="#94a3b8" font-size="7">...32 kpl</text>
+
+      <!-- Splitter 3 + ONTs -->
+      <polygon points="660,177 685,183 685,200 660,206" fill="rgba(250,204,21,0.08)" stroke="#facc15" stroke-opacity="0.3"/>
+      <text x="672" y="195" fill="#facc15" font-size="7" font-weight="600" text-anchor="middle">1:32</text>
+      <line x1="685" y1="187" x2="730" y2="177" stroke="#facc15" stroke-width="1" stroke-opacity="0.3"/>
+      <line x1="685" y1="191" x2="730" y2="187" stroke="#facc15" stroke-width="1" stroke-opacity="0.3"/>
+      <line x1="685" y1="195" x2="730" y2="197" stroke="#facc15" stroke-width="1" stroke-opacity="0.3"/>
+      <rect x="732" y="172" width="45" height="14" rx="3" fill="rgba(250,204,21,0.1)" stroke="#facc15" stroke-opacity="0.2"/>
+      <text x="754" y="182" fill="#facc15" font-size="6" text-anchor="middle">ONT C1</text>
+      <rect x="732" y="188" width="45" height="14" rx="3" fill="rgba(250,204,21,0.1)" stroke="#facc15" stroke-opacity="0.2"/>
+      <text x="754" y="198" fill="#facc15" font-size="6" text-anchor="middle">ONT C2</text>
+      <text x="795" y="185" fill="#94a3b8" font-size="7">...32 kpl</text>
+
+      <!-- Splitter 4 + ONTs -->
+      <polygon points="660,227 685,233 685,250 660,256" fill="rgba(250,204,21,0.08)" stroke="#facc15" stroke-opacity="0.3"/>
+      <text x="672" y="245" fill="#facc15" font-size="7" font-weight="600" text-anchor="middle">1:32</text>
+      <line x1="685" y1="237" x2="730" y2="227" stroke="#22c55e" stroke-width="1" stroke-opacity="0.3"/>
+      <line x1="685" y1="241" x2="730" y2="237" stroke="#22c55e" stroke-width="1" stroke-opacity="0.3"/>
+      <line x1="685" y1="245" x2="730" y2="247" stroke="#22c55e" stroke-width="1" stroke-opacity="0.3"/>
+      <rect x="732" y="222" width="45" height="14" rx="3" fill="rgba(34,197,94,0.1)" stroke="#22c55e" stroke-opacity="0.2"/>
+      <text x="754" y="232" fill="#22c55e" font-size="6" text-anchor="middle">ONT D1</text>
+      <rect x="732" y="238" width="45" height="14" rx="3" fill="rgba(34,197,94,0.1)" stroke="#22c55e" stroke-opacity="0.2"/>
+      <text x="754" y="248" fill="#22c55e" font-size="6" text-anchor="middle">ONT D2</text>
+      <text x="795" y="240" fill="#94a3b8" font-size="7">...32 kpl</text>
+
+      <!-- ═══ BOTTOM: Side-by-side comparison ═══ -->
+      <line x1="20" y1="290" x2="930" y2="290" stroke="#1e293b" stroke-width="1.5"/>
+
+      <!-- GPON jakaa AJASSA -->
+      <rect x="20" y="310" width="440" height="255" rx="12" fill="rgba(59,130,246,0.03)" stroke="#3b82f6" stroke-opacity="0.1"/>
+      <text x="240" y="335" fill="#60a5fa" font-size="12" font-weight="800" text-anchor="middle" letter-spacing="1">GPON JAKAA AJASSA</text>
+      <text x="240" y="352" fill="#94a3b8" font-size="9" text-anchor="middle">1 aallonpituus, N asiakasta vuorottelee</text>
+
+      <!-- Time axis -->
+      <line x1="50" y1="390" x2="430" y2="390" stroke="#334155" stroke-width="2"/>
+      <text x="240" y="410" fill="#64748b" font-size="9" text-anchor="middle">Aika →</text>
+
+      <!-- Single wavelength bar with time slots -->
+      <text x="40" y="380" fill="#60a5fa" font-size="8" font-weight="600">λ1</text>
+      <rect x="60" y="370" width="80" height="24" rx="3" fill="rgba(239,68,68,0.2)" stroke="#ef4444" stroke-opacity="0.3"/>
+      <text x="100" y="386" fill="#ef4444" font-size="9" font-weight="600" text-anchor="middle">ONT 1</text>
+      <rect x="148" y="370" width="50" height="24" rx="3" fill="rgba(249,115,22,0.2)" stroke="#f97316" stroke-opacity="0.3"/>
+      <text x="173" y="386" fill="#f97316" font-size="9" font-weight="600" text-anchor="middle">ONT 2</text>
+      <rect x="206" y="370" width="100" height="24" rx="3" fill="rgba(250,204,21,0.2)" stroke="#facc15" stroke-opacity="0.3"/>
+      <text x="256" y="386" fill="#facc15" font-size="9" font-weight="600" text-anchor="middle">ONT 3</text>
+      <rect x="314" y="370" width="40" height="24" rx="3" fill="rgba(34,197,94,0.2)" stroke="#22c55e" stroke-opacity="0.3"/>
+      <text x="334" y="386" fill="#22c55e" font-size="8" font-weight="600" text-anchor="middle">ONT4</text>
+
+      <!-- Key properties -->
+      <text x="60" y="440" fill="#e2e8f0" font-size="10" font-weight="600">Ominaisuudet:</text>
+      <text x="60" y="458" fill="#94a3b8" font-size="9">• Yksi λ jaetaan monelle asiakkaalle</text>
+      <text x="60" y="473" fill="#94a3b8" font-size="9">• Downstream: broadcast + salaus (AES-128)</text>
+      <text x="60" y="488" fill="#94a3b8" font-size="9">• Upstream: TDMA — vuorotellaan aikavälein</text>
+      <text x="60" y="503" fill="#94a3b8" font-size="9">• Splitteri kopioi/yhdistää optisesti</text>
+      <text x="60" y="518" fill="#94a3b8" font-size="9">• Jaettu kapasiteetti: 2.5G / 32 ONT = ~78 Mbps/ONT</text>
+      <text x="60" y="540" fill="#60a5fa" font-size="9" font-weight="600">→ Jakaa yhden kuidun AJASSA monelle</text>
+
+      <!-- CWDM jakaa AALLONPITUUDESSA -->
+      <rect x="480" y="310" width="460" height="255" rx="12" fill="rgba(139,92,246,0.03)" stroke="#8b5cf6" stroke-opacity="0.1"/>
+      <text x="710" y="335" fill="#a78bfa" font-size="12" font-weight="800" text-anchor="middle" letter-spacing="1">CWDM JAKAA AALLONPITUUDESSA</text>
+      <text x="710" y="352" fill="#94a3b8" font-size="9" text-anchor="middle">1 kuitu, N aallonpituutta samanaikaisesti</text>
+
+      <!-- Wavelength axis -->
+      <line x1="510" y1="390" x2="900" y2="390" stroke="#334155" stroke-width="2"/>
+      <text x="710" y="410" fill="#64748b" font-size="9" text-anchor="middle">Aallonpituus (nm) →</text>
+
+      <!-- Parallel wavelength bars -->
+      <rect x="520" y="365" width="85" height="24" rx="3" fill="rgba(239,68,68,0.2)" stroke="#ef4444" stroke-opacity="0.3"/>
+      <text x="562" y="381" fill="#ef4444" font-size="9" font-weight="600" text-anchor="middle">λ1 1270nm</text>
+
+      <rect x="615" y="365" width="85" height="24" rx="3" fill="rgba(249,115,22,0.2)" stroke="#f97316" stroke-opacity="0.3"/>
+      <text x="657" y="381" fill="#f97316" font-size="9" font-weight="600" text-anchor="middle">λ2 1290nm</text>
+
+      <rect x="710" y="365" width="85" height="24" rx="3" fill="rgba(250,204,21,0.2)" stroke="#facc15" stroke-opacity="0.3"/>
+      <text x="752" y="381" fill="#facc15" font-size="9" font-weight="600" text-anchor="middle">λ3 1310nm</text>
+
+      <rect x="805" y="365" width="85" height="24" rx="3" fill="rgba(34,197,94,0.2)" stroke="#22c55e" stroke-opacity="0.3"/>
+      <text x="847" y="381" fill="#22c55e" font-size="9" font-weight="600" text-anchor="middle">λ4 1330nm</text>
+
+      <!-- Key properties -->
+      <text x="520" y="440" fill="#e2e8f0" font-size="10" font-weight="600">Ominaisuudet:</text>
+      <text x="520" y="458" fill="#94a3b8" font-size="9">• Monta λ:aa kulkee samassa kuidussa yhtä aikaa</text>
+      <text x="520" y="473" fill="#94a3b8" font-size="9">• Jokainen λ on itsenäinen signaali (esim. GPON)</text>
+      <text x="520" y="488" fill="#94a3b8" font-size="9">• MUX yhdistää, DEMUX erottaa (passiivinen)</text>
+      <text x="520" y="503" fill="#94a3b8" font-size="9">• 20 nm kanavaväli — signaalit eivät häiritse toisiaan</text>
+      <text x="520" y="518" fill="#94a3b8" font-size="9">• Dedikoitu kapasiteetti per λ: 2.5G per PON, ei jaeta</text>
+      <text x="520" y="540" fill="#a78bfa" font-size="9" font-weight="600">→ Jakaa yhden kuidun AALLONPITUUDESSA monelle</text>
+
+      <!-- Center: COMBINED -->
+      <rect x="360" y="548" width="230" height="28" rx="8" fill="rgba(250,204,21,0.08)" stroke="#facc15" stroke-opacity="0.3"/>
+      <text x="475" y="566" fill="#facc15" font-size="10" font-weight="700" text-anchor="middle">YHDESSÄ: 4λ × 32 ONT = 128 asiakasta / kuitu</text>
+    </svg>
   </div>
 </section>
 
