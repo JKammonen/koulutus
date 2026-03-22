@@ -160,9 +160,40 @@
   <div class="part-title">Valon fysiikka</div>
 </div>
 
-<!-- 01. MITÄ VALO ON? -->
-<section class="section" data-label="Mitä valo on?">
+<!-- 01. MIKSI KUITU? -->
+<section class="section" data-label="Miksi kuitu?">
   <div class="section-num">01</div>
+  <h2>Miksi kuitu?</h2>
+  <p class="subtitle">Kupari vs. valokuitu — miksi kuituverkko on tulevaisuus</p>
+
+  <div class="card-grid" style="grid-template-columns: 1fr 1fr; margin-bottom: 24px;">
+    <div class="card" style="border-color: rgba(239,68,68,0.3);">
+      <div class="card-label" style="color: #ef4444;">Kupari (vanha)</div>
+      <h3 style="color: #ef4444;">Perinteinen tekniikka</h3>
+      <p>Nopeus: max ~1 Gbps (lyhyillä matkoilla)</p>
+      <p>Kantama: ~100 m (Cat6a)</p>
+      <p>Häiriöalttius: sähkömagneettiset häiriöt (EMI)</p>
+      <p>Kaistanleveys jaetaan naapurien kesken (DSL)</p>
+    </div>
+    <div class="card" style="border-color: rgba(34,197,94,0.3);">
+      <div class="card-label" style="color: #22c55e;">Valokuitu (uusi)</div>
+      <h3 style="color: #22c55e;">Tulevaisuuden tekniikka</h3>
+      <p>Nopeus: 10–100+ Gbps</p>
+      <p>Kantama: 20–80+ km</p>
+      <p>Ei sähkömagneettisia häiriöitä</p>
+      <p>Tulevaisuudenkestävä: sama kuitu palvelee vuosikymmeniä, vain päätä päivitetään</p>
+    </div>
+  </div>
+
+  <div class="insight-box">
+    <div class="insight-label">Avainviesti</div>
+    <p>Kuitu asennetaan kerran — kapasiteettia kasvatetaan vaihtamalla lähettimen ja vastaanottimen elektroniikka. Siksi kuidun rakentaminen on investointi vuosikymmeniksi.</p>
+  </div>
+</section>
+
+<!-- 02. MITÄ VALO ON? -->
+<section class="section" data-label="Mitä valo on?">
+  <div class="section-num">02</div>
   <h2>Mitä valo on?</h2>
   <p class="subtitle">Valo on sähkömagneettista säteilyä. Kuituverkossa käytetään infrapunavaloa, joka on ihmissilmälle näkymätöntä — aallonpituudet 850–1625 nm.</p>
 
@@ -227,13 +258,13 @@
   <div class="card-grid">
     <div class="card"><div class="card-label">Aallonpituus</div><h3>λ (lambda)</h3><p>Valon "värin" mitta nanometreissä (nm). Pidempi aallonpituus = matalampi taajuus. Kuidussa käytetään 850–1625 nm.</p></div>
     <div class="card"><div class="card-label">Taajuus</div><h3>f (frekvenssi)</h3><p>Kuinka monta värähtelyä sekunnissa (THz). Taajuus ja aallonpituus ovat kääntäen verrannollisia: f = c / λ.</p></div>
-    <div class="card"><div class="card-label">Valon nopeus</div><h3>c = λ × f</h3><p>Valo kulkee tyhjiössä 299 792 km/s. Kuidussa noin 200 000 km/s (taitekerroin ~1.47).</p></div>
+    <div class="card"><div class="card-label">Valon nopeus</div><h3>c = λ × f</h3><p>Valo kulkee tyhjiössä lähes 300 000 km/s. Kuidussa hieman hitaammin taitekertoimen vuoksi.</p></div>
   </div>
 </section>
 
-<!-- 02. AALLONPITUUS HAVAINNOLLISESTI -->
+<!-- 03. AALLONPITUUS HAVAINNOLLISESTI -->
 <section class="section" data-label="Aallonpituus">
-  <div class="section-num">02</div>
+  <div class="section-num">03</div>
   <h2>Aallonpituus havainnollisesti</h2>
   <p class="subtitle">Aallonpituus on etäisyys kahden peräkkäisen aallon huipun välillä. Lyhyempi aallonpituus tarkoittaa tiheämpää värähtelyä.</p>
 
@@ -278,11 +309,11 @@
   </div>
 </section>
 
-<!-- 03. VALO KUIDUSSA -->
+<!-- 04. VALO KUIDUSSA -->
 <section class="section" data-label="Valo kuidussa">
-  <div class="section-num">03</div>
+  <div class="section-num">04</div>
   <h2>Valo kuidussa — kokonaisheijastus ja kuiturakenne</h2>
-  <p class="subtitle">Valon kokonaisheijastus (total internal reflection) pitää valopulssit kuidun ytimessä. Ytimen taitekerroin on suurempi kuin kuoren, joten valo heijastuu takaisin rajapinnalta.</p>
+  <p class="subtitle">Valon kokonaisheijastus (total internal reflection) pitää valopulssit kuidun ytimessä. Ytimen taitekerroin on hieman suurempi kuin vaipan → valo heijastuu takaisin eikä pääse karkaamaan.</p>
 
   <div class="diagram-box">
     <svg class="diagram" viewBox="0 0 900 300">
@@ -294,7 +325,7 @@
       <circle cx="180" cy="150" r="65" fill="rgba(59,130,246,0.06)" stroke="#3b82f6" stroke-opacity="0.3" stroke-width="2"/>
       <text x="275" y="115" fill="#60a5fa" font-size="10">Kuori 125 µm</text>
       <line x1="245" y1="130" x2="270" y2="118" stroke="#60a5fa" stroke-opacity="0.4"/>
-      <text x="275" y="130" fill="#94a3b8" font-size="9">n₂ = 1.4624</text>
+      <text x="275" y="130" fill="#94a3b8" font-size="9">n₂ (pienempi)</text>
       <!-- Core -->
       <circle cx="180" cy="150" r="10" fill="rgba(250,204,21,0.25)" stroke="#facc15" stroke-opacity="0.6" stroke-width="2"/>
       <circle cx="180" cy="150" r="10" fill="none" stroke="#facc15" stroke-opacity="0.3" stroke-width="1">
@@ -303,7 +334,7 @@
       </circle>
       <text x="275" y="148" fill="#facc15" font-size="10" font-weight="600">Ydin 9 µm</text>
       <line x1="190" y1="150" x2="270" y2="148" stroke="#facc15" stroke-opacity="0.3"/>
-      <text x="275" y="165" fill="#94a3b8" font-size="9">n₁ = 1.4677</text>
+      <text x="275" y="165" fill="#94a3b8" font-size="9">n₁ (suurempi)</text>
       <text x="180" y="280" fill="#94a3b8" font-size="11" text-anchor="middle">Yksimuotokuitu (SM) — n₁ > n₂ → kokonaisheijastus</text>
 
       <!-- Total internal reflection side view -->
@@ -379,9 +410,9 @@
   <div class="part-title">Kuituverkko</div>
 </div>
 
-<!-- 04. AALLONPITUUSIKKUNAT -->
+<!-- 05. AALLONPITUUSIKKUNAT -->
 <section class="section" data-label="Aallonpituusikkunat">
-  <div class="section-num">04</div>
+  <div class="section-num">05</div>
   <h2>Kuituverkon aallonpituusikkunat</h2>
   <p class="subtitle">Silikakuidun vaimennus vaihtelee aallonpituuden mukaan. Tietyt alueet — "ikkunat" — tarjoavat erityisen matalan häviön datan siirtoon.</p>
 
@@ -440,9 +471,9 @@
   </div>
 </section>
 
-<!-- 05. KUITUVERKON RAKENNEOSAT -->
+<!-- 06. KUITUVERKON RAKENNEOSAT -->
 <section class="section" data-label="Rakenneosat">
-  <div class="section-num">05</div>
+  <div class="section-num">06</div>
   <h2>Kuituverkon rakenneosat</h2>
   <p class="subtitle">FTTH-verkko koostuu aktiivisista laitteista (OLT, ONT) ja passiivisesta infrasta (kaapelit, splitterit, jatkokset, kanavistot).</p>
 
@@ -673,7 +704,7 @@
 
 <!-- 06. KUITUTYYPIT -->
 <section class="section" data-label="Kuitutyypit">
-  <div class="section-num">06</div>
+  <div class="section-num">07</div>
   <h2>Kuitutyypit</h2>
   <p class="subtitle">G.652.D ja G.657.A — eri käyttökohteet, eri ominaisuudet</p>
 
@@ -682,7 +713,7 @@
       <div class="card-label">ITU-T G.652.D</div>
       <h3>Standard SMF, Low Water Peak</h3>
       <p>Yleisin yksimoodikuitu. Soveltuu runkokaapeleihin, jakelukaapeleihin ja pitkiin vetoihin. Low water peak mahdollistaa koko CWDM-kaistan (1270–1610 nm).</p>
-      <p style="margin-top:8px; font-size:12px;"><strong style="color:var(--fiber-glow)">Minimiataivutussäde:</strong> 30 mm</p>
+      <p style="margin-top:8px; font-size:12px;"><strong style="color:var(--fiber-glow)">Minimiataivutussäde:</strong> 30 mm. Tarkista min. taivutussäde aina kaapelin datasheetistä; G.657-sarja sallii pienemmät säteet.</p>
     </div>
     <div class="card" style="border-color: rgba(34,197,94,0.3);">
       <div class="card-label">ITU-T G.657.A1</div>
@@ -750,7 +781,7 @@
 
 <!-- 07. LIITTIMET JA KYTKENNÄT -->
 <section class="section" data-label="Liittimet">
-  <div class="section-num">07</div>
+  <div class="section-num">08</div>
   <h2>Liittimet ja kytkennät</h2>
   <p class="subtitle">Oikea liitin oikeaan paikkaan — ja aina puhtaana</p>
 
@@ -758,13 +789,13 @@
     <div class="card" style="border-color: rgba(34,197,94,0.3);">
       <div class="card-label" style="color: #22c55e;">SC/APC — vihreä</div>
       <h3>Angled Physical Contact, 8° kulma</h3>
-      <p>Return loss: ≥ 65 dB. Käytetään PON-verkoissa koko ketjussa OLT→ONT. Vinokulmainen pinta minimoi takaisinheijastuksen.</p>
+      <p>Erittäin matala heijastus — paras PON-verkkoon. Käytetään koko ketjussa OLT→ONT. Vinokulmainen pinta minimoi takaisinheijastuksen.</p>
       <p style="margin-top:8px; font-size:12px; color:var(--green); font-weight:600;">Vihreä väri = APC</p>
     </div>
     <div class="card" style="border-color: rgba(59,130,246,0.3);">
       <div class="card-label" style="color: #60a5fa;">SC/UPC — sininen</div>
       <h3>Ultra Physical Contact</h3>
-      <p>Return loss: ≥ 50 dB. Käytetään P2P-yhteyksissä, mittalaitteissa ja datacom-kytkennöissä. Suora tasopinta.</p>
+      <p>Hyvä heijastusarvo — sopii P2P-yhteyksiin ja mittauksiin. Käytetään datacom-kytkennöissä. Suora tasopinta.</p>
       <p style="margin-top:8px; font-size:12px; color:var(--accent); font-weight:600;">Sininen väri = UPC</p>
     </div>
     <div class="card" style="border-color: rgba(139,92,246,0.3);">
@@ -821,9 +852,9 @@
   </div>
 </section>
 
-<!-- 08. LASERTURVALLISUUS -->
+<!-- 09. LASERTURVALLISUUS -->
 <section class="section" data-label="Laserturvallisuus">
-  <div class="section-num">08</div>
+  <div class="section-num">09</div>
   <h2>Laserturvallisuus</h2>
   <p class="subtitle">Näkymätön valo, näkyvä vaara</p>
 
@@ -859,19 +890,21 @@
 
 <!-- 09. PON-ARKKITEHTUURIT -->
 <section class="section" data-label="PON-arkkitehtuurit">
-  <div class="section-num">09</div>
+  <div class="section-num">10</div>
   <h2>PON-arkkitehtuurit</h2>
   <p class="subtitle">Passive Optical Network — jaettu kuitu splittereillä. Eri PON-sukupolvet eroavat nopeudessa ja aallonpituuksissa.</p>
+
+  <div style="padding:16px; background:rgba(6,182,212,0.08); border:1px solid rgba(6,182,212,0.2); border-radius:12px; margin-bottom:24px; font-size:14px; color:#67E8F9;">
+    <strong style="color:#06B6D4;">💡 Yksinkertaisesti:</strong> PON toimii kuin kaapeli-TV — yksi signaali jakautuu splitterillä moneen kotiin. Jokainen asiakas näkee vain oman datansa (salaus), vaikka sama kuitu palvelee kaikkia.
+  </div>
 
   <table class="data-table">
     <thead><tr><th>Tekniikka</th><th>Downstream</th><th>Upstream</th><th>λ Down</th><th>λ Up</th><th>Split</th><th>Kantama</th><th>Budjettiluokka</th></tr></thead>
     <tbody>
       <tr><td class="hl">GPON</td><td>2.5 Gbps</td><td>1.25 Gbps</td><td>1490 nm</td><td>1310 nm</td><td>1:64</td><td>20 km</td><td>B+ (28 dB) / C+ (32 dB)</td></tr>
       <tr><td class="hl">XGS-PON</td><td>10 Gbps</td><td>10 Gbps</td><td>1577 nm</td><td>1270 nm</td><td>1:64</td><td>20 km</td><td>N1 (29 dB) / N2 (31 dB)</td></tr>
-      <tr><td class="hl">25GS-PON</td><td>25 Gbps</td><td>25 Gbps</td><td>1577 nm</td><td>1270 nm</td><td>1:32–1:64</td><td>20 km</td><td>N1 / N2</td></tr>
-      <tr><td class="hl">50G-PON</td><td>50 Gbps</td><td>25/50 Gbps*</td><td>~1342 nm</td><td>~1290 nm</td><td>1:32–1:64</td><td>20 km</td><td>määrittelytyön alla</td></tr>
-      <tr><td class="hl">P2P (ei PON)</td><td>1–100 Gbps</td><td>1–100 Gbps</td><td colspan="2" style="text-align:center">1310/1550 nm tai BiDi</td><td>1:1</td><td>80+ km</td><td>—</td></tr>
-      <tr><td colspan="8" style="font-size:11px; color:#64748b;">25GS-PON = MSA-standardi, yhteensopiva WDM1r-yhteiselon kanssa. 50G-PON = ITU-T G.9804, TWDM-yhteiselon λ erotettu GPON/XGS-PON-kaistoista. *50G-PON: 25 Gbps (asymmetrinen) tai 50 Gbps (symmetrinen) upstream-variantti.</td></tr>
+      <tr><td class="hl">P2P (ei PON)</td><td>1–100 Gbps</td><td>1–100 Gbps</td><td colspan="2" style="text-align:center">Tyyp. 1310/1550 nm; BiDi-parit vaihtelevat (toimittajakohtaista)</td><td>1:1</td><td>80+ km</td><td>—</td></tr>
+      <tr><td colspan="8" style="font-size:11px; color:#64748b;">Uudemmat PON-versiot (25GS-PON, 50G-PON) ovat kehitteillä ja tarjoavat 25–50 Gbps nopeuksia.</td></tr>
     </tbody>
   </table>
 
@@ -890,9 +923,9 @@
   <div class="part-title">Signaalit ja suunnittelu</div>
 </div>
 
-<!-- 10. GPON — SIGNAALIN JAKO -->
+<!-- 11. GPON — SIGNAALIN JAKO -->
 <section class="section" data-label="GPON-toiminta">
-  <div class="section-num">10</div>
+  <div class="section-num">11</div>
   <h2>GPON — signaalin jako</h2>
   <p class="subtitle">GPON jakaa yhden kuidun monelle käyttäjälle kahdella mekanismilla: downstream broadcast + salaus, upstream aikajako (TDMA).</p>
 
@@ -984,22 +1017,27 @@
     <div class="card"><div class="card-label">T-CONT</div><h3>Liikenneluokat</h3><p>Traffic Container: OLT allokoi jokaiselle ONT:lle T-CONTeja eri palveluluokille.</p></div>
     <div class="card"><div class="card-label">GEM Port</div><h3>Virtuaalinen yhteys</h3><p>GPON Encapsulation Method. Multipleksoi eri palvelut T-CONT:n sisällä.</p></div>
   </div>
-  <details class="lisatiedot" style="max-width: 900px; width: 100%; margin-top: 8px;">
-    <summary>📖 Lisätiedot: Liikennehallinta (T-CONT, GEM, DBA)</summary>
-    <div class="lisatiedot-content">
-      <p><strong>T-CONT (Traffic Container):</strong> OLT allokoi jokaiselle ONT:lle T-CONTeja eri palveluluokille (puhelin, IPTV, data). T-CONT-tyypit 1–5 määrittävät prioriteetin ja taatun kaistan. Tyyppi 1 = kiinteä kaista (VoIP), Tyyppi 5 = best effort (data).</p>
-      <p style="margin-top:8px;"><strong>GEM Port (GPON Encapsulation Method):</strong> Virtuaalinen yhteys T-CONT:n sisällä. Multipleksoi eri palvelut (Ethernet, VoIP) — yksi ONT voi ajaa useita palveluita samanaikaisesti eri GEM-porttien kautta.</p>
-      <p style="margin-top:8px;"><strong>DBA (Dynamic Bandwidth Allocation):</strong> OLT jakaa upstream-aikavälit dynaamisesti. Käyttämätön kaista jaetaan muille ONT:ille — tehokas kapasiteetin käyttö. Status Reporting (SR) ja Traffic Monitoring (TM) -moodit.</p>
-    </div>
-  </details>
+
 </section>
 
-<!-- 11. HÄVIÖBUDJETTI -->
+<!-- 12. HÄVIÖBUDJETTI -->
 <section class="section" data-label="Häviöbudjetti">
-  <div class="section-num">11</div>
+  <div class="section-num">12</div>
   <h2>Häviöbudjetti (Loss Budget)</h2>
   <p class="subtitle">GPON:n optinen budjetti on tyypillisesti 28 dB (Class B+). Jokainen komponentti "syö" osan budjetista. Laskurilla näet jääkö marginaalia.</p>
 
+  <div style="padding:20px; background:var(--card); border-radius:12px; border:1px solid var(--card-border); margin-bottom:20px; max-width:800px; width:100%;">
+    <h3 style="color:#06B6D4; margin-bottom:12px;">Esimerkkilaskelma: 8 km, 1:32</h3>
+    <p style="color:#CBD5E1; font-size:14px; line-height:1.8;">
+      Kuitu (8 km): <strong>2,8 dB</strong> · Splitteri 1:32: <strong>17,5 dB</strong> · Liittimet (4 kpl): <strong>1,2 dB</strong> · Jatkokset (4 kpl): <strong>0,4 dB</strong> · Marginaali: <strong>2,0 dB</strong><br>
+      <strong style="color:#22C55E;">Yhteensä: 23,9 dB</strong> — mahtuu GPON B+ -budjettiin (28 dB) ✓
+    </p>
+    <p style="color:#94A3B8; font-size:12px; margin-top:8px;">Jokainen komponentti heikentää signaalia. Suunnittelija varmistaa, että kokonaishäviö mahtuu laitteiden budjettiin.</p>
+  </div>
+
+  <details class="lisatiedot" style="max-width:800px; width:100%; margin-bottom:20px;">
+    <summary>📖 Lisätiedot: Interaktiivinen häviölaskuri</summary>
+    <div class="lisatiedot-content">
   <div class="calc-container">
     <div style="margin-bottom: 16px;"><div style="display: flex; justify-content: space-between; font-size: 12px; color: var(--accent); font-weight: 600;"><span>GPON Class B+ budjetti</span><span>28.0 dB</span></div></div>
     <div class="calc-row"><div class="calc-label">Kuitumatka (km)</div><input type="range" class="calc-slider" id="sliderKm" min="0.5" max="20" step="0.5" value="8"><div class="calc-value" id="valKm">8.0 km</div></div>
@@ -1015,6 +1053,8 @@
     <div class="calc-row"><div class="calc-label">Huoltomarginaali <span style="font-size:10px; color:#64748b;">(sisältää vanhenemis-, korjaus- ja ympäristövarauksen)</span></div><input type="range" class="calc-slider" id="sliderMargin" min="0" max="5" step="0.5" value="2"><div class="calc-value" id="valMargin">2.0 dB</div></div>
     <div class="calc-result ok" id="calcResult"><div class="calc-total" id="calcTotal" style="color:#22c55e;">23,90 dB</div><div class="calc-budget" id="calcBudgetText">Budjetti: 28,0 dB — Marginaali: 4,10 dB ✓</div><div class="calc-bar-bg"><div class="calc-bar-fill" id="calcBar" style="width:85%; background:#22c55e;"></div></div></div>
   </div>
+    </div>
+  </details>
 
   <table class="data-table" style="margin-top: 20px;">
     <thead><tr><th>Komponentti</th><th>Tyypillinen häviö</th><th>Huomio</th></tr></thead>
@@ -1027,7 +1067,7 @@
       <tr><td>Splitteri 1:8</td><td>10,5 dB</td><td></td></tr>
       <tr><td>Splitteri 1:16</td><td>14,0 dB</td><td></td></tr>
       <tr><td>Splitteri 1:32</td><td class="hl">17,5 dB</td><td>Yleisin FTTH-split</td></tr>
-      <tr><td>Splitteri 1:64</td><td>21,0 dB</td><td>1:64 on mahdollinen myös B+-budjetilla lyhyillä ODN-pituuksilla, mutta suositeltava on C+/N2 suuremman marginaalin vuoksi.</td></tr>
+      <tr><td>Splitteri 1:64</td><td>21,0 dB</td><td>1:64 vaatii lyhyen matkan (≤ 5–8 km) tai tehokkaamman lähettimen (C+/N2).</td></tr>
       <tr><td>SC/APC-liitin</td><td>0,3 dB</td><td>Per liitin</td></tr>
       <tr><td>Hitsausjatkos</td><td>0,1 dB</td><td>Per jatkos</td></tr>
       <tr><td>Mekaaninen jatkos</td><td>0,5 dB</td><td>Vältä jos mahdollista</td></tr>
@@ -1048,9 +1088,9 @@
   </details>
 </section>
 
-<!-- 12. SPLITTERITOPOLOGIAT -->
+<!-- 13. SPLITTERITOPOLOGIAT -->
 <section class="section" data-label="Topologiat">
-  <div class="section-num">12</div>
+  <div class="section-num">13</div>
   <h2>Splitteritopologiat</h2>
   <p class="subtitle">Miten 1:32 jakosuhde toteutetaan? Kolme perusstrategiaa, joilla on erilaiset kustannus- ja joustavuusprofiilit.</p>
 
@@ -1064,6 +1104,9 @@
         <p>Useita pieniä jakoja eri pisteissä. Maksimaalinen joustavuus, mutta monimutkaisin hallita ja vianetsintä haastavinta. Soveltuu haja-asutusalueille, joissa asiakkaat ovat hajallaan ja yhtä keskitettyä jakopistettä ei voida käyttää.</p>
         <div style="margin-top:12px; padding:12px; background:rgba(139,92,246,0.05); border-radius:8px; font-size:11px; color:#a78bfa;">OLT → [1:4] → [1:4] → [1:2] → 32 × drop</div>
         <p style="margin-top:8px; color:#94A3B8;">Huomio: jokainen ylimääräinen splitteritaso lisää häviötä. Kokonaishäviö on splitterien häviöiden summa, ei tulo.</p>
+        <div style="margin-top:12px; padding:12px; background:rgba(6,182,212,0.08); border:1px solid rgba(6,182,212,0.2); border-radius:8px; font-size:12px; color:#67E8F9;">
+          <strong style="color:#06B6D4;">Nyrkkisääntö:</strong> 1:4 + 1:8 kaskadissa häviö on sama kuin yhdessä 1:32-splitterissä (17,5 dB).
+        </div>
       </div>
     </details>
   </div>
@@ -1093,9 +1136,9 @@
   </div>
 </section>
 
-<!-- 13. WDM-PERIAATE -->
+<!-- 14. WDM-PERIAATE -->
 <section class="section" data-label="WDM-periaate">
-  <div class="section-num">13</div>
+  <div class="section-num">14</div>
   <h2>WDM — monta väriä, yksi kuitu</h2>
   <p class="subtitle">Wavelength Division Multiplexing yhdistää useita eri aallonpituuksia samaan kuituun. Jokainen aallonpituus kulkee itsenäisesti — kuin eri radiokanavat samalla taajuuskaistalla.</p>
 
@@ -1139,9 +1182,9 @@
   </div>
 </section>
 
-<!-- 14. KOLME KRIITTISTÄ SÄÄNTÖÄ -->
+<!-- 15. KOLME KRIITTISTÄ SÄÄNTÖÄ -->
 <section class="section" data-label="Kriittiset säännöt">
-  <div class="section-num">14</div>
+  <div class="section-num">15</div>
   <h2>Kolme kriittistä sääntöä</h2>
   <p class="subtitle">Muista nämä — ne estävät yleisimmät virheet</p>
 
@@ -1164,9 +1207,9 @@
   </div>
 </section>
 
-<!-- 15. SANASTO -->
+<!-- 16. SANASTO -->
 <section class="section" data-label="Sanasto">
-  <div class="section-num">15</div>
+  <div class="section-num">16</div>
   <h2>Sanasto</h2>
   <p class="subtitle">Kaikki kuituverkon keskeiset termit.</p>
 
@@ -1233,7 +1276,7 @@ const observer = new IntersectionObserver((entries) => {
     if (entry.isIntersecting) {
       const idx = Array.from(sections).indexOf(entry.target);
       dots.forEach((d, i) => d.classList.toggle('active', i === idx));
-      navLabel.textContent = (idx + 1) + '/15 \u2014 ' + (entry.target.dataset.label || '');
+      navLabel.textContent = (idx + 1) + '/16 \u2014 ' + (entry.target.dataset.label || '');
     }
   });
 }, { threshold: 0.3 });

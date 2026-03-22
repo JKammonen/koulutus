@@ -234,14 +234,20 @@
     <div class="card">
       <div class="card-label">Miksi halpa?</div>
       <h3>20 nm väli = väljä toleranssi</h3>
-      <p>Laserit eivät tarvitse TEC-jäähdytystä koska 20 nm kanavaväli sallii lämpötiladriftin. Toisin kuin DWDM:n 0,8 nm.</p>
+      <p>Leveä 20 nm kanavaväli = halvat laserit ilman jäähdytystä. DWDM:n tiheä 0,8 nm väli vaatii kalliimmat tarkkuuslaserit.</p>
     </div>
   </div>
 
   <div class="card" style="border-color: rgba(249,115,22,0.3); max-width: 900px; width: 100%; margin-top: 16px;">
     <div class="card-label" style="color: #f97316;">⚠️ KUITUTYYPPI</div>
     <h3>G.652.D vaaditaan kaikille 18 kanavalle</h3>
-    <p>Vanhemmissa G.652.A/B-kuiduissa OH⁻-vesipiikki (~1383 nm) aiheuttaa jopa 2 dB/km lisähäviön E-kaistan kanavilla. Kaikki 18 CWDM-kanavaa toimivat luotettavasti vain G.652.D (low water peak) -kuidussa. Tarkista kuitutyyppi ennen CWDM-suunnittelua.</p>
+    <p>Kaikki 18 CWDM-kanavaa toimivat luotettavasti vain G.652.D-kuidussa. Vanhemmissa kuiduissa osa kanavista ei toimi kunnolla. Tarkista kuitutyyppi ennen CWDM-suunnittelua.</p>
+    <details class="lisatiedot">
+      <summary>📖 Lisätiedot: Miksi vanhemmat kuidut eivät kelpaa?</summary>
+      <div class="lisatiedot-content">
+        <p>Vanhemmissa G.652.A/B-kuiduissa OH⁻-vesipiikki (~1383 nm) aiheuttaa jopa 2 dB/km lisähäviön E-kaistan kanavilla. G.652.D (low water peak) -kuitu eliminoi tämän ongelman.</p>
+      </div>
+    </details>
   </div>
 </section>
 
@@ -524,12 +530,18 @@
     <div class="card">
       <div class="card-label">Asennus käytännössä</div>
       <h3>MUX keskuksessa, DEMUX + etä-OLT kylässä</h3>
-      <p>CWDM MUX asennetaan ODF:ään teletilassa. DEMUX asennetaan FDH-kaappiin. DEMUX:n takana oleva etä-OLT (tai kytkin) tarvitsee virransyötön (tyypillisesti -48 VDC tai 230 VAC; UPS/akusto suositeltava jatkuvuuden varmistamiseksi) — MUX ja DEMUX ovat passiivisia.</p>
+      <p>CWDM MUX asennetaan ODF:ään teletilassa. DEMUX asennetaan FDH-kaappiin. MUX ja DEMUX ovat passiivisia — eivät tarvitse sähköä. Etä-OLT (tai kytkin) tarvitsee virransyötön ja UPS-varmennetun sähkön.</p>
     </div>
     <div class="card">
       <div class="card-label">Häviöt — P2P-uplinkki</div>
-      <h3>CWDM-osuus: ~9 dB (10G SFP+ budjetti ≥ 22 dB)</h3>
-      <p>MUX 2 dB + kuitu 3,5 dB (10 km × 0,35 dB/km) + DEMUX 2 dB + liittimet ~1,5 dB = <strong>~9 dB → hyvin 10G SFP+ budjetissa (≥ 22 dB, tyypillisesti 22–28 dB, riippuu SFP-tyypistä)</strong>. Paikallinen PON etä-OLT:ltä (&lt;1 km): standardi GPON B+ budjetti.</p>
+      <h3>CWDM-häviöt mahtuvat reilusti SFP+ -moduulin budjettiin</h3>
+      <p>MUX + kuitu + DEMUX + liittimet yhteensä ~9 dB (10 km matkalla) — <strong>mahtuu reilusti 10G SFP+ -moduulin budjettiin</strong>. Paikallinen PON etä-OLT:ltä: standardi GPON-budjetti.</p>
+      <details class="lisatiedot">
+        <summary>📖 Lisätiedot: Häviölaskelma</summary>
+        <div class="lisatiedot-content">
+          <p>MUX 2 dB + kuitu 3,5 dB (10 km × 0,35 dB/km) + DEMUX 2 dB + liittimet ~1,5 dB = ~9 dB. 10G SFP+ -moduulin tyypillinen budjetti on 22–28 dB (riippuu SFP-tyypistä), joten marginaalia jää reilusti.</p>
+        </div>
+      </details>
     </div>
     <div class="card">
       <div class="card-label">Laajennuspolku</div>
@@ -541,7 +553,7 @@
   <div class="card" style="max-width: 900px; width: 100%; margin-top: 16px;">
     <div class="card-label">Kaksisuuntaisuus</div>
     <h3>Bidirektionaalinen CWDM P2P-uplinkeille</h3>
-    <p>Jokainen CWDM-kanava kuljettaa kaksisuuntaisen P2P-linkin. Käytännössä joko kaksi kuitua (yksi suunta per kuitu) tai yksi kuitu BiDi-SFP-moduulilla, jossa eri aallonpituus per suunta.</p>
+    <p>Jokainen CWDM-kanava voi toimia kaksisuuntaisesti BiDi-SFP-moduuleilla — yksi kuitu, kaksi suuntaa.</p>
     <details class="lisatiedot">
       <summary>📖 Lisätiedot: BiDi-SFP vs. kaksoiskuitu</summary>
       <div class="lisatiedot-content">
@@ -796,7 +808,7 @@
 <section class="section" data-label="Kustannus">
   <div class="section-num">05</div>
   <h2>Kustannusvertailu</h2>
-  <p class="subtitle">Milloin CWDM on edullisempi kuin lisäkuitujen kaivaminen? Karkeasti: jos kaivuu maksaa yli 10 €/m, CWDM kannattaa jo 500 m:n matkalla.</p>
+  <p class="subtitle">Milloin CWDM on edullisempi kuin lisäkuitujen kaivaminen? Karkeasti: jos kaivuu maksaa yli 10 €/m, CWDM kannattaa jo 500 m:n matkalla (sis. kaivuu, putkitus ja luvat; suuntaa-antava).</p>
 
   <table class="data-table">
     <thead><tr><th>Vaihtoehto</th><th>Investointi</th><th>Kapasiteetti</th><th>Kesto</th></tr></thead>
