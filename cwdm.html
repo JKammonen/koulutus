@@ -230,13 +230,19 @@
       <p>Laserit eivät tarvitse TEC-jäähdytystä koska 20 nm kanavaväli sallii lämpötiladriftin. Toisin kuin DWDM:n 0.8 nm.</p>
     </div>
   </div>
+
+  <div class="card" style="border-color: rgba(249,115,22,0.3); max-width: 900px; width: 100%; margin-top: 16px;">
+    <div class="card-label" style="color: #f97316;">⚠️ KUITUTYYPPI</div>
+    <h3>G.652.D vaaditaan kaikille 18 kanavalle</h3>
+    <p>Vanhemmissa G.652.A/B-kuiduissa OH⁻-vesipiikki (~1383 nm) aiheuttaa jopa 2 dB/km lisähäviön E-kaistan kanavilla. Kaikki 18 CWDM-kanavaa toimivat luotettavasti vain G.652.D (low water peak) -kuidussa. Tarkista kuitutyyppi ennen CWDM-suunnittelua.</p>
+  </div>
 </section>
 
 <!-- 02. CWDM vs DWDM -->
 <section class="section" data-label="CWDM vs DWDM">
   <div class="section-num">02</div>
   <h2>CWDM vs. DWDM</h2>
-  <p class="subtitle">Coarse = 20 nm väli, halvat laserit. Dense = 0.8 nm väli, tarkkuuslaserit. Valinta riippuu kapasiteettitarpeesta ja budjetista.</p>
+  <p class="subtitle">Coarse = 20 nm väli, halvat laserit (ITU-T G.694.2). Dense = 0.8 nm väli, tarkkuuslaserit (ITU-T G.694.1). Valinta riippuu kapasiteettitarpeesta ja budjetista.</p>
 
   <!-- Detailed spectrum visualization (18 CWDM channels + 80 DWDM channels) -->
   <div class="diagram-box">
@@ -326,6 +332,7 @@
       <tr><td>Vahvistus (EDFA)</td><td style="color:#ef4444;">Ei tuettu</td><td style="color:#22c55e;">Tuettu (C-band)</td></tr>
       <tr><td>Kantama</td><td>~40–80 km</td><td class="hl">100+ km (vahvistimilla 1000+)</td></tr>
       <tr><td>Käyttö</td><td>Access, metro, GPON-overlay</td><td>Runkoverkko, DC, merenalaiset</td></tr>
+      <tr><td>MUX/DEMUX-tekniikka</td><td>TFF (ohutkalvosuodatin)</td><td>AWG (Arrayed Waveguide Grating)</td></tr>
       <tr><td>Hinta / kanava</td><td class="hl">€</td><td>€€€€</td></tr>
     </tbody>
   </table>
@@ -357,6 +364,7 @@
   <div class="section-num">03</div>
   <h2>CWDM GPON-verkossa — käytännön esimerkki</h2>
   <p class="subtitle">Kylä 15 km päässä keskuksesta. Runkokaapelissa vain 12 kuitua. Tarvitaan 4 PON-porttia = 128 asiakasta. Miten CWDM auttaa?</p>
+  <p class="subtitle" style="margin-top: -20px; font-size: 13px; color: #f97316;">Huom: CWDM-SFP-lähettimet korvaavat tavalliset GPON-SFP:t. Jokainen PON-portti saa oman CWDM-aallonpituuden (esim. 1270, 1290, 1310, 1330 nm), jolle GPON-protokolla ajetaan.</p>
 
   <div class="diagram-box">
     <svg class="diagram" viewBox="0 0 900 350">
@@ -476,13 +484,19 @@
     <div class="card">
       <div class="card-label">Häviöt</div>
       <h3>CWDM MUX + DEMUX: ~2–4 dB yht.</h3>
-      <p>~1–2 dB per laite. Lisäksi normaalit: kuitu (0.35 dB/km × 15 km = 5.25 dB @1310nm), splitteri (17.5 dB), liittimet, jatkokset. Häviöbudjetti tiukkenee mutta mahtuu Class B+:aan.</p>
+      <p>~1–2 dB per laite. Esim. 10 km: MUX 2 dB + kuitu 3.5 dB (0.35 dB/km) + DEMUX 2 dB + splitteri 17.5 dB + liittimet/jatkokset ~2 dB = <strong>27 dB → mahtuu Class B+ (28 dB)</strong>. Pidemmillä matkoilla (esim. 15 km → ~28.75 dB) tarvitaan Class C+ (32 dB) OLT/ONT.</p>
     </div>
     <div class="card">
       <div class="card-label">Laajennuspolku</div>
       <h3>Aloita 1 PON, lisää tarpeen mukaan</h3>
       <p>Ensimmäinen vaihe: 1 PON = 32 asiakasta. Lisätään λ-kanava ja splitteri sitä mukaa kun tilaajia tulee. Pay-as-you-grow.</p>
     </div>
+  </div>
+
+  <div class="card" style="max-width: 900px; width: 100%; margin-top: 16px;">
+    <div class="card-label">Kaksisuuntaisuus</div>
+    <h3>Bidirektionaalinen CWDM</h3>
+    <p>Bidirektionaalinen CWDM: jokainen kanava kuljettaa sekä downstream- että upstream-signaalin samalla aallonpituudella (BiDi-SFP), tai erillisillä aallonpituuksilla (2λ per PON-portti).</p>
   </div>
 </section>
 
@@ -859,6 +873,12 @@
     <div class="glossary-item"><div class="glossary-term">TFF</div><div class="glossary-def">Thin Film Filter — ohutkalvosuodatin, CWDM MUX/DEMUX:n peruskomponentti</div></div>
     <div class="glossary-item"><div class="glossary-term">WDM</div><div class="glossary-def">Wavelength Division Multiplexing — aallonpituusjako, yläkäsite CWDM:lle ja DWDM:lle</div></div>
     <div class="glossary-item"><div class="glossary-term">λ (lambda)</div><div class="glossary-def">Aallonpituus — valon "väri", nanometreinä (nm). Eri λ = eri kanava.</div></div>
+    <div class="glossary-item"><div class="glossary-term">AWG</div><div class="glossary-def">Arrayed Waveguide Grating — DWDM-MUX/DEMUX-tekniikka. Passiivinen piiripohjainen komponentti, joka erottaa tiheät kanavat.</div></div>
+    <div class="glossary-item"><div class="glossary-term">G.694.1</div><div class="glossary-def">ITU-T DWDM-kanavasuunnitelma. Määrittelee C- ja L-kaistan kanavat 100/50/25 GHz välein.</div></div>
+    <div class="glossary-item"><div class="glossary-term">G.694.2</div><div class="glossary-def">ITU-T CWDM-kanavasuunnitelma. 18 kanavaa, 20 nm väli, 1270–1610 nm.</div></div>
+    <div class="glossary-item"><div class="glossary-term">SFP</div><div class="glossary-def">Small Form-factor Pluggable — vaihdettava lähetin-vastaanotinmoduuli. CWDM- ja DWDM-versiot eri aallonpituuksille.</div></div>
+    <div class="glossary-item"><div class="glossary-term">Insertion loss</div><div class="glossary-def">Lisäyshäviö — komponentin (MUX, DEMUX, liitin) aiheuttama signaalihäviö desibeleinä.</div></div>
+    <div class="glossary-item"><div class="glossary-term">Vesipiikki (OH⁻)</div><div class="glossary-def">Hydroxyl-absorption ~1383 nm. Aiheuttaa lisähäviön E-kaistalla vanhemmissa kuiduissa. G.652.D-kuitu eliminoi tämän.</div></div>
   </div>
 </section>
 

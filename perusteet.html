@@ -354,8 +354,14 @@
       <tr><td>Kantama</td><td class="hl">jopa 100+ km</td><td>&lt; 550 m (OM4)</td></tr>
       <tr><td>Käyttö</td><td>FTTH, televerkko, WDM</td><td>Datakeskus, LAN</td></tr>
       <tr><td>Vaimennus @1310nm</td><td class="hl">~0.35 dB/km</td><td>N/A</td></tr>
-      <tr><td>Vaimennus @1550nm</td><td class="hl">~0.22 dB/km</td><td>N/A</td></tr>
+      <tr><td>Vaimennus @1550nm</td><td class="hl">~0.20 dB/km</td><td>N/A</td></tr>
     </table>
+  </div>
+
+  <div class="card" style="border-color: rgba(239,68,68,0.3); max-width: 900px; width: 100%;">
+    <div class="card-label" style="color: #ef4444;">⚠️ LASERTURVALLISUUS</div>
+    <h3>Älä koskaan katso kuidun päähän</h3>
+    <p>Kuituverkossa käytetty infrapunavalo on näkymätöntä mutta voi vahingoittaa silmiä. GPON-laser (Class 1M / 3R) voi aiheuttaa pysyviä verkkokalvovaurioita. Käytä aina valonilmaisinta (VFL) tai OTDR:ää — älä koskaan paljasta silmää.</p>
   </div>
 </section>
 
@@ -650,7 +656,7 @@
       <tr><td class="hl">FDH</td><td>Passiivinen</td><td>Fiber Distribution Hub — jakokaappi. Sisältää splitterin ja kuitukytkennät.</td></tr>
       <tr><td class="hl">FDT / FAT</td><td>Passiivinen</td><td>Fiber Distribution/Access Terminal — talojakaaja tai liityntäpiste.</td></tr>
       <tr><td class="hl">ODF</td><td>Passiivinen</td><td>Optical Distribution Frame — kuituristikkö keskuksessa. Kytkentäpiste OLT↔runkokaapeli.</td></tr>
-      <tr><td>Runkokaapeli</td><td>Infra</td><td>48–288 kuitua. Keskuksesta jakokappeihin. Kanavistossa tai ilmajohtona.</td></tr>
+      <tr><td>Runkokaapeli</td><td>Infra</td><td>48–288 kuitua. Keskuksesta jakokaappeihin. Kanavistossa tai ilmajohtona.</td></tr>
       <tr><td>Jakelukaapeli</td><td>Infra</td><td>12–48 kuitua. Jakokaapista talojakaajiin.</td></tr>
       <tr><td>Drop-kaapeli</td><td>Infra</td><td>1–4 kuitua. Talojakaajasta asiakkaalle. Usein itsekantava tai sisäkaapeli.</td></tr>
       <tr><td>Jatkos</td><td>Infra</td><td>Hitsattu kuitujatkos (~0.1 dB häviö). Käytetään kaapelin jatkamiseen.</td></tr>
@@ -670,10 +676,9 @@
     <tbody>
       <tr><td class="hl">GPON</td><td>2.5 Gbps</td><td>1.25 Gbps</td><td>1490 nm</td><td>1310 nm</td><td>1:64</td><td>20 km</td></tr>
       <tr><td class="hl">XGS-PON</td><td>10 Gbps</td><td>10 Gbps</td><td>1577 nm</td><td>1270 nm</td><td>1:64</td><td>20 km</td></tr>
-      <tr><td class="hl">25G-PON</td><td>25 Gbps</td><td>25 Gbps</td><td>1342 nm *</td><td>1270 nm</td><td>1:64</td><td>20 km</td></tr>
-      <tr><td class="hl">50G-PON</td><td>50 Gbps</td><td>25/50 Gbps</td><td>1342 nm *</td><td>1270 nm</td><td>1:64</td><td>20 km</td></tr>
+      <tr><td class="hl">50G-PON (25G)</td><td>25/50 Gbps</td><td>25/50 Gbps</td><td>1342 nm *</td><td>1270 nm</td><td>1:64</td><td>20 km</td></tr>
       <tr><td class="hl">P2P (ei PON)</td><td>1–100 Gbps</td><td>1–100 Gbps</td><td colspan="2" style="text-align:center">1310/1550 nm tai BiDi</td><td>1:1</td><td>80+ km</td></tr>
-      <tr><td colspan="7" style="font-size:11px; color:#64748b;">* ITU-T G.9804 — standardointi kesken, tarkat λ voivat muuttua</td></tr>
+      <tr><td colspan="7" style="font-size:11px; color:#64748b;">* ITU-T G.9804 — 50G-PON standardi sisältää 50/25 Gbps asymmetrisen vaihtoehdon</td></tr>
     </tbody>
   </table>
 
@@ -815,7 +820,7 @@
     <tbody>
       <tr><td>SM-kuitu @1310nm</td><td class="hl">0.35 dB/km</td><td>GPON upstream</td></tr>
       <tr><td>SM-kuitu @1490nm</td><td class="hl">0.30 dB/km</td><td>GPON downstream</td></tr>
-      <tr><td>SM-kuitu @1550nm</td><td class="hl">0.22 dB/km</td><td>Video overlay / CWDM</td></tr>
+      <tr><td>SM-kuitu @1550nm</td><td class="hl">0.20 dB/km</td><td>Video overlay / CWDM</td></tr>
       <tr><td>Splitteri 1:2</td><td>3.5 dB</td><td></td></tr>
       <tr><td>Splitteri 1:4</td><td>7.0 dB</td><td></td></tr>
       <tr><td>Splitteri 1:8</td><td>10.5 dB</td><td></td></tr>
@@ -827,6 +832,7 @@
       <tr><td>Mekaaninen jatkos</td><td>0.5 dB</td><td>Vältä jos mahdollista</td></tr>
     </tbody>
   </table>
+  <p style="font-size: 12px; color: #64748b; margin-top: 8px;">* Arvot sisältävät ylimääräistä marginaalia (excess loss). Teoreettinen minimi = 10×log₁₀(N).</p>
 </section>
 
 <!-- 09. SPLITTERITOPOLOGIAT -->
@@ -920,17 +926,20 @@
 
   <div class="glossary-grid">
     <div class="glossary-item"><div class="glossary-term">AES-128</div><div class="glossary-def">Salausmenetelmä, jolla GPON suojaa downstream-datan ONT-kohtaisesti</div></div>
+    <div class="glossary-item"><div class="glossary-term">BiDi</div><div class="glossary-def">Bidirectional — kaksisuuntainen liikenne yhdellä kuidulla, eri λ:t eri suuntiin</div></div>
     <div class="glossary-item"><div class="glossary-term">Class B+</div><div class="glossary-def">GPON-lähettimen teho- ja herkkyysluokka, 28 dB optinen budjetti</div></div>
     <div class="glossary-item"><div class="glossary-term">CWDM</div><div class="glossary-def">Coarse WDM — 20 nm kanavaväli, jopa 18 kanavaa, halvat laserit</div></div>
     <div class="glossary-item"><div class="glossary-term">DBA</div><div class="glossary-def">Dynamic Bandwidth Allocation — OLT jakaa upstream-aikavälit dynaamisesti</div></div>
     <div class="glossary-item"><div class="glossary-term">DEMUX</div><div class="glossary-def">Demultiplekseri — erottaa aallonpituudet omille kanavilleen</div></div>
     <div class="glossary-item"><div class="glossary-term">Drop-kaapeli</div><div class="glossary-def">1–4 kuidun kaapeli talojakaajasta asiakkaalle</div></div>
     <div class="glossary-item"><div class="glossary-term">DWDM</div><div class="glossary-def">Dense WDM — 0.8 nm väli, 80+ kanavaa, runkoverkkoihin</div></div>
+    <div class="glossary-item"><div class="glossary-term">EDFA</div><div class="glossary-def">Erbium-Doped Fiber Amplifier — optinen vahvistin C/L-kaistalle. Ei toimi O-kaistalla.</div></div>
     <div class="glossary-item"><div class="glossary-term">FAT</div><div class="glossary-def">Fiber Access Terminal — liityntäpiste lähellä asiakkaita</div></div>
     <div class="glossary-item"><div class="glossary-term">FDH</div><div class="glossary-def">Fiber Distribution Hub — jakokaappi, sisältää splitterit</div></div>
     <div class="glossary-item"><div class="glossary-term">FDT</div><div class="glossary-def">Fiber Distribution Terminal — talojakaaja</div></div>
     <div class="glossary-item"><div class="glossary-term">FTTH</div><div class="glossary-def">Fiber To The Home — kuitu kotiin asti</div></div>
     <div class="glossary-item"><div class="glossary-term">GEM Port</div><div class="glossary-def">GPON Encapsulation Method — virtuaaliyhteys eri palveluille</div></div>
+    <div class="glossary-item"><div class="glossary-term">G.652.D</div><div class="glossary-def">Low water peak SM-kuitu. Mahdollistaa kaikki CWDM-kanavat (1270–1610 nm) ilman OH-piikin häiriötä.</div></div>
     <div class="glossary-item"><div class="glossary-term">GPON</div><div class="glossary-def">Gigabit PON (G.984) — 2.5G down / 1.25G up, yleisin FTTH</div></div>
     <div class="glossary-item"><div class="glossary-term">Hitsausjatkos</div><div class="glossary-def">Pysyvä kuitujatkos hitsaamalla, häviö ~0.1 dB</div></div>
     <div class="glossary-item"><div class="glossary-term">Jakelukaapeli</div><div class="glossary-def">12–48 kuidun kaapeli FDH:sta talojakaajiin</div></div>
@@ -940,10 +949,12 @@
     <div class="glossary-item"><div class="glossary-term">ODF</div><div class="glossary-def">Optical Distribution Frame — kuituristikkö keskuksessa</div></div>
     <div class="glossary-item"><div class="glossary-term">OLT</div><div class="glossary-def">Optical Line Terminal — keskuslaite PON-verkon päässä</div></div>
     <div class="glossary-item"><div class="glossary-term">ONT/ONU</div><div class="glossary-def">Optical Network Terminal/Unit — asiakaspääte</div></div>
+    <div class="glossary-item"><div class="glossary-term">OTDR</div><div class="glossary-def">Optical Time-Domain Reflectometer — mittalaite kuidun vaimennuksen, jatkosten ja vikojen paikantamiseen.</div></div>
     <div class="glossary-item"><div class="glossary-term">P2P</div><div class="glossary-def">Point-to-Point — dedikoitu kuitu, ei jakoa</div></div>
     <div class="glossary-item"><div class="glossary-term">PON</div><div class="glossary-def">Passive Optical Network — passiivinen optinen verkko</div></div>
-    <div class="glossary-item"><div class="glossary-term">Runkokaapeli</div><div class="glossary-def">48–288 kuidun kaapeli keskuksesta jakokappeihin</div></div>
+    <div class="glossary-item"><div class="glossary-term">Runkokaapeli</div><div class="glossary-def">48–288 kuidun kaapeli keskuksesta jakokaappeihin</div></div>
     <div class="glossary-item"><div class="glossary-term">SC/APC</div><div class="glossary-def">Vihreä kuituliitintyyppi, vinohiottu, matala heijastus</div></div>
+    <div class="glossary-item"><div class="glossary-term">SFP</div><div class="glossary-def">Small Form-factor Pluggable — vaihdettava lähetin-vastaanotinmoduuli. CWDM/DWDM-versiot eri λ:ille.</div></div>
     <div class="glossary-item"><div class="glossary-term">SM-kuitu</div><div class="glossary-def">Single-mode, 9/125 µm, pitkät matkat, FTTH-standardi</div></div>
     <div class="glossary-item"><div class="glossary-term">Splitteri</div><div class="glossary-def">Passiivinen optinen jakaja (1:2...1:64)</div></div>
     <div class="glossary-item"><div class="glossary-term">T-CONT</div><div class="glossary-def">Traffic Container — upstream-kaistanvaraus ONT:lle</div></div>
