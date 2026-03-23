@@ -846,7 +846,7 @@
 <section class="section" data-label="Liittimet">
   <div class="section-num">08</div>
   <h2>Liittimet ja kytkennät</h2>
-  <p class="subtitle">Oikea liitin oikeaan paikkaan — ja aina puhtaana</p>
+  <p class="subtitle">Oikea liitin oikeaan paikkaan — liitintyyppi dokumentoidaan NIS:iin</p>
 
   <div class="card-grid">
     <div class="card" style="border-color: rgba(34,197,94,0.3);">
@@ -908,18 +908,12 @@
     <p>Eri kulmageometria vaurioittaa liittimen pinnan. APC (vihreä, 8°) ja UPC (sininen, suora) eivät ole mekaanisesti yhteensopivia. Ristiin kytkeminen aiheuttaa pysyviä vaurioita ja signaalihäviötä.</p>
   </div>
 
-  <!-- Puhdistus -->
-  <div class="insight-box">
-    <div class="insight-label">Puhdista AINA</div>
-    <p><strong>Likainen liitin on yleisin vian syy kuituverkossa.</strong> One-click-puhdistin jokaiselle liittimelle ennen kytkentää. Epäselvissä tapauksissa mikroskooppitarkistus (200x/400x). Puhdista aina — myös uudet liittimet.</p>
-  </div>
-
   <div style="margin-top:32px; padding:16px 20px; background:rgba(6,182,212,0.06); border-left:3px solid #06B6D4; border-radius:0 8px 8px 0;">
     <strong style="color:#06B6D4; font-size:13px;">📌 Pääviestit</strong>
     <ul style="margin:8px 0 0 0; padding-left:20px; color:#CBD5E1; font-size:13px; line-height:1.8;">
-      <li>APC (vihreä) PON-verkkoon, UPC (sininen) P2P-yhteyksiin</li>
-      <li>Älä koskaan sekoita APC:tä ja UPC:tä keskenään</li>
-      <li>Puhdista liitin AINA ennen kytkentää — likainen liitin on yleisin vika</li>
+      <li>APC (vihreä) PON-verkkoon, UPC (sininen) P2P-yhteyksiin — eri heijastusominaisuudet</li>
+      <li>Älä koskaan sekoita APC:tä ja UPC:tä keskenään — vaurioittaa liitinpinnan</li>
+      <li>Liitintyyppi dokumentoidaan NIS:iin (KeyCom) verkon hallintaa varten</li>
     </ul>
   </div>
 </section>
@@ -928,43 +922,19 @@
 <section class="section" data-label="Laserturvallisuus">
   <div class="section-num">09</div>
   <h2>Laserturvallisuus</h2>
-  <p class="subtitle">Näkymätön valo, näkyvä vaara</p>
+  <p class="subtitle">Näkymätön valo — perustieto riittää</p>
 
-  <div class="card-grid">
-    <div class="card" style="border-color: rgba(239,68,68,0.3);">
-      <div class="card-label" style="color: #ef4444;">Laserluokitus</div>
-      <h3>GPON-lähettimet: Class 1 / 1M</h3>
-      <p>Silmäturvallinen normaaleissa oloissa, mutta EI optisten instrumenttien (suurennuslasi, mikroskooppi) läpi katsottaessa. Infrapunavalo on näkymätöntä — silmä ei reagoi sulkurefleksillä.</p>
-    </div>
-    <div class="card" style="border-color: rgba(249,115,22,0.3);">
-      <div class="card-label" style="color: #f97316;">VFL — Visual Fault Locator</div>
-      <h3>Class 2 / 3R punainen laser</h3>
-      <p>635/650 nm punainen laser vikojen paikantamiseen. Älä katso suoraan säteeseen. Käytä vain kuidun toisen pään ollessa turvallinen tai tulpattu.</p>
-    </div>
-    <div class="card" style="border-color: rgba(59,130,246,0.3);">
-      <div class="card-label" style="color: #60a5fa;">Suojaimet</div>
-      <h3>Lasersuojalasit tarvittaessa</h3>
-      <p>Pitkän kantaman EDFA-linjoilla voidaan tarvita lasersuojalaseja. FTTH-asennuksessa riittää normaali varovaisuus: älä katso kuidun päähän, käytä valonilmaisinta.</p>
-    </div>
-    <div class="card" style="border-color: rgba(250,204,21,0.3);">
-      <div class="card-label" style="color: #facc15;">Merkinnät ja suojaus</div>
-      <h3>Varoitustarrat ja tulpat</h3>
-      <p>Kaikissa aktiivisissa laitteissa oltava laservaroitustarra. Käyttämättömien kuitujen päät suojataan aina tulpalla. Pölysuojaus estää myös liittimen likaantumisen.</p>
-    </div>
-  </div>
-
-  <div class="card" style="border-color: rgba(239,68,68,0.4); max-width: 900px; width: 100%; margin-top: 20px;">
-    <div class="card-label" style="color: #ef4444;">Muista aina</div>
-    <h3>Älä koskaan katso kuidun päähän</h3>
-    <p>Kuituverkossa käytetty infrapunavalo (1310/1490/1550 nm) on täysin näkymätöntä mutta voi aiheuttaa pysyviä verkkokalvovaurioita. Jos epäilet kuidussa olevan aktiivinen signaali, käytä aina valonilmaisinta tai OTDR:ää — ei koskaan paljasta silmää.</p>
+  <div class="card" style="border-color: rgba(239,68,68,0.3); max-width: 900px; width: 100%; margin-bottom: 20px;">
+    <div class="card-label" style="color: #ef4444;">Laserluokitus</div>
+    <h3>OLT käyttää näkymätöntä infrapunalaseria (Class 1M)</h3>
+    <p>GPON-verkossa OLT lähettää näkymätöntä infrapunavaloa (1490 nm), jota silmä ei havaitse eikä siihen reagoi sulkurefleksillä. Älä koskaan katso kuidun päähän — näkymätön säde voi vahingoittaa verkkokalvoa. Keypro-henkilöstölle riittää tämä perustieto: kuituverkossa kulkee näkymätöntä laservaloa, joten avoimen kuidun päähän ei katsota.</p>
   </div>
 
   <div style="margin-top:32px; padding:16px 20px; background:rgba(6,182,212,0.06); border-left:3px solid #06B6D4; border-radius:0 8px 8px 0;">
     <strong style="color:#06B6D4; font-size:13px;">📌 Pääviestit</strong>
     <ul style="margin:8px 0 0 0; padding-left:20px; color:#CBD5E1; font-size:13px; line-height:1.8;">
-      <li>GPON-laser on näkymätön infrapuna — älä katso kuidun päähän</li>
-      <li>VFL (punainen laser) auttaa paikantamaan vikoja</li>
-      <li>Suojaa käyttämättömät kuidun päät aina tulpalla</li>
+      <li>OLT:n laser on näkymätöntä infrapunaa (Class 1M) — silmä ei havaitse sitä</li>
+      <li>Älä koskaan katso avoimen kuidun päähän</li>
     </ul>
   </div>
 </section>
@@ -1321,9 +1291,9 @@
       <p style="margin-top: 12px;">Eri kulmageometria. APC (vihreä) PON-verkkoon, UPC (sininen) P2P-yhteyksiin. Ristiin kytkeminen vaurioittaa pinnan.</p>
     </div>
     <div class="card" style="border-color: rgba(250,204,21,0.4); border-width: 2px;">
-      <div style="font-size: 36px; text-align: center; margin-bottom: 12px;">🟡</div>
-      <h3 style="text-align: center; color: #facc15;">Puhdista liittimet AINA</h3>
-      <p style="margin-top: 12px;">Likainen liitin on yleisin vian syy kuituverkossa. One-click-puhdistin jokaiselle liittimelle ennen kytkentää.</p>
+      <div style="font-size: 36px; text-align: center; margin-bottom: 12px;">📋</div>
+      <h3 style="text-align: center; color: #facc15;">Dokumentoi verkko oikein</h3>
+      <p style="margin-top: 12px;">Puuttuva tai väärä tieto aiheuttaa turhia kenttäkäyntejä ja vianselvitystä. Tarkka dokumentointi on verkon hallinnan perusta.</p>
     </div>
     <div class="card" style="border-color: rgba(59,130,246,0.4); border-width: 2px;">
       <div style="font-size: 36px; text-align: center; margin-bottom: 12px;">🔵</div>
@@ -1333,9 +1303,48 @@
   </div>
 </section>
 
-<!-- 16. SANASTO -->
-<section class="section" data-label="Sanasto">
+<!-- 16. VERKKO KEYCOMISSA -->
+<section class="section" data-label="Verkko KeyComissa">
   <div class="section-num">16</div>
+  <h2>Verkko KeyComissa</h2>
+  <p class="subtitle">Fyysisen verkon elementit ja niiden vastineet KeyCom-tietojärjestelmässä</p>
+
+  <div class="insight-box" style="margin-bottom: 24px;">
+    <div class="insight-label">Digitaalinen kaksonen</div>
+    <p>Kaikki verkon fyysinen infra dokumentoidaan KeyComiin — tästä syntyy digitaalinen kaksonen, eli fyysinen verkko 1:1 tietojärjestelmässä.</p>
+  </div>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Verkkoelementti</th>
+        <th>KeyCom-kohdetyyppi</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="hl">OLT</td><td>Laite (teletila)</td></tr>
+      <tr><td class="hl">ONT</td><td>Laite (asiakaspiste)</td></tr>
+      <tr><td class="hl">FDH / splitteri</td><td>Jakamo / laite</td></tr>
+      <tr><td class="hl">Runko- ja jakelukaapeli</td><td>Kaapeli (kuitumäärä, tyyppi, reitti)</td></tr>
+      <tr><td class="hl">Jatkos</td><td>Jatkoskohde</td></tr>
+      <tr><td class="hl">Kanavisto / putki</td><td>Putkitus</td></tr>
+      <tr><td class="hl">ODF / liitin</td><td>Kytkentäpiste</td></tr>
+    </tbody>
+  </table>
+
+  <div style="margin-top:32px; padding:16px 20px; background:rgba(6,182,212,0.06); border-left:3px solid #06B6D4; border-radius:0 8px 8px 0;">
+    <strong style="color:#06B6D4; font-size:13px;">📌 Pääviestit</strong>
+    <ul style="margin:8px 0 0 0; padding-left:20px; color:#CBD5E1; font-size:13px; line-height:1.8;">
+      <li>KeyCom tallentaa kaikki verkkoelementit — kaapeleista jatkoksiin ja laitteisiin</li>
+      <li>Tarkka dokumentointi mahdollistaa verkon hallinnan, vianselvityksen ja kapasiteettisuunnittelun</li>
+      <li>Digitaalinen kaksonen = fyysinen verkko 1:1 tietojärjestelmässä</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 17. SANASTO -->
+<section class="section" data-label="Sanasto">
+  <div class="section-num">17</div>
   <h2>Sanasto</h2>
   <p class="subtitle">Kaikki kuituverkon keskeiset termit.</p>
 
@@ -1402,7 +1411,7 @@ const observer = new IntersectionObserver((entries) => {
     if (entry.isIntersecting) {
       const idx = Array.from(sections).indexOf(entry.target);
       dots.forEach((d, i) => d.classList.toggle('active', i === idx));
-      navLabel.textContent = (idx + 1) + '/16 \u2014 ' + (entry.target.dataset.label || '');
+      navLabel.textContent = (idx + 1) + '/17 \u2014 ' + (entry.target.dataset.label || '');
     }
   });
 }, { threshold: 0.3 });
