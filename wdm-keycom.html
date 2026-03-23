@@ -560,30 +560,34 @@
 
   <!-- Circuit diagram: Tx direction -->
   <div class="diagram-box">
-    <div class="diagram-title">Runkoyhteys TX-suunta — esimerkki: Keypro → Metrotukku → Ruokala</div>
+    <div class="diagram-title">CWDM-RUNKO (Keypro–Ruokala) Tx</div>
     <div class="circuit-diagram">
-      <!-- Keypro: MUX/DEMUX + jakamo -->
+      <!-- Keypro -->
       <div class="site-box" style="min-width: 220px;">
         <div class="site-name">Keypro</div>
         <div class="site-address">Teollisuuskatu 13</div>
-        <div style="display: flex; gap: 6px; align-items: stretch;">
-          <div class="device-box" style="flex: 1;">
-            <div class="device-name" style="font-size: 10px;">CWDMG2847FACC03</div>
-            <div class="device-type">MUX/DEMUX</div>
-            <div style="margin-top: 6px;">
-              <div class="port-tag wl" style="font-size: 9px;">Line Tx</div>
+        <div style="display: flex; gap: 0; align-items: stretch;">
+          <div class="device-box" style="flex: 1; border-radius: 6px 0 0 6px; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div class="device-name" style="font-size: 10px;">CWDMG2847FACC03</div>
+              <div class="device-type">(CWDMG2847FACC03)</div>
             </div>
+            <div style="display: flex; align-items: center; gap: 6px; margin-top: 8px;">
+              <span style="font-size: 10px; color: var(--accent);">Line Tx</span>
+              <span style="font-size: 11px; font-weight: 700; color: var(--text);">2</span>
+            </div>
+            <div style="font-size: 9px; color: var(--text-dim);">CC</div>
           </div>
-          <div style="display: flex; align-items: center; font-size: 9px; color: var(--fiber-glow); padding: 0 2px;">RK</div>
-          <div class="device-box" style="flex: 1;">
-            <div class="device-name" style="font-size: 10px;">2_260221</div>
-            <div class="device-type">F-jakamo-taso1</div>
-            <div style="margin-top: 6px;">
-              <div class="port-tag com" style="font-size: 9px;">portti 1</div>
+          <div class="device-box" style="flex: 1; border-radius: 0 6px 6px 0; border-left: 1px dashed rgba(250,204,21,0.3); display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div class="device-name" style="font-size: 10px;">2_260221</div>
+              <div class="device-type">(F-jakamo-taso1)</div>
+            </div>
+            <div style="text-align: right; margin-top: 8px;">
+              <span style="font-size: 11px; font-weight: 700; color: var(--text);">2</span>
             </div>
           </div>
         </div>
-        <div style="font-size: 9px; color: var(--text-dim); text-align: center; margin-top: 4px;">MUX portti → <span style="color: var(--fiber-glow);">RK</span> → jakamon portti → kaapeliin</div>
       </div>
 
       <div class="cable-segment">
@@ -591,30 +595,36 @@
         <div class="cable-info"><span class="cable-id">C5188</span><br>CTC 8×SM — 70,8 m</div>
       </div>
 
-      <!-- Metrotukku: OADM West + East -->
-      <div class="site-box" style="min-width: 280px;">
+      <!-- Metrotukku OADM -->
+      <div class="site-box" style="min-width: 300px;">
         <div class="site-name">Metrotukku</div>
         <div class="site-address">Teollisuuskatu 13</div>
-        <div style="display: flex; gap: 4px; align-items: stretch;">
-          <div class="device-box" style="flex: 1;">
+        <div style="display: flex; gap: 0; align-items: stretch;">
+          <div class="device-box" style="flex: 1; border-radius: 6px 0 0 6px;">
             <div class="device-name" style="font-size: 10px;">West</div>
-            <div class="device-type">F-jakamo-taso1</div>
-            <div style="margin-top: 6px;">
-              <div class="port-tag com" style="font-size: 9px;">Line West In</div>
-              <div class="port-tag com" style="font-size: 9px;">CC (UCON)</div>
+            <div class="device-type">(F-jakamo-taso1)</div>
+            <div style="display: flex; align-items: center; gap: 6px; margin-top: 8px;">
+              <span style="font-size: 11px; font-weight: 700; color: var(--text);">2</span>
             </div>
           </div>
-          <div style="display: flex; align-items: center; font-size: 9px; color: var(--fiber-glow); padding: 0 2px;">SK</div>
-          <div class="device-box" style="flex: 1;">
+          <div class="device-box" style="flex: 2; border-radius: 0; border-left: 1px dashed rgba(250,204,21,0.3); border-right: 1px dashed rgba(250,204,21,0.3);">
+            <div class="device-name" style="font-size: 10px;">CWDMG2247FACC03</div>
+            <div class="device-type">(CWDMG2247FACC03)</div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px;">
+              <span style="font-size: 9px; color: var(--cyan);">Line West In</span>
+              <span style="font-size: 9px; color: var(--fiber-glow);">SK</span>
+              <span style="font-size: 9px; color: var(--cyan);">Line East Out</span>
+            </div>
+            <div style="font-size: 9px; color: var(--text-dim); text-align: center;">CC (UCON) → IC → CC (UCON)</div>
+          </div>
+          <div class="device-box" style="flex: 1; border-radius: 0 6px 6px 0;">
             <div class="device-name" style="font-size: 10px;">East</div>
-            <div class="device-type">F-jakamo-taso1</div>
-            <div style="margin-top: 6px;">
-              <div class="port-tag com" style="font-size: 9px;">CC (UCON)</div>
-              <div class="port-tag com" style="font-size: 9px;">Line East Out</div>
+            <div class="device-type">(F-jakamo-taso1)</div>
+            <div style="display: flex; align-items: center; gap: 6px; margin-top: 8px; justify-content: flex-end;">
+              <span style="font-size: 11px; font-weight: 700; color: var(--text);">2</span>
             </div>
           </div>
         </div>
-        <div style="font-size: 9px; color: var(--text-dim); text-align: center; margin-top: 4px;">CWDMG2247FACC03 — OADM, West CC → <span style="color: var(--fiber-glow);">SK</span> → East CC</div>
       </div>
 
       <div class="cable-segment">
@@ -622,33 +632,143 @@
         <div class="cable-info"><span class="cable-id">C5189</span><br>CTC 8×SM — 88,8 m</div>
       </div>
 
-      <!-- Ruokala: jakamo + MUX/DEMUX -->
+      <!-- Ruokala -->
       <div class="site-box" style="min-width: 220px;">
         <div class="site-name">Ruokala</div>
         <div class="site-address">Teollisuuskatu 13</div>
-        <div style="display: flex; gap: 6px; align-items: stretch;">
-          <div class="device-box" style="flex: 1;">
-            <div class="device-name" style="font-size: 10px;">2_260222</div>
-            <div class="device-type">F-jakamo-taso1</div>
-            <div style="margin-top: 6px;">
-              <div class="port-tag com" style="font-size: 9px;">portti 2</div>
+        <div style="display: flex; gap: 0; align-items: stretch;">
+          <div class="device-box" style="flex: 1; border-radius: 6px 0 0 6px; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div class="device-name" style="font-size: 10px;">2_260221</div>
+              <div class="device-type">(F-jakamo-taso1)</div>
+            </div>
+            <div style="margin-top: 8px;">
+              <span style="font-size: 11px; font-weight: 700; color: var(--text);">2</span>
             </div>
           </div>
-          <div style="display: flex; align-items: center; font-size: 9px; color: var(--fiber-glow); padding: 0 2px;">RK</div>
-          <div class="device-box" style="flex: 1;">
-            <div class="device-name" style="font-size: 10px;">CWDMG2847FACC03</div>
-            <div class="device-type">MUX/DEMUX</div>
-            <div style="margin-top: 6px;">
-              <div class="port-tag wl" style="font-size: 9px;">Line Rx</div>
+          <div class="device-box" style="flex: 1; border-radius: 0 6px 6px 0; border-left: 1px dashed rgba(250,204,21,0.3); display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div class="device-name" style="font-size: 10px;">CWDMG2847FACC03</div>
+              <div class="device-type">(CWDMG2847FACC03)</div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px; margin-top: 8px; justify-content: flex-end;">
+              <span style="font-size: 11px; font-weight: 700; color: var(--text);">2</span>
+              <span style="font-size: 10px; color: var(--accent);">Line Rx</span>
+            </div>
+            <div style="font-size: 9px; color: var(--text-dim);">CC (UCON)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Circuit diagram: Rx direction -->
+  <div class="diagram-box">
+    <div class="diagram-title">CWDM-RUNKO (Keypro–Ruokala) Rx</div>
+    <div class="circuit-diagram">
+      <!-- Keypro -->
+      <div class="site-box" style="min-width: 220px;">
+        <div class="site-name">Keypro</div>
+        <div class="site-address">Teollisuuskatu 13</div>
+        <div style="display: flex; gap: 0; align-items: stretch;">
+          <div class="device-box" style="flex: 1; border-radius: 6px 0 0 6px; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div class="device-name" style="font-size: 10px;">CWDMG2847FACC03</div>
+              <div class="device-type">(CWDMG2847FACC03)</div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px; margin-top: 8px;">
+              <span style="font-size: 10px; color: var(--accent);">Line Rx</span>
+              <span style="font-size: 11px; font-weight: 700; color: var(--text);">1</span>
+            </div>
+            <div style="font-size: 9px; color: var(--text-dim);">CC</div>
+          </div>
+          <div class="device-box" style="flex: 1; border-radius: 0 6px 6px 0; border-left: 1px dashed rgba(250,204,21,0.3); display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div class="device-name" style="font-size: 10px;">2_260221</div>
+              <div class="device-type">(F-jakamo-taso1)</div>
+            </div>
+            <div style="text-align: right; margin-top: 8px;">
+              <span style="font-size: 11px; font-weight: 700; color: var(--text);">1</span>
             </div>
           </div>
         </div>
-        <div style="font-size: 9px; color: var(--text-dim); text-align: center; margin-top: 4px;">kaapelista → jakamon portti → <span style="color: var(--fiber-glow);">RK</span> → MUX portti</div>
+      </div>
+
+      <div class="cable-segment">
+        <div class="cable-line"></div>
+        <div class="cable-info"><span class="cable-id">C5188</span><br>CTC 8×SM — 70,8 m</div>
+      </div>
+
+      <!-- Metrotukku OADM -->
+      <div class="site-box" style="min-width: 300px;">
+        <div class="site-name">Metrotukku</div>
+        <div class="site-address">Teollisuuskatu 13</div>
+        <div style="display: flex; gap: 0; align-items: stretch;">
+          <div class="device-box" style="flex: 1; border-radius: 6px 0 0 6px;">
+            <div class="device-name" style="font-size: 10px;">West</div>
+            <div class="device-type">(F-jakamo-taso1)</div>
+            <div style="margin-top: 8px;">
+              <span style="font-size: 11px; font-weight: 700; color: var(--text);">1</span>
+            </div>
+          </div>
+          <div class="device-box" style="flex: 2; border-radius: 0; border-left: 1px dashed rgba(250,204,21,0.3); border-right: 1px dashed rgba(250,204,21,0.3);">
+            <div class="device-name" style="font-size: 10px;">CWDMG2247FACC03</div>
+            <div class="device-type">(CWDMG2247FACC03)</div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px;">
+              <span style="font-size: 9px; color: var(--cyan);">Line West Out</span>
+              <span style="font-size: 9px; color: var(--fiber-glow);">SK</span>
+              <span style="font-size: 9px; color: var(--cyan);">Line East In</span>
+            </div>
+            <div style="font-size: 9px; color: var(--text-dim); text-align: center;">CC (UCON) → IC → CC (UCON)</div>
+          </div>
+          <div class="device-box" style="flex: 1; border-radius: 0 6px 6px 0;">
+            <div class="device-name" style="font-size: 10px;">East</div>
+            <div class="device-type">(F-jakamo-taso1)</div>
+            <div style="margin-top: 8px; text-align: right;">
+              <span style="font-size: 11px; font-weight: 700; color: var(--text);">1</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cable-segment">
+        <div class="cable-line"></div>
+        <div class="cable-info"><span class="cable-id">C5189</span><br>CTC 8×SM — 88,8 m</div>
+      </div>
+
+      <!-- Ruokala -->
+      <div class="site-box" style="min-width: 220px;">
+        <div class="site-name">Ruokala</div>
+        <div class="site-address">Teollisuuskatu 13</div>
+        <div style="display: flex; gap: 0; align-items: stretch;">
+          <div class="device-box" style="flex: 1; border-radius: 6px 0 0 6px; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div class="device-name" style="font-size: 10px;">2_260221</div>
+              <div class="device-type">(F-jakamo-taso1)</div>
+            </div>
+            <div style="margin-top: 8px;">
+              <span style="font-size: 11px; font-weight: 700; color: var(--text);">1</span>
+            </div>
+          </div>
+          <div class="device-box" style="flex: 1; border-radius: 0 6px 6px 0; border-left: 1px dashed rgba(250,204,21,0.3); display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div class="device-name" style="font-size: 10px;">CWDMG2847FACC03</div>
+              <div class="device-type">(CWDMG2847FACC03)</div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px; margin-top: 8px; justify-content: flex-end;">
+              <span style="font-size: 11px; font-weight: 700; color: var(--text);">1</span>
+              <span style="font-size: 10px; color: var(--accent);">Line Tx</span>
+            </div>
+            <div style="font-size: 9px; color: var(--text-dim);">CC (UCON)</div>
+          </div>
+        </div>
       </div>
     </div>
-    <div style="text-align: center; margin-top: 12px; font-size: 11px; color: var(--text-dim);">
-      <strong style="color: var(--fiber-glow);">RK</strong> = ristikytkentä (eri laitteiden välillä samassa teletilassa) · <strong style="color: var(--fiber-glow);">SK</strong> = sisäinen kytkentä (laitteen sisällä) · <strong>VP</strong> = vastinpistekytkentä (kaapeli teletilöiden välillä)
-    </div>
+  </div>
+
+  <div style="text-align: center; font-size: 11px; color: var(--text-dim); margin-bottom: 20px;">
+    Oma yhteys molemmille siirtosuunnille. Tx käyttää kuitua 2, Rx kuitua 1.<br>
+    <strong style="color: var(--fiber-glow);">CC</strong> = ristikytkentä (RK) · <strong style="color: var(--fiber-glow);">IC</strong> = sisäinen kytkentä (SK) · Numerot = portti-/kuitunumerot
   </div>
 
   <div class="step-list" style="margin-bottom: 28px;">
