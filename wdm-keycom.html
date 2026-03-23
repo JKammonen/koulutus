@@ -232,6 +232,11 @@
     <div class="insight-label">Mitä opit</div>
     <p>Laiteryhmien luominen, sisäiset kytkennät, runkoyhteydet, aliyhteydet ja yhteyshierarkia — kaikki mitä tarvitset WDM-verkon dokumentointiin KeyComissa.</p>
   </div>
+
+  <div class="insight-box" style="background: rgba(239,68,68,0.06); border-color: rgba(239,68,68,0.2);">
+    <div class="insight-label" style="color: var(--red);">Rajaus</div>
+    <p>Tämä kurssi ei kata optista mitoitusta (häviöbudjettilaskenta) eikä PON-signaalien "värjäämistä" CWDM-kanaville. Keskitymme <strong>dokumentointiin KeyComissa</strong>. GPON ja CWDM ovat erillisiä järjestelmiä — WDM-kanavointia käytetään P2P-linkkien multipleksointiin, ei PON-signaalin jakamiseen.</p>
+  </div>
 </section>
 
 <!-- ═══════════════════════════════════════════════ -->
@@ -264,6 +269,18 @@
       <p>Passiiviset MUX/DEMUX- ja OADM-moduulit ovat huoltovapaita. Pitkä käyttöikä, ei varaosatarvetta.</p>
     </div>
   </div>
+
+  <!-- Channel count table -->
+  <table class="data-table" style="max-width: 800px; margin-bottom: 28px;">
+    <thead>
+      <tr><th>Moduuli</th><th>Kanavat</th><th>Aallonpituudet</th><th>Milloin valita</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="hl">8-kanavainen</td><td>8 ch</td><td>1470–1610 nm</td><td>Yleisin. Riittää useimpiin käyttötapauksiin, edullinen, matala vaimennus.</td></tr>
+      <tr><td class="hl">16-kanavainen</td><td>16 ch</td><td>1270–1610 nm</td><td>Korkea kapasiteettitarve. Vaatii G.652.D-kuidun O-kaistan kanaville.</td></tr>
+      <tr><td class="hl">18-kanavainen</td><td>18 ch</td><td>1270–1610 nm + 1310</td><td>Maksimi ITU-T G.694.2 -standardin mukaan. Harvinainen käytännössä.</td></tr>
+    </tbody>
+  </table>
 
   <!-- MUX/DEMUX Port Diagram -->
   <div class="diagram-box">
@@ -393,6 +410,16 @@
       <tr><td class="hl">Suunta</td><td>TX = lähetys, RX = vastaanotto</td></tr>
     </tbody>
   </table>
+
+  <div class="insight-box" style="background: rgba(250,204,21,0.06); border-color: rgba(250,204,21,0.2); max-width: 900px;">
+    <div class="insight-label" style="color: var(--fiber-glow);">Tyypilliset vaimenema-alueet</div>
+    <p style="font-size: 13px; text-align: left; max-width: 600px; margin: 0 auto;">
+      <strong>MUX/DEMUX:</strong> 1–3 dB per kanava<br>
+      <strong>OADM drop/add:</strong> ~1,5–2,0 dB<br>
+      <strong>OADM läpikulku:</strong> ~3 dB<br><br>
+      Nämä ovat suuntaa antavia — <strong>käytä aina laitteen datasheetin arvoa</strong> KeyComiin kirjattavana vaimenemana.
+    </p>
+  </div>
 
   <div class="summary-box">
     <div class="summary-badge">Yhteenveto</div>
@@ -729,10 +756,57 @@
 </section>
 
 <!-- ═══════════════════════════════════════════════ -->
-<!-- §6 YHTEYSHIERARKIA JA KAAPELIN KÄYTTÖ           -->
+<!-- §6 NIMEÄMISKÄYTÄNTÖ                              -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="section" data-label="Nimeäminen">
+  <div class="section-num">06</div>
+  <h2>Nimeämiskäytäntö</h2>
+  <p class="subtitle">Yhdenmukainen nimeäminen helpottaa raportointia, vianselvitystä ja poikittaisraportin tulkintaa</p>
+
+  <table class="data-table" style="max-width: 800px; margin-bottom: 28px;">
+    <thead>
+      <tr><th>Kohde</th><th>Nimeämismalli</th><th>Esimerkki</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="hl">MUX/DEMUX-laiteryhmä</td><td><code>CWDM[koko]G[nro]FACC[nro]</code></td><td>CWDMG2847FACC03</td></tr>
+      <tr><td class="hl">Aallonpituusliitin</td><td><code>[λ]nm [suunta]</code></td><td>1470nm tx, 1490nm rx</td></tr>
+      <tr><td class="hl">COM/MON-liitin</td><td><code>COM [suunta]</code> / <code>MON</code></td><td>COM tx, COM rx, MON</td></tr>
+      <tr><td class="hl">OADM-portti</td><td><code>Line [suunta] [In/Out]</code></td><td>Line West In, Line East Out</td></tr>
+      <tr><td class="hl">OADM drop/add</td><td><code>[λ]nm [suunta] [D/A]</code></td><td>1310nm West D, 1470nm East A</td></tr>
+      <tr><td class="hl">Runkoyhteys</td><td><code>CWDM-RUNKO ([A]–[B]) [Tx/Rx]</code></td><td>CWDM-RUNKO (Keypro-Ruokala) Tx</td></tr>
+      <tr><td class="hl">Asiakasyhteys</td><td><code>WDM@[λ]nm ([asiakas/sijainti])</code></td><td>WDM@1490nm (Metrotukku)</td></tr>
+    </tbody>
+  </table>
+
+  <div class="card-grid">
+    <div class="card" style="border-left: 3px solid var(--fiber-glow);">
+      <div class="card-label">Miksi tärkeää</div>
+      <h3>Poikittaisraportin luettavuus</h3>
+      <p>Kun liittimet ja yhteydet on nimetty johdonmukaisesti, poikittaisraportti kertoo yhdellä silmäyksellä mikä aallonpituus menee minne ja kenelle.</p>
+    </div>
+    <div class="card" style="border-left: 3px solid var(--cyan);">
+      <div class="card-label">Käytännön vinkki</div>
+      <h3>Tx/Rx aina tunnukseen</h3>
+      <p>Runkoyhteyden tunnuksessa on aina suunta (Tx/Rx). Vianselvityksessä tämä on kriittistä — tiedät heti kumpaa suuntaa tutkia.</p>
+    </div>
+  </div>
+
+  <div class="summary-box">
+    <div class="summary-badge">Yhteenveto</div>
+    <ul>
+      <li>Liitinnimet = aallonpituus + suunta — laitetietokanta luo nämä automaattisesti</li>
+      <li>Runkoyhteys: CWDM-RUNKO (A–B) Tx/Rx — aina suunta tunnuksessa</li>
+      <li>Asiakasyhteys: WDM@[λ]nm — aallonpituus tunnuksessa helpottaa tunnistamista</li>
+      <li>Yhdenmukainen nimeäminen parantaa raportoinnin ja vianselvityksen tehokkuutta</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- §7 YHTEYSHIERARKIA JA KAAPELIN KÄYTTÖ           -->
 <!-- ═══════════════════════════════════════════════ -->
 <section class="section" data-label="Hierarkia">
-  <div class="section-num">06</div>
+  <div class="section-num">07</div>
   <h2>Yhteyshierarkia ja kaapelin käyttö</h2>
   <p class="subtitle">Kolme kerrosta: kaapelin kuidut → isäntäyhteys → aliyhteydet</p>
 
@@ -856,10 +930,10 @@
 </section>
 
 <!-- ═══════════════════════════════════════════════ -->
-<!-- §7 SANASTO                                      -->
+<!-- §8 SANASTO                                      -->
 <!-- ═══════════════════════════════════════════════ -->
 <section class="section" data-label="Sanasto">
-  <div class="section-num">07</div>
+  <div class="section-num">08</div>
   <h2>Sanasto</h2>
   <p class="subtitle">WDM-dokumentoinnin KeyCom-termit</p>
 
