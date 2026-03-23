@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WDM KeyComissa — Koulutus</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #0a0e1a;
+    --card: #111827;
+    --card-border: #1e293b;
+    --text: #e2e8f0;
+    --text-dim: #94a3b8;
+    --accent: #8b5cf6;
+    --fiber-glow: #facc15;
+    --green: #22c55e;
+    --red: #ef4444;
+    --orange: #f97316;
+    --purple: #8b5cf6;
+    --cyan: #06b6d4;
+    --blue: #3b82f6;
+  }
+  body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+
+  /* Nav */
+  .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(10,14,26,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--card-border); padding: 10px 24px; display: flex; align-items: center; gap: 12px; }
+  .nav-title { font-weight: 700; font-size: 13px; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; }
+  .nav-dots { display: flex; gap: 6px; margin-left: auto; }
+  .nav-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--card-border); cursor: pointer; transition: all 0.3s; }
+  .nav-dot.active { background: var(--accent); box-shadow: 0 0 8px var(--accent); }
+  .nav-label { font-size: 11px; color: var(--text-dim); margin-left: 8px; min-width: 120px; }
+
+  /* Part headers */
+  .part-header { width: 100%; padding: 100px 40px 20px; text-align: center; }
+  .part-number { font-size: 12px; text-transform: uppercase; letter-spacing: 3px; color: var(--accent); margin-bottom: 8px; }
+  .part-title { font-size: 28px; font-weight: 800; color: var(--fiber-glow); }
+
+  /* Sections */
+  .section { min-height: 100vh; padding: 80px 40px 40px; display: flex; flex-direction: column; align-items: center; position: relative; }
+  .section-num { position: absolute; top: 70px; left: 40px; font-size: 100px; font-weight: 800; color: rgba(139,92,246,0.05); line-height: 1; pointer-events: none; }
+  h2 { font-size: 28px; font-weight: 700; margin-bottom: 6px; text-align: center; }
+  .subtitle { font-size: 15px; color: var(--text-dim); margin-bottom: 36px; text-align: center; max-width: 650px; line-height: 1.6; }
+
+  /* Cards */
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; max-width: 900px; width: 100%; }
+  .card { background: var(--card); border: 1px solid var(--card-border); border-radius: 12px; padding: 24px; transition: all 0.3s; }
+  .card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(139,92,246,0.08); }
+  .card-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--accent); margin-bottom: 6px; }
+  .card h3 { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+  .card p { font-size: 13px; color: var(--text-dim); line-height: 1.6; }
+
+  /* Insight box */
+  .insight-box { max-width: 700px; width: 100%; background: rgba(139,92,246,0.06); border: 1px solid rgba(139,92,246,0.2); border-radius: 12px; padding: 20px 28px; margin-bottom: 20px; text-align: center; }
+  .insight-box .insight-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--accent); margin-bottom: 6px; }
+  .insight-box p { font-size: 15px; color: var(--text); line-height: 1.6; }
+
+  /* Diagram containers */
+  .diagram-box { max-width: 1000px; width: 100%; background: var(--card); border: 1px solid var(--card-border); border-radius: 16px; padding: 32px; margin-bottom: 20px; overflow-x: auto; }
+  .diagram-title { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); margin-bottom: 16px; }
+
+  /* Tables */
+  .data-table { max-width: 900px; width: 100%; border-collapse: separate; border-spacing: 0; background: var(--card); border-radius: 12px; overflow: hidden; border: 1px solid var(--card-border); margin-bottom: 20px; }
+  .data-table th { background: rgba(139,92,246,0.08); padding: 12px 16px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); font-weight: 600; }
+  .data-table td { padding: 10px 16px; font-size: 13px; border-top: 1px solid var(--card-border); color: var(--text-dim); }
+  .data-table tr:hover td { background: rgba(139,92,246,0.02); }
+  .hl { color: var(--fiber-glow) !important; font-weight: 600; }
+
+  /* Glossary */
+  .glossary-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 8px; max-width: 900px; width: 100%; }
+  .glossary-item { display: flex; gap: 12px; padding: 10px 14px; background: var(--card); border: 1px solid var(--card-border); border-radius: 8px; font-size: 13px; }
+  .glossary-term { color: var(--fiber-glow); font-weight: 600; min-width: 140px; }
+  .glossary-def { color: var(--text-dim); }
+
+  /* Device diagram: MUX/DEMUX port grid */
+  .device-frame { background: #0f1629; border: 2px solid var(--accent); border-radius: 12px; padding: 20px; position: relative; max-width: 800px; margin: 0 auto; }
+  .device-label { position: absolute; top: -12px; left: 20px; background: var(--accent); color: #0f172a; font-size: 11px; font-weight: 700; padding: 3px 12px; border-radius: 4px; letter-spacing: 1px; }
+  .port-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+  .port-cell { background: #1a2035; border: 1px solid #2d3a5c; border-radius: 8px; padding: 10px 8px; text-align: center; font-size: 11px; transition: all 0.3s; }
+  .port-cell:hover { border-color: var(--accent); background: #1e2545; }
+  .port-cell .port-name { color: var(--text); font-weight: 600; margin-bottom: 2px; }
+  .port-cell .port-type { font-size: 9px; color: var(--text-dim); text-transform: uppercase; }
+  .port-cell.port-com { border-color: var(--cyan); background: rgba(6,182,212,0.08); }
+  .port-cell.port-com .port-name { color: var(--cyan); }
+  .port-cell.port-mon { border-color: var(--orange); background: rgba(249,115,22,0.08); }
+  .port-cell.port-mon .port-name { color: var(--orange); }
+  .port-cell.port-wl { border-color: rgba(139,92,246,0.4); }
+  .port-cell.port-wl .port-name { color: #a78bfa; }
+  .port-row-label { font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin: 12px 0 6px; font-weight: 600; }
+
+  /* Connection diagram (circuit-style) */
+  .circuit-diagram { display: flex; align-items: stretch; gap: 0; min-width: 700px; }
+  .site-box { background: #0f1629; border: 2px solid var(--green); border-radius: 10px; padding: 14px; min-width: 160px; flex-shrink: 0; }
+  .site-name { color: var(--green); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+  .site-address { color: var(--text-dim); font-size: 10px; margin-bottom: 10px; }
+  .device-box { background: #1a2035; border: 1px solid #2d3a5c; border-radius: 6px; padding: 8px 10px; margin-bottom: 6px; }
+  .device-name { color: var(--text); font-size: 11px; font-weight: 600; }
+  .device-type { color: var(--text-dim); font-size: 9px; }
+  .port-tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 600; margin: 2px; }
+  .port-tag.com { background: rgba(6,182,212,0.15); color: var(--cyan); border: 1px solid rgba(6,182,212,0.3); }
+  .port-tag.wl { background: rgba(139,92,246,0.15); color: #a78bfa; border: 1px solid rgba(139,92,246,0.3); }
+
+  .cable-segment { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; min-width: 80px; padding: 10px 0; position: relative; }
+  .cable-line { width: 100%; height: 3px; background: var(--cyan); border-radius: 2px; position: relative; }
+  .cable-line::after { content: ''; position: absolute; top: -2px; left: 0; width: 40%; height: 7px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); animation: flow 2s linear infinite; border-radius: 2px; }
+  @keyframes flow { 0% { transform: translateX(-200%); } 100% { transform: translateX(200%); } }
+  .cable-info { font-size: 10px; color: var(--text-dim); margin-top: 6px; text-align: center; }
+  .cable-id { color: var(--green); font-weight: 600; }
+
+  /* OADM diagram */
+  .oadm-frame { background: #0f1629; border: 2px solid var(--orange); border-radius: 12px; padding: 20px; position: relative; max-width: 900px; margin: 0 auto; }
+  .oadm-label { position: absolute; top: -12px; left: 20px; background: var(--orange); color: #0f172a; font-size: 11px; font-weight: 700; padding: 3px 12px; border-radius: 4px; letter-spacing: 1px; }
+  .oadm-layout { display: grid; grid-template-columns: 120px 1fr 120px; gap: 12px; align-items: center; }
+  .oadm-side { display: flex; flex-direction: column; gap: 6px; }
+  .oadm-center { display: flex; flex-direction: column; gap: 8px; align-items: center; }
+  .oadm-port { padding: 6px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; text-align: center; }
+  .oadm-port.line-in { background: rgba(6,182,212,0.1); border: 1px solid rgba(6,182,212,0.3); color: var(--cyan); }
+  .oadm-port.line-out { background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.3); color: #60a5fa; }
+  .oadm-port.drop { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); color: var(--red); }
+  .oadm-port.add { background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3); color: var(--green); }
+  .loss-badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 10px; font-weight: 600; background: rgba(250,204,21,0.1); border: 1px solid rgba(250,204,21,0.2); color: var(--fiber-glow); }
+
+  /* Hierarchy diagram */
+  .hierarchy { max-width: 800px; width: 100%; }
+  .h-level { border-left: 3px solid; padding: 16px 20px; margin-bottom: 12px; border-radius: 0 10px 10px 0; background: var(--card); }
+  .h-level.cable { border-color: var(--green); }
+  .h-level.host { border-color: var(--cyan); }
+  .h-level.client { border-color: var(--accent); }
+  .h-level-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; margin-bottom: 4px; }
+  .h-level.cable .h-level-label { color: var(--green); }
+  .h-level.host .h-level-label { color: var(--cyan); }
+  .h-level.client .h-level-label { color: var(--accent); }
+  .h-level-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+  .h-level-desc { font-size: 12px; color: var(--text-dim); line-height: 1.5; }
+
+  /* Internal connection diagram */
+  .sk-diagram { display: flex; align-items: center; justify-content: center; gap: 20px; padding: 20px; flex-wrap: wrap; }
+  .sk-port { width: 90px; padding: 10px; border-radius: 8px; text-align: center; font-size: 11px; font-weight: 600; }
+  .sk-port.wl { background: rgba(139,92,246,0.12); border: 1px solid rgba(139,92,246,0.3); color: #a78bfa; }
+  .sk-port.com { background: rgba(6,182,212,0.12); border: 1px solid rgba(6,182,212,0.3); color: var(--cyan); }
+  .sk-arrow { color: var(--text-dim); font-size: 18px; }
+  .sk-label { font-size: 9px; color: var(--fiber-glow); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+
+  /* Summary box (lipuke style from perusteet.html) */
+  .summary-box { position: relative; margin-top: 44px; padding: 22px 24px 14px; background: rgba(139,92,246,0.04); border: 1px solid rgba(139,92,246,0.12); border-radius: 12px; max-width: 900px; width: 100%; }
+  .summary-box .summary-badge { position: absolute; top: -9px; left: 20px; padding: 3px 12px; background: var(--accent); border-radius: 4px; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #0F172A; }
+  .summary-box ul { margin: 0; padding-left: 18px; color: #CBD5E1; font-size: 13px; line-height: 1.9; }
+
+  /* Step list */
+  .step-list { max-width: 700px; width: 100%; counter-reset: step; }
+  .step-item { display: flex; gap: 16px; margin-bottom: 16px; align-items: flex-start; }
+  .step-num { flex-shrink: 0; width: 32px; height: 32px; background: rgba(139,92,246,0.12); border: 1px solid rgba(139,92,246,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: var(--accent); }
+  .step-content { flex: 1; }
+  .step-content h4 { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+  .step-content p { font-size: 13px; color: var(--text-dim); line-height: 1.5; }
+  .step-content code { background: rgba(139,92,246,0.1); color: #a78bfa; padding: 1px 6px; border-radius: 4px; font-size: 12px; }
+
+  /* Expandable details */
+  details.lisatiedot { margin: 1rem 0; background: #1E293B; border-radius: 0.5rem; border: 1px solid #334155; max-width: 900px; width: 100%; }
+  details.lisatiedot summary { padding: 0.75rem 1rem; cursor: pointer; color: #94A3B8; font-size: 0.9rem; }
+  details.lisatiedot summary:hover { color: #E2E8F0; }
+  details.lisatiedot[open] summary { color: var(--accent); border-bottom: 1px solid #334155; }
+  details.lisatiedot .lisatiedot-content { padding: 1rem; font-size: 0.85rem; color: #CBD5E1; }
+
+  @media (max-width: 700px) {
+    .section { padding: 70px 16px 20px; }
+    h2 { font-size: 22px; }
+    .port-grid { grid-template-columns: repeat(3, 1fr); }
+    .circuit-diagram { flex-direction: column; min-width: unset; }
+    .oadm-layout { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-title">WDM KeyComissa</div>
+  <div class="nav-dots" id="navDots"></div>
+  <div class="nav-label" id="navLabel"></div>
+</nav>
+
+<!-- HEADER -->
+<div class="part-header" style="padding-top:70px;">
+  <div class="part-number">KeyCom-koulutus</div>
+  <div class="part-title">WDM-dokumentointi KeyComissa</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- §1 WDM-LAITTEET JA NIIDEN RAKENNE              -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="section" data-label="WDM-laitteet">
+  <div class="section-num">01</div>
+  <h2>WDM-laitteet ja niiden rakenne</h2>
+  <p class="subtitle">MUX/DEMUX ja OADM — passiiviset laitteet, jotka yhdistävät ja erottelevat aallonpituuksia</p>
+
+  <div class="insight-box">
+    <div class="insight-label">Perusperiaate</div>
+    <p>WDM-laitteet ovat passiivisia — ne eivät tarvitse sähköä. Tyypillinen lisävaimennus (insertion loss) on alle 4,5 dB.</p>
+  </div>
+
+  <div class="card-grid" style="margin-bottom: 28px;">
+    <div class="card">
+      <div class="card-label">MUX / DEMUX</div>
+      <h3>Multiplekseri / Demultiplekseri</h3>
+      <p>Yhdistää usean aallonpituuden yhdeksi kuiduksi (MUX) tai erottelee ne takaisin (DEMUX). CWDM: enintään 18 kanavaa, 20 nm välein.</p>
+    </div>
+    <div class="card">
+      <div class="card-label">OADM</div>
+      <h3>Optical Add/Drop Multiplexer</h3>
+      <p>Lisää tai pudottaa yksittäisiä aallonpituuksia runkokuidusta. Mahdollistaa välisolmut ilman kaikkien kanavien purkamista.</p>
+    </div>
+    <div class="card">
+      <div class="card-label">Passiivinen</div>
+      <h3>Ei sähköä, ei huoltoa</h3>
+      <p>Passiiviset MUX/DEMUX- ja OADM-moduulit ovat huoltovapaita. Pitkä käyttöikä, ei varaosatarvetta.</p>
+    </div>
+  </div>
+
+  <!-- MUX/DEMUX Port Diagram -->
+  <div class="diagram-box">
+    <div class="diagram-title">CWDM 8-kanavainen MUX/DEMUX — porttirakenne</div>
+    <div class="device-frame">
+      <div class="device-label">CWDM MUX/DEMUX 8ch</div>
+
+      <div class="port-row-label">Aallonpituusportit (TX / RX)</div>
+      <div class="port-grid">
+        <div class="port-cell port-wl"><div class="port-name">1470nm</div><div class="port-type">TX / RX</div></div>
+        <div class="port-cell port-wl"><div class="port-name">1490nm</div><div class="port-type">TX / RX</div></div>
+        <div class="port-cell port-wl"><div class="port-name">1510nm</div><div class="port-type">TX / RX</div></div>
+        <div class="port-cell port-wl"><div class="port-name">1530nm</div><div class="port-type">TX / RX</div></div>
+        <div class="port-cell port-wl"><div class="port-name">1550nm</div><div class="port-type">TX / RX</div></div>
+        <div class="port-cell port-wl"><div class="port-name">1570nm</div><div class="port-type">TX / RX</div></div>
+        <div class="port-cell port-wl"><div class="port-name">1590nm</div><div class="port-type">TX / RX</div></div>
+        <div class="port-cell port-wl"><div class="port-name">1610nm</div><div class="port-type">TX / RX</div></div>
+        <!-- COM and MON -->
+        <div class="port-cell port-com"><div class="port-name">COM</div><div class="port-type">Trunk</div></div>
+        <div class="port-cell port-mon"><div class="port-name">MON</div><div class="port-type">Monitor</div></div>
+      </div>
+
+      <div style="margin-top: 16px; font-size: 12px; color: var(--text-dim); line-height: 1.6;">
+        <strong style="color: var(--text);">Jokaisella aallonpituusportilla</strong> on TX- ja RX-suunnat (kaksi liitintä per kanava).<br>
+        <strong style="color: var(--cyan);">COM</strong> = yhdistetty runkoliitäntä (trunk), jossa kaikki aallonpituudet kulkevat yhdessä kuidussa.<br>
+        <strong style="color: var(--orange);">MON</strong> = monitorointiliitäntä signaalin mittausta varten.
+      </div>
+    </div>
+  </div>
+
+  <div class="summary-box">
+    <div class="summary-badge">Yhteenveto</div>
+    <ul>
+      <li>MUX/DEMUX yhdistää/erottelee kaikki kanavat — sijoitetaan reitin päätepisteisiin</li>
+      <li>OADM lisää/pudottaa yksittäisiä kanavia — sijoitetaan välisolmuihin</li>
+      <li>Jokaisella portilla on TX- ja RX-suunta (kaksi liitintä)</li>
+      <li>COM-portti yhdistää kaikki aallonpituudet runkokuituun</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- §2 LAITERYHMÄN MALLINNUS KEYCOMISSA             -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="section" data-label="Laiteryhmä">
+  <div class="section-num">02</div>
+  <h2>Laiteryhmän mallinnus KeyComissa</h2>
+  <p class="subtitle">MUX/DEMUX mallinnetaan KeyComissa laiteryhmänä, jossa jokainen portti on oma liittimensä</p>
+
+  <div class="insight-box">
+    <div class="insight-label">Avainperiaate</div>
+    <p>Laiteryhmä = yksi fyysinen MUX/DEMUX-laite KeyComissa. Isäntälaite sisältää alilaitteet, ja jokaisen liittimen nimi kertoo aallonpituuden.</p>
+  </div>
+
+  <!-- Steps for modeling -->
+  <div class="step-list" style="margin-bottom: 28px;">
+    <div class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h4>Luo laiteryhmä teletilaan</h4>
+        <p>Avaa teletilan laitteet-välilehti. Luo uusi laite laitetietokannasta — valitse MUX/DEMUX-tyyppi (esim. <code>Cisco ONS 15216 8-Channel CWDM</code>).</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h4>Tarkista porttirakenne</h4>
+        <p>Laitetietokanta luo automaattisesti liittimet: <code>1470nm tx</code>, <code>1470nm rx</code>, ..., <code>COM tx</code>, <code>COM rx</code>, <code>MON tx</code>, <code>MON rx</code>. Liittimen nimi = aallonpituus.</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h4>Luo sisäiset kytkennät (SK)</h4>
+        <p>Avaa <code>Kytkentöjen hallinta</code> → kopioi teletila molempiin paneeleihin. Kytke jokainen aallonpituusportti COM-porttiin sisäisellä kytkennällä. Aseta vaimenema (insertion loss) jokaiselle kytkennälle.</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <h4>Aseta vaimenema-arvot</h4>
+        <p>Tyypillinen insertion loss: < 4,5 dB per kanava. Tarkista arvo laitteen datalehdestä ja kirjaa kytkennän ominaisuuksiin.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Internal connection diagram -->
+  <div class="diagram-box">
+    <div class="diagram-title">Sisäiset kytkennät — aallonpituusportit ↔ COM</div>
+    <div class="sk-diagram">
+      <div class="sk-port wl">1470nm tx</div>
+      <div class="sk-arrow">→</div>
+      <div style="text-align: center;">
+        <div class="sk-port com">COM tx</div>
+        <div class="sk-label">SK (sisäinen kytkentä)</div>
+      </div>
+    </div>
+    <div class="sk-diagram">
+      <div class="sk-port wl">1490nm tx</div>
+      <div class="sk-arrow">→</div>
+      <div style="text-align: center;">
+        <div class="sk-port com">COM tx</div>
+        <div class="sk-label">SK</div>
+      </div>
+    </div>
+    <div class="sk-diagram" style="opacity: 0.5;">
+      <div class="sk-port wl">...</div>
+      <div class="sk-arrow">→</div>
+      <div style="text-align: center;">
+        <div class="sk-port com">COM tx</div>
+        <div class="sk-label">SK</div>
+      </div>
+    </div>
+    <div style="text-align: center; margin-top: 12px; font-size: 12px; color: var(--text-dim);">
+      Jokainen aallonpituusliitin kytketään sisäisellä kytkennällä (SK) COM-liittimeen.<br>
+      Vastaavasti RX-suunta: COM rx → aallonpituusportit rx.
+    </div>
+  </div>
+
+  <table class="data-table" style="max-width: 700px;">
+    <thead>
+      <tr><th>Kenttä</th><th>Arvo / huomio</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="hl">Liittimen nimi</td><td>= aallonpituus + suunta, esim. "1470nm tx", "COM rx"</td></tr>
+      <tr><td class="hl">Kytkentätyyppi</td><td>SK (sisäinen kytkentä) — saman laitteen sisällä</td></tr>
+      <tr><td class="hl">Vaimenema</td><td>Insertion loss dB:nä, esim. 3,5 dB (datalehdestä)</td></tr>
+      <tr><td class="hl">Suunta</td><td>TX = lähetys, RX = vastaanotto</td></tr>
+    </tbody>
+  </table>
+
+  <div class="summary-box">
+    <div class="summary-badge">Yhteenveto</div>
+    <ul>
+      <li>MUX/DEMUX = laiteryhmä KeyComissa (isäntälaite + alilaitteet)</li>
+      <li>Liittimen nimi kertoo aallonpituuden — tämä on kriittistä yhteyksien luonnissa</li>
+      <li>Sisäiset kytkennät (SK) yhdistävät aallonpituusportit COM-porttiin</li>
+      <li>Vaimenema kirjataan jokaiseen sisäiseen kytkentään</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- §3 OADM-MALLINNUS KEYCOMISSA                    -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="section" data-label="OADM">
+  <div class="section-num">03</div>
+  <h2>OADM-mallinnus KeyComissa</h2>
+  <p class="subtitle">Add/Drop-moduulin porttirakenne, suunnat ja häviöarvot</p>
+
+  <div class="diagram-box">
+    <div class="diagram-title">OADM — porttirakenne ja signaalin kulku</div>
+    <div class="oadm-frame">
+      <div class="oadm-label">CWDM OADM (1310nm + 2ch)</div>
+      <div class="oadm-layout">
+        <!-- West side -->
+        <div class="oadm-side">
+          <div style="font-size: 11px; font-weight: 700; color: var(--cyan); margin-bottom: 6px; text-align: center;">WEST</div>
+          <div class="oadm-port line-in">Line West In</div>
+          <div class="oadm-port line-out">Line West Out</div>
+        </div>
+        <!-- Center: drops and adds -->
+        <div class="oadm-center">
+          <div style="display: flex; gap: 24px; flex-wrap: wrap; justify-content: center;">
+            <div style="text-align: center;">
+              <div style="font-size: 10px; color: var(--text-dim); margin-bottom: 4px;">1310nm West</div>
+              <div class="oadm-port drop" style="margin-bottom: 4px;">Drop ↓</div>
+              <div class="oadm-port add">Add ↑</div>
+            </div>
+            <div style="text-align: center;">
+              <div style="font-size: 10px; color: var(--text-dim); margin-bottom: 4px;">1470nm West</div>
+              <div class="oadm-port drop" style="margin-bottom: 4px;">Drop ↓</div>
+              <div class="oadm-port add">Add ↑</div>
+            </div>
+            <div style="text-align: center;">
+              <div style="font-size: 10px; color: var(--text-dim); margin-bottom: 4px;">1490nm West</div>
+              <div class="oadm-port drop" style="margin-bottom: 4px;">Drop ↓</div>
+              <div class="oadm-port add">Add ↑</div>
+            </div>
+          </div>
+          <div style="border-top: 1px solid var(--card-border); width: 100%; padding-top: 8px; margin-top: 4px;"></div>
+          <div style="display: flex; gap: 24px; flex-wrap: wrap; justify-content: center;">
+            <div style="text-align: center;">
+              <div style="font-size: 10px; color: var(--text-dim); margin-bottom: 4px;">1310nm East</div>
+              <div class="oadm-port add" style="margin-bottom: 4px;">Add ↑</div>
+              <div class="oadm-port drop">Drop ↓</div>
+            </div>
+            <div style="text-align: center;">
+              <div style="font-size: 10px; color: var(--text-dim); margin-bottom: 4px;">1470nm East</div>
+              <div class="oadm-port add" style="margin-bottom: 4px;">Add ↑</div>
+              <div class="oadm-port drop">Drop ↓</div>
+            </div>
+            <div style="text-align: center;">
+              <div style="font-size: 10px; color: var(--text-dim); margin-bottom: 4px;">1490nm East</div>
+              <div class="oadm-port add" style="margin-bottom: 4px;">Add ↑</div>
+              <div class="oadm-port drop">Drop ↓</div>
+            </div>
+          </div>
+        </div>
+        <!-- East side -->
+        <div class="oadm-side">
+          <div style="font-size: 11px; font-weight: 700; color: var(--blue); margin-bottom: 6px; text-align: center;">EAST</div>
+          <div class="oadm-port line-in">Line East In</div>
+          <div class="oadm-port line-out">Line East Out</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <table class="data-table" style="max-width: 700px;">
+    <thead>
+      <tr><th>Sisäinen kytkentä</th><th>Suunta</th><th>Vaimenema</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="hl">Line In → Drop</td><td>Descending (laskeva)</td><td>1,8 dB</td></tr>
+      <tr><td class="hl">Add → Line Out</td><td>Ascending (nouseva)</td><td>1,8 dB</td></tr>
+      <tr><td class="hl">Line In → Line Out</td><td>No direction (läpikulku)</td><td>3,0 dB</td></tr>
+    </tbody>
+  </table>
+
+  <div class="card-grid">
+    <div class="card" style="border-left: 3px solid var(--cyan);">
+      <div class="card-label">West-suunta</div>
+      <h3>Liikenne lännestä</h3>
+      <p>Line West In vastaanottaa signaalin lännestä. Drop-portit pudottavat halutut aallonpituudet paikallisille laitteille. Läpikulkevat kanavat jatkavat Line East Out:iin.</p>
+    </div>
+    <div class="card" style="border-left: 3px solid var(--blue);">
+      <div class="card-label">East-suunta</div>
+      <h3>Liikenne idästä</h3>
+      <p>Line East In vastaanottaa signaalin idästä. Vastaava logiikka: Drop itään, Add idästä. Paikallinen liikenne lisätään Add-porttien kautta.</p>
+    </div>
+  </div>
+
+  <div class="summary-box">
+    <div class="summary-badge">Yhteenveto</div>
+    <ul>
+      <li>OADM mallinnetaan samalla tavalla laiteryhmänä kuin MUX/DEMUX</li>
+      <li>West/East-suunnat: Line In, Line Out, Drop ja Add jokaiselle aallonpituudelle</li>
+      <li>Vaimenema-arvot: Drop/Add 1,8 dB, läpikulku 3,0 dB — kirjaa sisäisiin kytkentöihin</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- §4 WDM-RUNKOYHTEYDEN LUOMINEN                   -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="section" data-label="Runkoyhteys">
+  <div class="section-num">04</div>
+  <h2>WDM-runkoyhteyden luominen</h2>
+  <p class="subtitle">Isäntäyhteys (host circuit) kulkee COM-porttien kautta ja varaa fyysiset resurssit</p>
+
+  <div class="insight-box">
+    <div class="insight-label">Tärkeä periaate</div>
+    <p>WDM-runkoyhteys luodaan <strong>kahtena erillisenä yhteytenä</strong>: yksi TX-suuntaan ja toinen RX-suuntaan. Molemmat kulkevat COM-liittimien kautta.</p>
+  </div>
+
+  <!-- Circuit diagram: Tx direction -->
+  <div class="diagram-box">
+    <div class="diagram-title">Runkoyhteys TX-suunta — esimerkki: Keypro → Metrotukku → Ruokala</div>
+    <div class="circuit-diagram">
+      <div class="site-box">
+        <div class="site-name">Keypro</div>
+        <div class="site-address">Teollisuuskatu 13</div>
+        <div class="device-box">
+          <div class="device-name">CWDMG2847FACC03</div>
+          <div class="device-type">F-jakamo-taso1</div>
+        </div>
+        <div class="port-tag com">Line Tx 1</div>
+        <div class="port-tag com">COM (UCON)</div>
+      </div>
+
+      <div class="cable-segment">
+        <div class="cable-line"></div>
+        <div class="cable-info"><span class="cable-id">C5188</span><br>CTC 8×SM — 70,8 m</div>
+      </div>
+
+      <div class="site-box">
+        <div class="site-name">Metrotukku</div>
+        <div class="site-address">Teollisuuskatu 13</div>
+        <div class="device-box">
+          <div class="device-name">CWDMG2247FACC03</div>
+          <div class="device-type">OADM (F-jakamo-taso1)</div>
+        </div>
+        <div class="port-tag com">Line West In</div>
+        <div class="port-tag com">Line East Out</div>
+        <div style="font-size: 10px; color: var(--text-dim); margin-top: 4px;">CC (UCON) → SK → CC (UCON)</div>
+      </div>
+
+      <div class="cable-segment">
+        <div class="cable-line"></div>
+        <div class="cable-info"><span class="cable-id">C5189</span><br>CTC 8×SM — 88,8 m</div>
+      </div>
+
+      <div class="site-box">
+        <div class="site-name">Ruokala</div>
+        <div class="site-address">Teollisuuskatu 13</div>
+        <div class="device-box">
+          <div class="device-name">CWDMG2847FACC03</div>
+          <div class="device-type">F-jakamo-taso1</div>
+        </div>
+        <div class="port-tag com">COM (UCON)</div>
+        <div class="port-tag com">Line Rx 1</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step-list" style="margin-bottom: 28px;">
+    <div class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h4>Avaa Yhteys-lomake</h4>
+        <p>Luo uusi yhteys: tyyppi = WDM, tunnus esim. <code>CWDM-RUNKO (Keypro-Ruokala) Tx</code>.</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h4>Lisää yhteysosiot</h4>
+        <p>Jokaiselle teletila-parille oma yhteysosio: Keypro→Metrotukku ja Metrotukku→Ruokala.</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h4>Varaa COM-portit</h4>
+        <p>Runkoyhteys varataan <strong>COM-liittimien</strong> kautta: Line Tx → COM (UCON) → kaapeli → COM (UCON) → Line Rx.</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <h4>Luo toinen yhteys RX-suuntaan</h4>
+        <p>Toista sama vastakkaiseen suuntaan: <code>CWDM-RUNKO (Keypro-Ruokala) Rx</code>. Käytä samoja kaapeleita, mutta eri kuitu.</p>
+      </div>
+    </div>
+  </div>
+
+  <details class="lisatiedot">
+    <summary>Lisätiedot: Miksi kaksi erillistä yhteyttä?</summary>
+    <div class="lisatiedot-content">
+      <p>WDM-runkoyhteys mallinnetaan kahtena erillisenä yhteytenä (Tx ja Rx), koska:</p>
+      <ul style="margin-top: 8px; padding-left: 20px; line-height: 1.8;">
+        <li>COM-portilla on erillinen TX- ja RX-liitin</li>
+        <li>Tx ja Rx käyttävät eri kuitua samassa kaapelissa</li>
+        <li>Yhteyskaavio näyttää selkeämmin reitin kun suunnat ovat erillään</li>
+        <li>Vianselvityksessä voidaan tarkistaa suunnat erikseen</li>
+      </ul>
+    </div>
+  </details>
+
+  <div class="summary-box">
+    <div class="summary-badge">Yhteenveto</div>
+    <ul>
+      <li>Runkoyhteys = isäntäyhteys (host circuit), joka varaa fyysiset kaapelikuidut</li>
+      <li>Kaksi erillistä yhteyttä: TX ja RX — eri kuidut, sama kaapeli</li>
+      <li>Reitti kulkee aina COM-porttien kautta</li>
+      <li>OADM-solmuissa: Line West In → sisäinen kytkentä → Line East Out</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- §5 WDM-ASIAKASYHTEYDEN LUOMINEN                 -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="section" data-label="Asiakasyhteys">
+  <div class="section-num">05</div>
+  <h2>WDM-asiakasyhteyden luominen</h2>
+  <p class="subtitle">Aliyhteys (sub-channel) varaa tietyn aallonpituuden isäntäyhteyden sisällä</p>
+
+  <div class="insight-box">
+    <div class="insight-label">Avainperiaate</div>
+    <p>Asiakasyhteys on <strong>aliyhteys</strong> (sub-channel), joka varaa saman aallonpituusliittimen molemmissa päissä. Se "ratsastaa" isäntäyhteyden päällä.</p>
+  </div>
+
+  <div class="step-list" style="margin-bottom: 28px;">
+    <div class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h4>Avaa isäntäyhteys</h4>
+        <p>Hae runkoyhteys (esim. <code>CWDM-RUNKO (Keypro-Ruokala) Tx</code>) Yhteys-lomakkeelta.</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h4>Luo aliyhteys</h4>
+        <p>Yhteys-lomakkeella: <code>Aliyhteydet</code>-osio → Luo uusi aliyhteys. Tunnus esim. <code>CWDM-Asiakas (Metrotukku) D</code>.</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h4>Varaa aallonpituusliittimet</h4>
+        <p>Varaa <strong>sama aallonpituus molemmissa päissä</strong>: esim. <code>1310nm West D</code> OADM:ssa ja <code>1310 Mux</code> MUX:ssa. Aliyhteys kytkeytyy automaattisesti isäntäyhteyden runkoon.</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <h4>Tarkista yhteyskaavio</h4>
+        <p>Avaa yhteyskaavion asetukset: rastita <code>Show subcircuit connections</code> — näet aliyhteyden kulun isäntäyhteyden sisällä.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sub-channel diagram -->
+  <div class="diagram-box">
+    <div class="diagram-title">Asiakasyhteys (sub-channel) — isäntäyhteyden sisällä</div>
+    <div class="circuit-diagram">
+      <div class="site-box" style="border-color: var(--accent);">
+        <div class="site-name" style="color: var(--accent);">Metrotukku</div>
+        <div class="device-box">
+          <div class="device-name">CWDMG2247FACC03</div>
+        </div>
+        <div class="port-tag wl">1310nm West D</div>
+        <div style="font-size: 10px; color: var(--text-dim); margin-top: 4px;">Line West In → SK</div>
+      </div>
+
+      <div class="cable-segment">
+        <div class="cable-line" style="background: var(--accent);"></div>
+        <div class="cable-info" style="color: var(--accent); font-weight: 600;">Isäntäyhteys<br><span style="color: var(--text-dim); font-weight: 400;">CWDM-RUNKO Tx/1310</span></div>
+      </div>
+
+      <div class="site-box" style="border-color: var(--accent);">
+        <div class="site-name" style="color: var(--accent);">Keypro</div>
+        <div class="device-box">
+          <div class="device-name">CWDMG2847FACC03</div>
+        </div>
+        <div class="port-tag wl">1310 Mux</div>
+        <div style="font-size: 10px; color: var(--text-dim); margin-top: 4px;">Line Tx → SK</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-grid">
+    <div class="card" style="border-left: 3px solid var(--accent);">
+      <div class="card-label">Yhteyskaavion asetukset</div>
+      <h3>Show subcircuit connections</h3>
+      <p>Rastita tämä asetus yhteyskaavion asetuksissa. Tällöin kaavio näyttää aliyhteyden polun isäntäyhteyden COM-reitin rinnalla.</p>
+    </div>
+    <div class="card" style="border-left: 3px solid var(--fiber-glow);">
+      <div class="card-label">Nimeäminen</div>
+      <h3>Aallonpituus tunnuksessa</h3>
+      <p>Asiakasyhteyden tunnukseen kannattaa sisällyttää aallonpituus, esim. <code>WDM@1490nm</code>. Helpottaa tunnistamista poikittaisraportissa.</p>
+    </div>
+  </div>
+
+  <div class="summary-box">
+    <div class="summary-badge">Yhteenveto</div>
+    <ul>
+      <li>Asiakasyhteys = aliyhteys (sub-channel) isäntäyhteyden sisällä</li>
+      <li>Varaa sama aallonpituusliitin molemmissa päätepisteissä</li>
+      <li>Yhteyskaavio: "Show subcircuit connections" näyttää aliyhteyden reitin</li>
+      <li>Nimeä yhteys aallonpituuden mukaan tunnistettavuuden vuoksi</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- §6 YHTEYSHIERARKIA JA KAAPELIN KÄYTTÖ           -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="section" data-label="Hierarkia">
+  <div class="section-num">06</div>
+  <h2>Yhteyshierarkia ja kaapelin käyttö</h2>
+  <p class="subtitle">Kolme kerrosta: kaapelin kuidut → isäntäyhteys → aliyhteydet</p>
+
+  <div class="insight-box">
+    <div class="insight-label">Kolmikerroshierarkia</div>
+    <p>WDM-dokumentoinnissa on kolme loogista tasoa: kaapelin fyysiset kuidut, isäntäyhteys (host) COM-porttien kautta, ja aliyhteydet (sub-channel) aallonpituusporttien kautta.</p>
+  </div>
+
+  <!-- Hierarchy diagram -->
+  <div class="hierarchy" style="margin-bottom: 28px;">
+    <div class="h-level cable">
+      <div class="h-level-label">Taso 1 — Kaapelin kuidut</div>
+      <div class="h-level-title">Fyysinen kaapeli ja sen kuidut</div>
+      <div class="h-level-desc">
+        Kaapeli (esim. CTC 8×SM) yhdistää teletilat. Yksittäiset kuidut varataan yhteyksille.<br>
+        <strong>Kaapelilomakkeella</strong> näkyy kuidun käyttöaste ja mitkä yhteydet varaavat mitäkin kuituja.
+      </div>
+    </div>
+    <div class="h-level host" style="margin-left: 30px;">
+      <div class="h-level-label">Taso 2 — Isäntäyhteys (host circuit)</div>
+      <div class="h-level-title">WDM-runkoyhteys COM-porttien kautta</div>
+      <div class="h-level-desc">
+        Isäntäyhteys varaa fyysiset resurssit: kuidut, jatkokset, ODF-liittimet.<br>
+        Reitti: ODF → MUX/DEMUX (COM) → kaapeli → jatkos → kaapeli → MUX/DEMUX (COM) → ODF.<br>
+        <strong>Tämä on ainoa yhteys joka näkyy kaapelin kuidun varauksissa.</strong>
+      </div>
+    </div>
+    <div class="h-level client" style="margin-left: 60px;">
+      <div class="h-level-label">Taso 3 — Aliyhteydet (sub-channel / client circuits)</div>
+      <div class="h-level-title">Aallonpituuskohtaiset asiakasyhteydet</div>
+      <div class="h-level-desc">
+        Jokainen aliyhteys varaa yhden aallonpituusliittimen molemmissa päissä.<br>
+        Aliyhteydet "ratsastavat" isäntäyhteyden päällä — ne eivät itse varaa kuituja.<br>
+        <strong>Poikittaisraportissa</strong> näkyvät sekä isäntäyhteys (COM:ssa) että aliyhteydet (aallonpituusporteissa).
+      </div>
+    </div>
+  </div>
+
+  <!-- Full circuit diagram -->
+  <div class="diagram-box">
+    <div class="diagram-title">Täysi yhteyskaavio — ODF:stä ODF:lle</div>
+    <div class="circuit-diagram">
+      <div class="site-box" style="min-width: 130px;">
+        <div class="site-name" style="font-size: 10px;">000indoor cab</div>
+        <div class="device-box">
+          <div class="device-name" style="font-size: 10px;">ODF1</div>
+          <div class="device-type">Generic fiber panel</div>
+        </div>
+      </div>
+
+      <div class="cable-segment" style="min-width: 40px;">
+        <div style="font-size: 9px; color: var(--text-dim); text-align: center; margin-bottom: 4px;">RK</div>
+        <div class="cable-line" style="background: var(--green); height: 2px;"></div>
+      </div>
+
+      <div class="site-box" style="min-width: 130px; border-color: var(--accent);">
+        <div class="site-name" style="color: var(--accent); font-size: 10px;">LOD4128 Exchange</div>
+        <div class="device-box">
+          <div class="device-name" style="font-size: 10px;">ODF1 → CWDM MUX/DEMUX</div>
+        </div>
+        <div class="port-tag wl" style="font-size: 9px;">1490 tx</div>
+        <div class="port-tag com" style="font-size: 9px;">COM tx</div>
+      </div>
+
+      <div class="cable-segment">
+        <div class="cable-line"></div>
+        <div class="cable-info"><span class="cable-id">kaapeli</span><br>4×SM — 4210 m</div>
+      </div>
+
+      <div class="site-box" style="min-width: 130px; border-color: var(--accent);">
+        <div class="site-name" style="color: var(--accent); font-size: 10px;">Lodz exchange</div>
+        <div class="device-box">
+          <div class="device-name" style="font-size: 10px;">CWDM MUX/DEMUX → ODF</div>
+        </div>
+        <div class="port-tag com" style="font-size: 9px;">COM rx</div>
+        <div class="port-tag wl" style="font-size: 9px;">1490 rx</div>
+      </div>
+
+      <div class="cable-segment" style="min-width: 40px;">
+        <div style="font-size: 9px; color: var(--text-dim); text-align: center; margin-bottom: 4px;">RK</div>
+        <div class="cable-line" style="background: var(--green); height: 2px;"></div>
+      </div>
+
+      <div class="site-box" style="min-width: 130px;">
+        <div class="site-name" style="font-size: 10px;">Distr.switch</div>
+        <div class="device-box">
+          <div class="device-name" style="font-size: 10px;">SW1.1</div>
+          <div class="device-type">generic 240 connector</div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align: center; margin-top: 12px; font-size: 11px; color: var(--text-dim);">
+      <span style="color: var(--green);">■</span> Ristikytkentä (RK)&nbsp;&nbsp;
+      <span style="color: var(--cyan);">■</span> Kaapeliyhteys&nbsp;&nbsp;
+      <span style="color: var(--accent);">■</span> WDM-laite (MUX/DEMUX)
+    </div>
+  </div>
+
+  <table class="data-table" style="max-width: 700px;">
+    <thead>
+      <tr><th>KeyCom-näkymä</th><th>Mitä näyttää</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="hl">Kaapelilomake</td><td>Kuidun varaus: isäntäyhteys ja sen tunnus</td></tr>
+      <tr><td class="hl">Poikittaisraportti</td><td>COM-portissa isäntäyhteys, aallonpituusporteissa aliyhteydet</td></tr>
+      <tr><td class="hl">Yhteyskaavio</td><td>Graafinen reittikuva teletilasta teletilaan</td></tr>
+      <tr><td class="hl">Reitinseuranta</td><td>Koko ketju: ODF → MUX → kaapeli → jatkos → MUX → ODF</td></tr>
+    </tbody>
+  </table>
+
+  <div class="summary-box">
+    <div class="summary-badge">Yhteenveto</div>
+    <ul>
+      <li>Kaapelin kuitu → isäntäyhteys (COM) → aliyhteydet (aallonpituus) — kolme kerrosta</li>
+      <li>Vain isäntäyhteys varaa fyysisiä resursseja (kuidut, jatkokset)</li>
+      <li>Aliyhteydet eivät näy kaapelin varauksissa — ne näkyvät poikittaisraportissa aallonpituusporteissa</li>
+      <li>Yhteyskaavio + reitinseuranta näyttävät koko polun ODF:stä ODF:lle</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- §7 SANASTO                                      -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="section" data-label="Sanasto">
+  <div class="section-num">07</div>
+  <h2>Sanasto</h2>
+  <p class="subtitle">WDM-dokumentoinnin KeyCom-termit</p>
+
+  <div class="glossary-grid">
+    <div class="glossary-item"><div class="glossary-term">Laiteryhmä</div><div class="glossary-def">Device group — isäntälaite joka sisältää alilaitteet (esim. MUX/DEMUX tai OADM)</div></div>
+    <div class="glossary-item"><div class="glossary-term">Sisäinen kytkentä (SK)</div><div class="glossary-def">Internal connection — kytkentä saman laitteen porttien välillä (esim. 1470nm → COM)</div></div>
+    <div class="glossary-item"><div class="glossary-term">Ristikytkentä (RK)</div><div class="glossary-def">Cross-connection — kytkentä eri laitteiden välillä samassa teletilassa (esim. ODF → MUX)</div></div>
+    <div class="glossary-item"><div class="glossary-term">Vastinpistekytkentä (VP)</div><div class="glossary-def">Counter-point connection — kytkentä eri teletilöiden välillä kaapelin kautta</div></div>
+    <div class="glossary-item"><div class="glossary-term">COM-liitin</div><div class="glossary-def">Common port — MUX/DEMUX:n runkoliitäntä jossa kaikki aallonpituudet kulkevat yhdessä</div></div>
+    <div class="glossary-item"><div class="glossary-term">MON-liitin</div><div class="glossary-def">Monitor port — signaalin mittaus- ja monitorointiliitäntä</div></div>
+    <div class="glossary-item"><div class="glossary-term">Isäntäyhteys</div><div class="glossary-def">Host circuit — WDM-runkoyhteys COM-porttien kautta, varaa fyysiset kuidut</div></div>
+    <div class="glossary-item"><div class="glossary-term">Aliyhteys (sub-channel)</div><div class="glossary-def">Sub-connection / client circuit — aallonpituuskohtainen yhteys isäntäyhteyden sisällä</div></div>
+    <div class="glossary-item"><div class="glossary-term">Vaimenema (IL)</div><div class="glossary-def">Insertion loss — kytkennän tai laitteen aiheuttama signaalin vaimennus desibeleissä (dB)</div></div>
+    <div class="glossary-item"><div class="glossary-term">OADM</div><div class="glossary-def">Optical Add/Drop Multiplexer — lisää/pudottaa aallonpituuksia runkokuidusta välisolmussa</div></div>
+    <div class="glossary-item"><div class="glossary-term">MUX / DEMUX</div><div class="glossary-def">Multiplexer / Demultiplexer — yhdistää/erottelee kaikki aallonpituudet reitin päätepisteissä</div></div>
+    <div class="glossary-item"><div class="glossary-term">Yhteyskaavio</div><div class="glossary-def">Circuit diagram — graafinen reittikuva teletilasta teletilaan, näyttää laitteet, kaapelit ja kytkennät</div></div>
+    <div class="glossary-item"><div class="glossary-term">Poikittaisraportti</div><div class="glossary-def">Cross-connect report — teletilan laitteet, liittimet, kytkennät ja yhteydet yhdessä näkymässä</div></div>
+    <div class="glossary-item"><div class="glossary-term">UCON</div><div class="glossary-def">Undefined connector — yleisliitintyyppi KeyComissa kun tarkka tyyppi ei ole tiedossa</div></div>
+    <div class="glossary-item"><div class="glossary-term">SK</div><div class="glossary-def">Sisäinen kytkentä (Internal connection) — lyhennemuoto yhteyskaaviossa</div></div>
+    <div class="glossary-item"><div class="glossary-term">RK</div><div class="glossary-def">Ristikytkentä (Cross-connection) — lyhennemuoto yhteyskaaviossa</div></div>
+    <div class="glossary-item"><div class="glossary-term">VP</div><div class="glossary-def">Vastinpistekytkentä (Counter-point connection) — lyhennemuoto yhteyskaaviossa</div></div>
+  </div>
+
+  <div class="summary-box" style="margin-top: 28px;">
+    <div class="summary-badge">Muista</div>
+    <ul>
+      <li>WDM-dokumentoinnin ydin: laiteryhmä + sisäiset kytkennät + isäntäyhteys + aliyhteydet</li>
+      <li>Liittimen nimi = aallonpituus — tämä kytkee fyysisen ja loogisen kerroksen yhteen</li>
+      <li>Runkoyhteys kulkee COM-porttien kautta, asiakasyhteydet aallonpituusporttien kautta</li>
+      <li>Yhteyskaavio ja poikittaisraportti ovat päätyökalut WDM-yhteyksien tarkasteluun</li>
+    </ul>
+  </div>
+</section>
+
+<!-- NAV SCRIPT -->
+<script>
+  const sections = document.querySelectorAll('.section');
+  const dotsContainer = document.getElementById('navDots');
+  const navLabel = document.getElementById('navLabel');
+
+  sections.forEach((s, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'nav-dot';
+    dot.onclick = () => s.scrollIntoView({ behavior: 'smooth' });
+    dotsContainer.appendChild(dot);
+  });
+
+  const dots = dotsContainer.querySelectorAll('.nav-dot');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const idx = [...sections].indexOf(e.target);
+        dots.forEach(d => d.classList.remove('active'));
+        if (dots[idx]) dots[idx].classList.add('active');
+        navLabel.textContent = e.target.dataset.label || '';
+      }
+    });
+  }, { threshold: 0.3 });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
