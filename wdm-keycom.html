@@ -26,7 +26,7 @@
 
   /* Nav */
   .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(10,14,26,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--card-border); padding: 10px 24px; display: flex; align-items: center; gap: 12px; }
-  .nav-title { font-weight: 700; font-size: 13px; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; }
+  .nav-title { font-weight: 700; font-size: 13px; color: var(--fiber-glow); text-transform: uppercase; letter-spacing: 2px; }
   .nav-dots { display: flex; gap: 6px; margin-left: auto; }
   .nav-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--card-border); cursor: pointer; transition: all 0.3s; }
   .nav-dot.active { background: var(--accent); box-shadow: 0 0 8px var(--accent); }
@@ -170,6 +170,28 @@
     .circuit-diagram { flex-direction: column; min-width: unset; }
     .oadm-layout { grid-template-columns: 1fr; }
   }
+
+  /* Print button */
+  .print-btn { background: none; border: 1px solid var(--card-border); color: var(--text-dim); font-size: 13px; padding: 4px 10px; border-radius: 6px; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; gap: 4px; font-family: inherit; }
+  .print-btn:hover { border-color: var(--accent); color: var(--text); }
+
+  /* Print styles */
+  @media print {
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; color-adjust: exact !important; }
+    .nav { display: none !important; }
+    .print-btn { display: none !important; }
+    .section { min-height: auto !important; padding: 20px 20px 10px !important; page-break-inside: avoid; }
+    .part-header { padding: 30px 20px 10px !important; }
+    .card, .data-table, .diagram-box { page-break-inside: avoid; }
+    .card:hover { transform: none !important; box-shadow: none !important; border-color: var(--card-border) !important; }
+    .data-table tr:hover td { background: transparent !important; }
+    details { display: block !important; }
+    details[open] summary ~ * { display: block !important; }
+    details > summary { list-style: none; }
+    details > summary::-webkit-details-marker { display: none; }
+    details:not([open]) > *:not(summary) { display: block !important; }
+    @page { margin: 1.5cm; }
+  }
 </style>
 </head>
 <body>
@@ -177,6 +199,7 @@
 <!-- NAV -->
 <nav class="nav">
   <div class="nav-title">WDM KeyComissa</div>
+  <button class="print-btn" onclick="window.print()" title="Tallenna PDF">&#x1F5B6; PDF</button>
   <div class="nav-dots" id="navDots"></div>
   <div class="nav-label" id="navLabel"></div>
 </nav>
@@ -186,6 +209,30 @@
   <div class="part-number">KeyCom-koulutus</div>
   <div class="part-title">WDM-dokumentointi KeyComissa</div>
 </div>
+
+<!-- INTRO -->
+<section class="section" data-label="Johdanto" style="min-height: 60vh;">
+  <h2>Kenelle ja miksi?</h2>
+  <p class="subtitle">Tämä kurssi opettaa, miten WDM-laitteet ja -yhteydet dokumentoidaan KeyCom-tietojärjestelmässä</p>
+
+  <div class="card-grid" style="margin-bottom: 28px;">
+    <div class="card" style="border-left: 3px solid var(--accent);">
+      <div class="card-label">Kohderyhmä</div>
+      <h3>Keypro-henkilöstö</h3>
+      <p>Presales, CSM, tuotepäälliköt ja tuotekehitys. Operaattoriasiakkaille tukea antavat tiimit.</p>
+    </div>
+    <div class="card" style="border-left: 3px solid var(--cyan);">
+      <div class="card-label">Esitiedot</div>
+      <h3>CWDM/DWDM-perusteet + KeyCom</h3>
+      <p>Suositellaan: <a href="cwdm.html" style="color: var(--accent);">CWDM & DWDM -kurssi</a> ja perustaidot KeyComin käytöstä (lomakkeet, kytkennät, yhteydet).</p>
+    </div>
+  </div>
+
+  <div class="insight-box">
+    <div class="insight-label">Mitä opit</div>
+    <p>Laiteryhmien luominen, sisäiset kytkennät, runkoyhteydet, aliyhteydet ja yhteyshierarkia — kaikki mitä tarvitset WDM-verkon dokumentointiin KeyComissa.</p>
+  </div>
+</section>
 
 <!-- ═══════════════════════════════════════════════ -->
 <!-- §1 WDM-LAITTEET JA NIIDEN RAKENNE              -->
@@ -204,7 +251,7 @@
     <div class="card">
       <div class="card-label">MUX / DEMUX</div>
       <h3>Multiplekseri / Demultiplekseri</h3>
-      <p>Yhdistää usean aallonpituuden yhdeksi kuiduksi (MUX) tai erottelee ne takaisin (DEMUX). CWDM: enintään 18 kanavaa, 20 nm välein.</p>
+      <p>Yhdistää usean aallonpituuden yhdeksi kuiduksi (MUX) tai erottelee ne takaisin (DEMUX). CWDM: standardi sallii 18 kanavaa (20 nm välein), käytännössä yleisimpiä ovat 8-kanavaiset moduulit.</p>
     </div>
     <div class="card">
       <div class="card-label">OADM</div>
@@ -284,7 +331,7 @@
       <div class="step-num">2</div>
       <div class="step-content">
         <h4>Tarkista porttirakenne</h4>
-        <p>Laitetietokanta luo automaattisesti liittimet: <code>1470nm tx</code>, <code>1470nm rx</code>, ..., <code>COM tx</code>, <code>COM rx</code>, <code>MON tx</code>, <code>MON rx</code>. Liittimen nimi = aallonpituus.</p>
+        <p>Laitetietokanta luo automaattisesti liittimet: <code>1470nm tx</code>, <code>1470nm rx</code>, ..., <code>COM tx</code>, <code>COM rx</code>, <code>MON</code>. Liittimen nimi = aallonpituus.</p>
       </div>
     </div>
     <div class="step-item">
@@ -501,7 +548,7 @@
         </div>
         <div class="port-tag com">Line West In</div>
         <div class="port-tag com">Line East Out</div>
-        <div style="font-size: 10px; color: var(--text-dim); margin-top: 4px;">CC (UCON) → SK → CC (UCON)</div>
+        <div style="font-size: 10px; color: var(--text-dim); margin-top: 4px;">VP (UCON) → SK → VP (UCON)</div>
       </div>
 
       <div class="cable-segment">
@@ -526,26 +573,33 @@
     <div class="step-item">
       <div class="step-num">1</div>
       <div class="step-content">
-        <h4>Avaa Yhteys-lomake</h4>
-        <p>Luo uusi yhteys: tyyppi = WDM, tunnus esim. <code>CWDM-RUNKO (Keypro-Ruokala) Tx</code>.</p>
+        <h4>Paikanna laitteet kartalla</h4>
+        <p>Avaa karttanäkymä ja paikanna WDM-laitteet (MUX/DEMUX, OADM) teletiloissaan. Varmista, että laiteryhmät ja sisäiset kytkennät on luotu (§2–§3).</p>
       </div>
     </div>
     <div class="step-item">
       <div class="step-num">2</div>
+      <div class="step-content">
+        <h4>Avaa Yhteys-lomake</h4>
+        <p>KeyNet-työkaluista: Yhteys → Luo uusi. Tyyppi = WDM, tunnus esim. <code>CWDM-RUNKO (Keypro-Ruokala) Tx</code>.</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">3</div>
       <div class="step-content">
         <h4>Lisää yhteysosiot</h4>
         <p>Jokaiselle teletila-parille oma yhteysosio: Keypro→Metrotukku ja Metrotukku→Ruokala.</p>
       </div>
     </div>
     <div class="step-item">
-      <div class="step-num">3</div>
+      <div class="step-num">4</div>
       <div class="step-content">
         <h4>Varaa COM-portit</h4>
         <p>Runkoyhteys varataan <strong>COM-liittimien</strong> kautta: Line Tx → COM (UCON) → kaapeli → COM (UCON) → Line Rx.</p>
       </div>
     </div>
     <div class="step-item">
-      <div class="step-num">4</div>
+      <div class="step-num">5</div>
       <div class="step-content">
         <h4>Luo toinen yhteys RX-suuntaan</h4>
         <p>Toista sama vastakkaiseen suuntaan: <code>CWDM-RUNKO (Keypro-Ruokala) Rx</code>. Käytä samoja kaapeleita, mutta eri kuitu.</p>
@@ -721,11 +775,12 @@
   <div class="diagram-box">
     <div class="diagram-title">Täysi yhteyskaavio — ODF:stä ODF:lle</div>
     <div class="circuit-diagram">
-      <div class="site-box" style="min-width: 130px;">
-        <div class="site-name" style="font-size: 10px;">000indoor cab</div>
+      <div class="site-box" style="min-width: 140px;">
+        <div class="site-name" style="font-size: 10px;">Keypro</div>
+        <div class="site-address">Teollisuuskatu 13</div>
         <div class="device-box">
           <div class="device-name" style="font-size: 10px;">ODF1</div>
-          <div class="device-type">Generic fiber panel</div>
+          <div class="device-type">19" 48×SC/APC 5m</div>
         </div>
       </div>
 
@@ -734,10 +789,10 @@
         <div class="cable-line" style="background: var(--green); height: 2px;"></div>
       </div>
 
-      <div class="site-box" style="min-width: 130px; border-color: var(--accent);">
-        <div class="site-name" style="color: var(--accent); font-size: 10px;">LOD4128 Exchange</div>
+      <div class="site-box" style="min-width: 140px; border-color: var(--accent);">
+        <div class="site-name" style="color: var(--accent); font-size: 10px;">Keypro</div>
         <div class="device-box">
-          <div class="device-name" style="font-size: 10px;">ODF1 → CWDM MUX/DEMUX</div>
+          <div class="device-name" style="font-size: 10px;">CWDM MUX/DEMUX</div>
         </div>
         <div class="port-tag wl" style="font-size: 9px;">1490 tx</div>
         <div class="port-tag com" style="font-size: 9px;">COM tx</div>
@@ -745,13 +800,13 @@
 
       <div class="cable-segment">
         <div class="cable-line"></div>
-        <div class="cable-info"><span class="cable-id">kaapeli</span><br>4×SM — 4210 m</div>
+        <div class="cable-info"><span class="cable-id">C5188</span><br>CTC 8×SM — 70,8 m</div>
       </div>
 
-      <div class="site-box" style="min-width: 130px; border-color: var(--accent);">
-        <div class="site-name" style="color: var(--accent); font-size: 10px;">Lodz exchange</div>
+      <div class="site-box" style="min-width: 140px; border-color: var(--accent);">
+        <div class="site-name" style="color: var(--accent); font-size: 10px;">Ruokala</div>
         <div class="device-box">
-          <div class="device-name" style="font-size: 10px;">CWDM MUX/DEMUX → ODF</div>
+          <div class="device-name" style="font-size: 10px;">CWDM MUX/DEMUX</div>
         </div>
         <div class="port-tag com" style="font-size: 9px;">COM rx</div>
         <div class="port-tag wl" style="font-size: 9px;">1490 rx</div>
@@ -762,11 +817,11 @@
         <div class="cable-line" style="background: var(--green); height: 2px;"></div>
       </div>
 
-      <div class="site-box" style="min-width: 130px;">
-        <div class="site-name" style="font-size: 10px;">Distr.switch</div>
+      <div class="site-box" style="min-width: 140px;">
+        <div class="site-name" style="font-size: 10px;">Ruokala</div>
         <div class="device-box">
-          <div class="device-name" style="font-size: 10px;">SW1.1</div>
-          <div class="device-type">generic 240 connector</div>
+          <div class="device-name" style="font-size: 10px;">ODF5</div>
+          <div class="device-type">19" 48×SC/APC 5m</div>
         </div>
       </div>
     </div>
@@ -839,6 +894,11 @@
   </div>
 </section>
 
+<!-- FOOTER -->
+<footer style="text-align: center; padding: 40px; color: var(--text-dim); font-size: 12px; border-top: 1px solid var(--card-border);">
+  WDM KeyComissa — Keypro Oy, 2026
+</footer>
+
 <!-- NAV SCRIPT -->
 <script>
   const sections = document.querySelectorAll('.section');
@@ -847,10 +907,11 @@
 
   sections.forEach((s, i) => {
     const dot = document.createElement('div');
-    dot.className = 'nav-dot';
+    dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
     dot.onclick = () => s.scrollIntoView({ behavior: 'smooth' });
     dotsContainer.appendChild(dot);
   });
+  navLabel.textContent = '1/' + sections.length + ' — ' + (sections[0].dataset.label || '');
 
   const dots = dotsContainer.querySelectorAll('.nav-dot');
 
@@ -860,7 +921,7 @@
         const idx = [...sections].indexOf(e.target);
         dots.forEach(d => d.classList.remove('active'));
         if (dots[idx]) dots[idx].classList.add('active');
-        navLabel.textContent = e.target.dataset.label || '';
+        navLabel.textContent = (idx + 1) + '/' + sections.length + ' — ' + (e.target.dataset.label || '');
       }
     });
   }, { threshold: 0.3 });
