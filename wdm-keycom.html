@@ -562,28 +562,28 @@
   <div class="diagram-box">
     <div class="diagram-title">Runkoyhteys TX-suunta — esimerkki: Keypro → Metrotukku → Ruokala</div>
     <div class="circuit-diagram">
-      <!-- Keypro: jakamo + MUX/DEMUX -->
-      <div class="site-box" style="min-width: 200px;">
+      <!-- Keypro: MUX/DEMUX + jakamo -->
+      <div class="site-box" style="min-width: 220px;">
         <div class="site-name">Keypro</div>
         <div class="site-address">Teollisuuskatu 13</div>
-        <div style="display: flex; gap: 6px;">
+        <div style="display: flex; gap: 6px; align-items: stretch;">
           <div class="device-box" style="flex: 1;">
             <div class="device-name" style="font-size: 10px;">CWDMG2847FACC03</div>
             <div class="device-type">MUX/DEMUX</div>
-            <div style="margin-top: 4px;">
-              <div class="port-tag com" style="font-size: 9px;">Line Tx</div>
-              <div class="port-tag com" style="font-size: 9px;">CC (UCON)</div>
+            <div style="margin-top: 6px;">
+              <div class="port-tag wl" style="font-size: 9px;">Line Tx</div>
             </div>
           </div>
+          <div style="display: flex; align-items: center; font-size: 9px; color: var(--fiber-glow); padding: 0 2px;">RK</div>
           <div class="device-box" style="flex: 1;">
             <div class="device-name" style="font-size: 10px;">2_260221</div>
             <div class="device-type">F-jakamo-taso1</div>
-            <div style="margin-top: 4px;">
-              <div class="port-tag com" style="font-size: 9px;">CC (UCON)</div>
+            <div style="margin-top: 6px;">
+              <div class="port-tag com" style="font-size: 9px;">portti 1</div>
             </div>
           </div>
         </div>
-        <div style="font-size: 9px; color: var(--fiber-glow); text-align: center; margin-top: 4px;">SK laitteen sisällä</div>
+        <div style="font-size: 9px; color: var(--text-dim); text-align: center; margin-top: 4px;">MUX portti → <span style="color: var(--fiber-glow);">RK</span> → jakamon portti → kaapeliin</div>
       </div>
 
       <div class="cable-segment">
@@ -592,29 +592,29 @@
       </div>
 
       <!-- Metrotukku: OADM West + East -->
-      <div class="site-box" style="min-width: 260px;">
+      <div class="site-box" style="min-width: 280px;">
         <div class="site-name">Metrotukku</div>
         <div class="site-address">Teollisuuskatu 13</div>
-        <div style="display: flex; gap: 6px;">
+        <div style="display: flex; gap: 4px; align-items: stretch;">
           <div class="device-box" style="flex: 1;">
             <div class="device-name" style="font-size: 10px;">West</div>
             <div class="device-type">F-jakamo-taso1</div>
-            <div style="margin-top: 4px;">
+            <div style="margin-top: 6px;">
               <div class="port-tag com" style="font-size: 9px;">Line West In</div>
               <div class="port-tag com" style="font-size: 9px;">CC (UCON)</div>
             </div>
           </div>
-          <div style="display: flex; align-items: center; font-size: 10px; color: var(--fiber-glow); padding: 0 4px;">SK</div>
+          <div style="display: flex; align-items: center; font-size: 9px; color: var(--fiber-glow); padding: 0 2px;">SK</div>
           <div class="device-box" style="flex: 1;">
             <div class="device-name" style="font-size: 10px;">East</div>
             <div class="device-type">F-jakamo-taso1</div>
-            <div style="margin-top: 4px;">
-              <div class="port-tag com" style="font-size: 9px;">Line East Out</div>
+            <div style="margin-top: 6px;">
               <div class="port-tag com" style="font-size: 9px;">CC (UCON)</div>
+              <div class="port-tag com" style="font-size: 9px;">Line East Out</div>
             </div>
           </div>
         </div>
-        <div style="font-size: 9px; color: var(--text-dim); text-align: center; margin-top: 4px;">CWDMG2247FACC03 — OADM, sisäinen läpikulku (SK)</div>
+        <div style="font-size: 9px; color: var(--text-dim); text-align: center; margin-top: 4px;">CWDMG2247FACC03 — OADM, West CC → <span style="color: var(--fiber-glow);">SK</span> → East CC</div>
       </div>
 
       <div class="cable-segment">
@@ -623,31 +623,31 @@
       </div>
 
       <!-- Ruokala: jakamo + MUX/DEMUX -->
-      <div class="site-box" style="min-width: 200px;">
+      <div class="site-box" style="min-width: 220px;">
         <div class="site-name">Ruokala</div>
         <div class="site-address">Teollisuuskatu 13</div>
-        <div style="display: flex; gap: 6px;">
+        <div style="display: flex; gap: 6px; align-items: stretch;">
           <div class="device-box" style="flex: 1;">
             <div class="device-name" style="font-size: 10px;">2_260222</div>
             <div class="device-type">F-jakamo-taso1</div>
-            <div style="margin-top: 4px;">
-              <div class="port-tag com" style="font-size: 9px;">CC (UCON)</div>
+            <div style="margin-top: 6px;">
+              <div class="port-tag com" style="font-size: 9px;">portti 2</div>
             </div>
           </div>
+          <div style="display: flex; align-items: center; font-size: 9px; color: var(--fiber-glow); padding: 0 2px;">RK</div>
           <div class="device-box" style="flex: 1;">
             <div class="device-name" style="font-size: 10px;">CWDMG2847FACC03</div>
             <div class="device-type">MUX/DEMUX</div>
-            <div style="margin-top: 4px;">
-              <div class="port-tag com" style="font-size: 9px;">CC (UCON)</div>
-              <div class="port-tag com" style="font-size: 9px;">Line Rx</div>
+            <div style="margin-top: 6px;">
+              <div class="port-tag wl" style="font-size: 9px;">Line Rx</div>
             </div>
           </div>
         </div>
-        <div style="font-size: 9px; color: var(--fiber-glow); text-align: center; margin-top: 4px;">SK laitteen sisällä</div>
+        <div style="font-size: 9px; color: var(--text-dim); text-align: center; margin-top: 4px;">kaapelista → jakamon portti → <span style="color: var(--fiber-glow);">RK</span> → MUX portti</div>
       </div>
     </div>
     <div style="text-align: center; margin-top: 12px; font-size: 11px; color: var(--text-dim);">
-      <strong>VP</strong> = vastinpistekytkentä (kaapeli teletilöiden välillä) · <strong>SK</strong> = sisäinen kytkentä (laitteen sisällä) · <strong>CC</strong> = liitin (UCON = yleisliitin)
+      <strong style="color: var(--fiber-glow);">RK</strong> = ristikytkentä (eri laitteiden välillä samassa teletilassa) · <strong style="color: var(--fiber-glow);">SK</strong> = sisäinen kytkentä (laitteen sisällä) · <strong>VP</strong> = vastinpistekytkentä (kaapeli teletilöiden välillä)
     </div>
   </div>
 
