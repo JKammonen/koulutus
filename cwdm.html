@@ -249,6 +249,15 @@
       </div>
     </details>
   </div>
+
+  <div style="margin-top:32px; padding:16px 20px; background:rgba(139,92,246,0.06); border-left:3px solid #8B5CF6; border-radius:0 8px 8px 0;">
+    <strong style="color:#8B5CF6; font-size:13px;">📌 Pääviestit</strong>
+    <ul style="margin:8px 0 0 0; padding-left:20px; color:#CBD5E1; font-size:13px; line-height:1.8;">
+      <li>CWDM = 18 kanavaa, 20 nm väli, yhdellä kuidulla (1270–1610 nm)</li>
+      <li>Passiivinen MUX/DEMUX — ei sähköä, ei huoltoa</li>
+      <li>Halpa ja yksinkertainen tapa moninkertaistaa kuidun kapasiteetti</li>
+    </ul>
+  </div>
 </section>
 
 <!-- 02. CWDM vs DWDM -->
@@ -296,7 +305,7 @@
       <!-- Spacing indicator -->
       <line x1="76" y1="82" x2="120" y2="82" stroke="#06b6d4" stroke-opacity="0.5"/>
       <text x="98" y="78" fill="#06b6d4" font-size="9" text-anchor="middle" font-weight="600">20 nm</text>
-      <text x="450" y="150" fill="#06b6d4" font-size="11" text-anchor="middle" font-weight="600">Alue: 1270–1610 nm (O, E, S, C, L -kaistat)</text>
+      <text x="450" y="150" fill="#06b6d4" font-size="11" text-anchor="middle" font-weight="600">Alue: 1270–1610 nm (O-kaista, E-kaista, S-kaista, C-kaista, L-kaista)</text>
 
       <!-- DWDM section -->
       <text x="50" y="185" fill="#facc15" font-size="13" font-weight="700">DWDM</text>
@@ -378,6 +387,15 @@
     <div class="card-label" style="color: #818cf8;">DWDM 50 GHz</div>
     <h3>Tiheämpi kanavaväli = enemmän kapasiteettia</h3>
     <p>DWDM tukee myös 50 GHz (~0,4 nm) kanavaväliä, joka kasvattaa kanavamäärää tyypillisesti 80 → 96 valitulla C-kaistalla. Vaatii tarkemmat laserit ja suodattimet, mutta mahdollistaa suuremman kokonaiskapasiteetin samalla kuituinfrastruktuurilla.</p>
+  </div>
+
+  <div style="margin-top:32px; padding:16px 20px; background:rgba(139,92,246,0.06); border-left:3px solid #8B5CF6; border-radius:0 8px 8px 0;">
+    <strong style="color:#8B5CF6; font-size:13px;">📌 Pääviestit</strong>
+    <ul style="margin:8px 0 0 0; padding-left:20px; color:#CBD5E1; font-size:13px; line-height:1.8;">
+      <li>CWDM: harvat kanavat, edullinen, metro/access-verkkoihin</li>
+      <li>DWDM: tiiviit kanavat (80–96), runkoverkkoihin, kallis</li>
+      <li>Valinta riippuu tarvittavasta kapasiteetista ja etäisyydestä</li>
+    </ul>
   </div>
 </section>
 
@@ -562,6 +580,15 @@
         <p style="margin-top: 0.5rem;">Etä-OLT:n GPON-portit toimivat normaalisti standardiaallonpituuksilla (DS 1490 nm, US 1310 nm) — CWDM ei vaikuta PON-signaaleihin.</p>
       </div>
     </details>
+  </div>
+
+  <div style="margin-top:32px; padding:16px 20px; background:rgba(139,92,246,0.06); border-left:3px solid #8B5CF6; border-radius:0 8px 8px 0;">
+    <strong style="color:#8B5CF6; font-size:13px;">📌 Pääviestit</strong>
+    <ul style="margin:8px 0 0 0; padding-left:20px; color:#CBD5E1; font-size:13px; line-height:1.8;">
+      <li>CWDM kuljettaa P2P-uplinkkejä etä-OLT:lle — EI värjää PON-portteja</li>
+      <li>GPON käyttää aina kiinteitä aallonpituuksia (DS 1490 nm, US 1310 nm)</li>
+      <li>Esimerkki: 4 CWDM-kanavaa × 1:32 splitteri = 128 asiakasta yhdellä kuidulla</li>
+    </ul>
   </div>
 </section>
 
@@ -802,6 +829,15 @@
       <text x="475" y="266" fill="#facc15" font-size="10" font-weight="700" text-anchor="middle">YHDESSÄ: 4λ P2P → etä-OLT → 4×32 = 128 asiakasta</text>
     </svg>
   </div>
+
+  <div style="margin-top:32px; padding:16px 20px; background:rgba(139,92,246,0.06); border-left:3px solid #8B5CF6; border-radius:0 8px 8px 0;">
+    <strong style="color:#8B5CF6; font-size:13px;">📌 Pääviestit</strong>
+    <ul style="margin:8px 0 0 0; padding-left:20px; color:#CBD5E1; font-size:13px; line-height:1.8;">
+      <li>PON jakaa ajassa (TDMA), CWDM jakaa aallonpituudessa — älä sekoita</li>
+      <li>Keskus → CWDM MUX → 1 kuitu → DEMUX → etä-OLT → GPON-splitteri → ONT</li>
+      <li>CWDM ja PON toimivat eri tasoilla — ne täydentävät toisiaan</li>
+    </ul>
+  </div>
 </section>
 
 <!-- 05. KUSTANNUSVERTAILU -->
@@ -847,6 +883,15 @@
       <div class="savings-num" style="color:#a78bfa;">3</div>
       <div class="savings-unit">kuitua vapautuu muuhun käyttöön</div>
     </div>
+  </div>
+
+  <div style="margin-top:32px; padding:16px 20px; background:rgba(139,92,246,0.06); border-left:3px solid #8B5CF6; border-radius:0 8px 8px 0;">
+    <strong style="color:#8B5CF6; font-size:13px;">📌 Pääviestit</strong>
+    <ul style="margin:8px 0 0 0; padding-left:20px; color:#CBD5E1; font-size:13px; line-height:1.8;">
+      <li>CWDM-laitteisto: 2 000–5 000 € vs. uusi kaapeli: kymmeniä tuhansia</li>
+      <li>Jo 500 m:n matkalla CWDM voi olla edullisempi kuin kaivaminen</li>
+      <li>Pay-as-you-grow: lisää kanavia tarpeen mukaan</li>
+    </ul>
   </div>
 </section>
 
@@ -947,6 +992,15 @@
   </div>
     </div>
   </details>
+
+  <div style="margin-top:32px; padding:16px 20px; background:rgba(139,92,246,0.06); border-left:3px solid #8B5CF6; border-radius:0 8px 8px 0;">
+    <strong style="color:#8B5CF6; font-size:13px;">📌 Pääviestit</strong>
+    <ul style="margin:8px 0 0 0; padding-left:20px; color:#CBD5E1; font-size:13px; line-height:1.8;">
+      <li>Jaettu kaista → PON; dedikoitu → P2P</li>
+      <li>Vapaita kuituja → suora kytkentä; ei vapaita → CWDM</li>
+      <li>GPON riittää useimpiin; XGS-PON kun tarvitaan 10G</li>
+    </ul>
+  </div>
 </section>
 
 <!-- 07. SANASTO -->
