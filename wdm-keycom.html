@@ -249,7 +249,7 @@
 
   <div class="insight-box">
     <div class="insight-label">Perusperiaate</div>
-    <p>WDM-laitteet ovat passiivisia — ne eivät tarvitse sähköä. Tyypillinen lisävaimennus (insertion loss) on alle 4,5 dB.</p>
+    <p>CWDM MUX/DEMUX-laitteet ovat passiivisia — ne eivät tarvitse sähköä. Tyypillinen vaimenema on 1–3 dB per kanava (maksimispesifikaatio yleensä < 4,5 dB).</p>
   </div>
 
   <div class="card-grid" style="margin-bottom: 28px;">
@@ -306,7 +306,8 @@
       <div style="margin-top: 16px; font-size: 12px; color: var(--text-dim); line-height: 1.6;">
         <strong style="color: var(--text);">Jokaisella aallonpituusportilla</strong> on TX- ja RX-suunnat (kaksi liitintä per kanava).<br>
         <strong style="color: var(--cyan);">COM</strong> = yhdistetty runkoliitäntä (trunk), jossa kaikki aallonpituudet kulkevat yhdessä kuidussa.<br>
-        <strong style="color: var(--orange);">MON</strong> = monitorointiliitäntä signaalin mittausta varten.
+        <strong style="color: var(--orange);">MON</strong> = monitorointiliitäntä signaalin mittausta varten.<br>
+        <em style="color: var(--text-dim);">Porttien nimet ovat englanniksi, koska ne vastaavat KeyComin laitetietokannan liitinnimiä.</em>
       </div>
     </div>
   </div>
@@ -355,14 +356,14 @@
       <div class="step-num">3</div>
       <div class="step-content">
         <h4>Luo sisäiset kytkennät (SK)</h4>
-        <p>Avaa <code>Kytkentöjen hallinta</code> → kopioi teletila molempiin paneeleihin. Kytke jokainen aallonpituusportti COM-porttiin sisäisellä kytkennällä. Aseta vaimenema (insertion loss) jokaiselle kytkennälle.</p>
+        <p>Avaa <code>Kytkentöjen hallinta</code> (KeyCom-työkalupaletista tai hiiren oikealla teletilasta) → valitse <code>Looginen</code>-välilehti → kopioi teletila molempiin paneeleihin. Kytke jokainen aallonpituusportti COM-porttiin sisäisellä kytkennällä (SK). Aseta vaimenema jokaiselle kytkennälle.</p>
       </div>
     </div>
     <div class="step-item">
       <div class="step-num">4</div>
       <div class="step-content">
         <h4>Aseta vaimenema-arvot</h4>
-        <p>Tyypillinen insertion loss: < 4,5 dB per kanava. Tarkista arvo laitteen datalehdestä ja kirjaa kytkennän ominaisuuksiin.</p>
+        <p>Tyypillinen vaimenema: 1–3 dB per kanava (maks. < 4,5 dB). <strong>Käytä aina laitteen datasheetin arvoa</strong> — kirjaa se kytkennän ominaisuuksiin.</p>
       </div>
     </div>
   </div>
@@ -499,16 +500,22 @@
     </div>
   </div>
 
-  <table class="data-table" style="max-width: 700px;">
+  <table class="data-table" style="max-width: 800px;">
     <thead>
-      <tr><th>Sisäinen kytkentä</th><th>Suunta</th><th>Vaimenema</th></tr>
+      <tr><th>Sisäinen kytkentä (SK)</th><th>KeyCom-suunta</th><th>Tyypillinen vaimenema</th></tr>
     </thead>
     <tbody>
-      <tr><td class="hl">Line In → Drop</td><td>Descending (laskeva)</td><td>1,8 dB</td></tr>
-      <tr><td class="hl">Add → Line Out</td><td>Ascending (nouseva)</td><td>1,8 dB</td></tr>
-      <tr><td class="hl">Line In → Line Out</td><td>No direction (läpikulku)</td><td>3,0 dB</td></tr>
+      <tr><td class="hl">Line West In → Drop (per λ)</td><td>Descending (laskeva)</td><td>~1,5–2,0 dB</td></tr>
+      <tr><td class="hl">Add → Line West Out (per λ)</td><td>Ascending (nouseva)</td><td>~1,5–2,0 dB</td></tr>
+      <tr><td class="hl">Line West In → Line West Out</td><td>No direction (läpikulku)</td><td>~3 dB</td></tr>
+      <tr><td class="hl">Line East In → Drop (per λ)</td><td>Descending (laskeva)</td><td>~1,5–2,0 dB</td></tr>
+      <tr><td class="hl">Add → Line East Out (per λ)</td><td>Ascending (nouseva)</td><td>~1,5–2,0 dB</td></tr>
+      <tr><td class="hl">Line East In → Line East Out</td><td>No direction (läpikulku)</td><td>~3 dB</td></tr>
     </tbody>
   </table>
+  <div style="text-align: center; font-size: 11px; color: var(--text-dim); margin-bottom: 20px;">
+    Arvot ovat suuntaa antavia — <strong style="color: var(--fiber-glow);">käytä aina laitteen datasheetin arvoa</strong>. Luo SK:t erikseen West- ja East-suuntiin.
+  </div>
 
   <div class="card-grid">
     <div class="card" style="border-left: 3px solid var(--cyan);">
@@ -538,12 +545,17 @@
 <!-- ═══════════════════════════════════════════════ -->
 <section class="section" data-label="Runkoyhteys">
   <div class="section-num">04</div>
-  <h2>WDM-runkoyhteyden luominen</h2>
+  <h2>WDM-isäntäyhteyden luominen</h2>
   <p class="subtitle">Isäntäyhteys (host circuit) kulkee COM-porttien kautta ja varaa fyysiset resurssit</p>
 
   <div class="insight-box">
+    <div class="insight-label">Terminologia</div>
+    <p><strong>Isäntäyhteys</strong> = KeyComin yhteys jolla on aliyhteydet. WDM-kontekstissa tätä kutsutaan usein <strong>runkoyhteys</strong> (trunk circuit), koska se kulkee MUX/DEMUX:ien COM-porttien kautta runkokuitua pitkin. Tässä materiaalissa käytämme termiä <strong>isäntäyhteys</strong>.</p>
+  </div>
+
+  <div class="insight-box">
     <div class="insight-label">Tärkeä periaate</div>
-    <p>WDM-runkoyhteys luodaan <strong>kahtena erillisenä yhteytenä</strong>: yksi TX-suuntaan ja toinen RX-suuntaan. Molemmat kulkevat COM-liittimien kautta.</p>
+    <p>WDM-isäntäyhteys luodaan <strong>kahtena erillisenä yhteytenä</strong>: yksi TX-suuntaan ja toinen RX-suuntaan. Molemmat kulkevat COM-liittimien kautta.</p>
   </div>
 
   <!-- Circuit diagram: Tx direction -->
@@ -575,7 +587,7 @@
         </div>
         <div class="port-tag com">Line West In</div>
         <div class="port-tag com">Line East Out</div>
-        <div style="font-size: 10px; color: var(--text-dim); margin-top: 4px;">VP (UCON) → SK → VP (UCON)</div>
+        <div style="font-size: 10px; color: var(--text-dim); margin-top: 4px;">kaapeli (VP) → SK läpikulku → kaapeli (VP)</div>
       </div>
 
       <div class="cable-segment">
@@ -593,6 +605,9 @@
         <div class="port-tag com">COM (UCON)</div>
         <div class="port-tag com">Line Rx 1</div>
       </div>
+    </div>
+    <div style="text-align: center; margin-top: 12px; font-size: 11px; color: var(--text-dim);">
+      <strong>VP</strong> = vastinpistekytkentä (kaapeli kahden teletilan välillä) · <strong>SK</strong> = sisäinen kytkentä (laitteen sisällä) · <strong>UCON</strong> = yleisliitin
     </div>
   </div>
 
@@ -690,7 +705,7 @@
       <div class="step-num">3</div>
       <div class="step-content">
         <h4>Varaa aallonpituusliittimet</h4>
-        <p>Varaa <strong>sama aallonpituus molemmissa päissä</strong>: esim. <code>1310nm West D</code> OADM:ssa ja <code>1310 Mux</code> MUX:ssa. Aliyhteys kytkeytyy automaattisesti isäntäyhteyden runkoon.</p>
+        <p>Varaa <strong>sama aallonpituus molemmissa päissä</strong>: esim. <code>1310nm West D</code> OADM:ssa ja <code>1310nm tx</code> MUX:ssa. Aliyhteys kytkeytyy automaattisesti isäntäyhteyden runkoon.</p>
       </div>
     </div>
     <div class="step-item">
@@ -725,7 +740,7 @@
         <div class="device-box">
           <div class="device-name">CWDMG2847FACC03</div>
         </div>
-        <div class="port-tag wl">1310 Mux</div>
+        <div class="port-tag wl">1310nm tx</div>
         <div style="font-size: 10px; color: var(--text-dim); margin-top: 4px;">Line Tx → SK</div>
       </div>
     </div>
