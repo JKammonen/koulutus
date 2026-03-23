@@ -562,15 +562,28 @@
   <div class="diagram-box">
     <div class="diagram-title">Runkoyhteys TX-suunta — esimerkki: Keypro → Metrotukku → Ruokala</div>
     <div class="circuit-diagram">
-      <div class="site-box">
+      <!-- Keypro: jakamo + MUX/DEMUX -->
+      <div class="site-box" style="min-width: 200px;">
         <div class="site-name">Keypro</div>
         <div class="site-address">Teollisuuskatu 13</div>
-        <div class="device-box">
-          <div class="device-name">CWDMG2847FACC03</div>
-          <div class="device-type">F-jakamo-taso1</div>
+        <div style="display: flex; gap: 6px;">
+          <div class="device-box" style="flex: 1;">
+            <div class="device-name" style="font-size: 10px;">CWDMG2847FACC03</div>
+            <div class="device-type">MUX/DEMUX</div>
+            <div style="margin-top: 4px;">
+              <div class="port-tag com" style="font-size: 9px;">Line Tx</div>
+              <div class="port-tag com" style="font-size: 9px;">CC (UCON)</div>
+            </div>
+          </div>
+          <div class="device-box" style="flex: 1;">
+            <div class="device-name" style="font-size: 10px;">2_260221</div>
+            <div class="device-type">F-jakamo-taso1</div>
+            <div style="margin-top: 4px;">
+              <div class="port-tag com" style="font-size: 9px;">CC (UCON)</div>
+            </div>
+          </div>
         </div>
-        <div class="port-tag com">Line Tx 1</div>
-        <div class="port-tag com">COM (UCON)</div>
+        <div style="font-size: 9px; color: var(--fiber-glow); text-align: center; margin-top: 4px;">SK laitteen sisällä</div>
       </div>
 
       <div class="cable-segment">
@@ -578,16 +591,30 @@
         <div class="cable-info"><span class="cable-id">C5188</span><br>CTC 8×SM — 70,8 m</div>
       </div>
 
-      <div class="site-box">
+      <!-- Metrotukku: OADM West + East -->
+      <div class="site-box" style="min-width: 260px;">
         <div class="site-name">Metrotukku</div>
         <div class="site-address">Teollisuuskatu 13</div>
-        <div class="device-box">
-          <div class="device-name">CWDMG2247FACC03</div>
-          <div class="device-type">OADM (F-jakamo-taso1)</div>
+        <div style="display: flex; gap: 6px;">
+          <div class="device-box" style="flex: 1;">
+            <div class="device-name" style="font-size: 10px;">West</div>
+            <div class="device-type">F-jakamo-taso1</div>
+            <div style="margin-top: 4px;">
+              <div class="port-tag com" style="font-size: 9px;">Line West In</div>
+              <div class="port-tag com" style="font-size: 9px;">CC (UCON)</div>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; font-size: 10px; color: var(--fiber-glow); padding: 0 4px;">SK</div>
+          <div class="device-box" style="flex: 1;">
+            <div class="device-name" style="font-size: 10px;">East</div>
+            <div class="device-type">F-jakamo-taso1</div>
+            <div style="margin-top: 4px;">
+              <div class="port-tag com" style="font-size: 9px;">Line East Out</div>
+              <div class="port-tag com" style="font-size: 9px;">CC (UCON)</div>
+            </div>
+          </div>
         </div>
-        <div class="port-tag com">Line West In</div>
-        <div class="port-tag com">Line East Out</div>
-        <div style="font-size: 10px; color: var(--text-dim); margin-top: 4px;">kaapeli (VP) → SK läpikulku → kaapeli (VP)</div>
+        <div style="font-size: 9px; color: var(--text-dim); text-align: center; margin-top: 4px;">CWDMG2247FACC03 — OADM, sisäinen läpikulku (SK)</div>
       </div>
 
       <div class="cable-segment">
@@ -595,19 +622,32 @@
         <div class="cable-info"><span class="cable-id">C5189</span><br>CTC 8×SM — 88,8 m</div>
       </div>
 
-      <div class="site-box">
+      <!-- Ruokala: jakamo + MUX/DEMUX -->
+      <div class="site-box" style="min-width: 200px;">
         <div class="site-name">Ruokala</div>
         <div class="site-address">Teollisuuskatu 13</div>
-        <div class="device-box">
-          <div class="device-name">CWDMG2847FACC03</div>
-          <div class="device-type">F-jakamo-taso1</div>
+        <div style="display: flex; gap: 6px;">
+          <div class="device-box" style="flex: 1;">
+            <div class="device-name" style="font-size: 10px;">2_260222</div>
+            <div class="device-type">F-jakamo-taso1</div>
+            <div style="margin-top: 4px;">
+              <div class="port-tag com" style="font-size: 9px;">CC (UCON)</div>
+            </div>
+          </div>
+          <div class="device-box" style="flex: 1;">
+            <div class="device-name" style="font-size: 10px;">CWDMG2847FACC03</div>
+            <div class="device-type">MUX/DEMUX</div>
+            <div style="margin-top: 4px;">
+              <div class="port-tag com" style="font-size: 9px;">CC (UCON)</div>
+              <div class="port-tag com" style="font-size: 9px;">Line Rx</div>
+            </div>
+          </div>
         </div>
-        <div class="port-tag com">COM (UCON)</div>
-        <div class="port-tag com">Line Rx 1</div>
+        <div style="font-size: 9px; color: var(--fiber-glow); text-align: center; margin-top: 4px;">SK laitteen sisällä</div>
       </div>
     </div>
     <div style="text-align: center; margin-top: 12px; font-size: 11px; color: var(--text-dim);">
-      <strong>VP</strong> = vastinpistekytkentä (kaapeli kahden teletilan välillä) · <strong>SK</strong> = sisäinen kytkentä (laitteen sisällä) · <strong>UCON</strong> = yleisliitin
+      <strong>VP</strong> = vastinpistekytkentä (kaapeli teletilöiden välillä) · <strong>SK</strong> = sisäinen kytkentä (laitteen sisällä) · <strong>CC</strong> = liitin (UCON = yleisliitin)
     </div>
   </div>
 
