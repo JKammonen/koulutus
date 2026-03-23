@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<title>Yhteenveto — lisää vaihtoehtoja</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0F172A; color: #E2E8F0; font-family: 'Inter', system-ui, sans-serif; padding: 40px; }
+  h1 { text-align: center; margin-bottom: 16px; font-size: 24px; color: #94A3B8; font-weight: 400; }
+  .note { text-align: center; margin-bottom: 48px; font-size: 13px; color: #475569; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; max-width: 1200px; margin: 0 auto; }
+  .option { position: relative; }
+  .option-label { font-size: 14px; font-weight: 700; color: #06B6D4; margin-bottom: 6px; letter-spacing: 0.5px; }
+  .option-desc { font-size: 12px; color: #64748b; margin-bottom: 16px; }
+  .pv-list { margin: 0; padding-left: 18px; color: #CBD5E1; font-size: 13px; line-height: 1.9; list-style: disc; }
+  .pv-list li::marker { color: rgba(6, 182, 212, 0.6); }
+
+  /* A: Nykyinen — gradient + yläviiva */
+  .style-a {
+    padding: 20px 24px;
+    background: linear-gradient(180deg, rgba(6,182,212,0.08) 0%, rgba(6,182,212,0.02) 100%);
+    border-top: 3px solid #06B6D4;
+    border-radius: 2px 2px 12px 12px;
+  }
+  .style-a .title {
+    font-size: 10px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
+    color: #06B6D4; margin-bottom: 14px;
+  }
+
+  /* B: Notch — pieni "lipuke" ylhäällä vasemmalla */
+  .style-b {
+    position: relative;
+    padding: 28px 24px 20px;
+    background: rgba(6, 182, 212, 0.04);
+    border: 1px solid rgba(6, 182, 212, 0.12);
+    border-radius: 12px;
+    margin-top: 12px;
+  }
+  .style-b .notch {
+    position: absolute;
+    top: -12px; left: 20px;
+    padding: 3px 12px;
+    background: #06B6D4;
+    border-radius: 4px;
+    font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    color: #0F172A;
+  }
+
+  /* C: Kolme pistettä — visuaalinen merkki ilman symbolia */
+  .style-c {
+    padding: 20px 24px;
+    background: rgba(6, 182, 212, 0.05);
+    border-radius: 12px;
+    border-left: 3px solid #06B6D4;
+  }
+  .style-c .header {
+    display: flex; align-items: center; gap: 6px; margin-bottom: 14px;
+  }
+  .style-c .dot {
+    width: 5px; height: 5px; border-radius: 50%; background: #06B6D4;
+  }
+  .style-c .dot:nth-child(2) { opacity: 0.6; }
+  .style-c .dot:nth-child(3) { opacity: 0.3; }
+  .style-c .title {
+    font-size: 10px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
+    color: #06B6D4; margin-left: 6px;
+  }
+
+  /* D: Keskitetty otsikko + ohut viiva molemmin puolin */
+  .style-d {
+    padding: 20px 24px;
+    background: rgba(2, 6, 23, 0.6);
+    border-radius: 12px;
+    border: 1px solid rgba(6, 182, 212, 0.1);
+  }
+  .style-d .header {
+    display: flex; align-items: center; gap: 14px; margin-bottom: 14px;
+  }
+  .style-d .line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, rgba(6,182,212,0.3), transparent); }
+  .style-d .title {
+    font-size: 10px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
+    color: #06B6D4; white-space: nowrap;
+  }
+
+  /* E: Alaviiva — käänteinen, aksentti alhaalla */
+  .style-e {
+    padding: 20px 24px;
+    background: linear-gradient(180deg, rgba(6,182,212,0.02) 0%, rgba(6,182,212,0.08) 100%);
+    border-bottom: 3px solid #06B6D4;
+    border-radius: 12px 12px 2px 2px;
+  }
+  .style-e .title {
+    font-size: 10px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
+    color: #06B6D4; margin-bottom: 14px;
+  }
+
+  /* F: Double border — sisä- ja ulkoreuna */
+  .style-f {
+    padding: 20px 24px;
+    background: rgba(6, 182, 212, 0.03);
+    border-radius: 12px;
+    border: 1px solid rgba(6, 182, 212, 0.15);
+    outline: 1px solid rgba(6, 182, 212, 0.06);
+    outline-offset: 4px;
+  }
+  .style-f .title {
+    font-size: 10px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
+    color: #06B6D4; margin-bottom: 4px;
+  }
+  .style-f .divider { width: 32px; height: 2px; background: #06B6D4; border-radius: 1px; margin-bottom: 12px; }
+
+  /* G: Kulmakorostus — kulmat värillisiä */
+  .style-g {
+    position: relative;
+    padding: 20px 24px;
+    background: rgba(6, 182, 212, 0.03);
+    border-radius: 2px;
+  }
+  .style-g::before, .style-g::after {
+    content: ''; position: absolute; width: 20px; height: 20px;
+    border-color: #06B6D4; border-style: solid;
+  }
+  .style-g::before { top: 0; left: 0; border-width: 2px 0 0 2px; }
+  .style-g::after { bottom: 0; right: 0; border-width: 0 2px 2px 0; }
+  .style-g .title {
+    font-size: 10px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
+    color: #06B6D4; margin-bottom: 14px;
+  }
+
+  /* H: Palkki vasemmalla + highlight-tausta otsikossa */
+  .style-h {
+    display: flex;
+    background: rgba(2, 6, 23, 0.5);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(6, 182, 212, 0.08);
+  }
+  .style-h .bar {
+    width: 4px; background: #06B6D4; flex-shrink: 0;
+  }
+  .style-h .inner { padding: 18px 22px; flex: 1; }
+  .style-h .title {
+    display: inline-block;
+    font-size: 10px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
+    color: #06B6D4;
+    background: rgba(6, 182, 212, 0.1);
+    padding: 3px 10px; border-radius: 4px;
+    margin-bottom: 14px;
+  }
+</style>
+</head>
+<body>
+
+<h1>Yhteenveto-boksi — lisää vaihtoehtoja</h1>
+<div class="note">A = nykyinen. B–H = uudet ideat.</div>
+
+<div class="grid">
+
+  <div class="option">
+    <div class="option-label">A — Nykyinen (gradient + yläviiva)</div>
+    <div class="option-desc">Vertailukohta</div>
+    <div class="style-a">
+      <div class="title">Yhteenveto</div>
+      <ul class="pv-list">
+        <li>OLT:n laser on näkymätöntä infrapunaa (Class 1M) — silmä ei havaitse sitä</li>
+        <li>Älä koskaan katso avoimen kuidun päähän</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="option">
+    <div class="option-label">B — Lipuke (notch)</div>
+    <div class="option-desc">Pieni cyan-label "kelluu" kortin yläreunassa</div>
+    <div class="style-b">
+      <div class="notch">Yhteenveto</div>
+      <ul class="pv-list">
+        <li>OLT:n laser on näkymätöntä infrapunaa (Class 1M) — silmä ei havaitse sitä</li>
+        <li>Älä koskaan katso avoimen kuidun päähän</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="option">
+    <div class="option-label">C — Kolme pistettä + reunaviiva</div>
+    <div class="option-desc">Kolme häivytettyä pistettä otsikon edessä</div>
+    <div class="style-c">
+      <div class="header">
+        <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+        <div class="title">Yhteenveto</div>
+      </div>
+      <ul class="pv-list">
+        <li>OLT:n laser on näkymätöntä infrapunaa (Class 1M) — silmä ei havaitse sitä</li>
+        <li>Älä koskaan katso avoimen kuidun päähän</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="option">
+    <div class="option-label">D — Keskitetty + viivat molemmin puolin</div>
+    <div class="option-desc">Otsikko keskellä, häivytetyt viivat molemmin puolin</div>
+    <div class="style-d">
+      <div class="header">
+        <div class="line"></div>
+        <div class="title">Yhteenveto</div>
+        <div class="line"></div>
+      </div>
+      <ul class="pv-list">
+        <li>OLT:n laser on näkymätöntä infrapunaa (Class 1M) — silmä ei havaitse sitä</li>
+        <li>Älä koskaan katso avoimen kuidun päähän</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="option">
+    <div class="option-label">E — Alaviiva (käänteinen A)</div>
+    <div class="option-desc">Gradient alhaalta ylös, vahva alaviiva</div>
+    <div class="style-e">
+      <div class="title">Yhteenveto</div>
+      <ul class="pv-list">
+        <li>OLT:n laser on näkymätöntä infrapunaa (Class 1M) — silmä ei havaitse sitä</li>
+        <li>Älä koskaan katso avoimen kuidun päähän</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="option">
+    <div class="option-label">F — Tupla-reunus</div>
+    <div class="option-desc">Sisä- ja ulkoreuna, hienostunut kehysefekti</div>
+    <div class="style-f">
+      <div class="title">Yhteenveto</div>
+      <div class="divider"></div>
+      <ul class="pv-list">
+        <li>OLT:n laser on näkymätöntä infrapunaa (Class 1M) — silmä ei havaitse sitä</li>
+        <li>Älä koskaan katso avoimen kuidun päähän</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="option">
+    <div class="option-label">G — Kulmakorostus</div>
+    <div class="option-desc">L-muotoiset kulmaviivat ylä-vasen + ala-oikea</div>
+    <div class="style-g">
+      <div class="title">Yhteenveto</div>
+      <ul class="pv-list">
+        <li>OLT:n laser on näkymätöntä infrapunaa (Class 1M) — silmä ei havaitse sitä</li>
+        <li>Älä koskaan katso avoimen kuidun päähän</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="option">
+    <div class="option-label">H — Palkki + tag-label</div>
+    <div class="option-desc">Ohut sivupalkki, otsikko highlight-tagissa</div>
+    <div class="style-h">
+      <div class="bar"></div>
+      <div class="inner">
+        <div class="title">Yhteenveto</div>
+        <ul class="pv-list">
+          <li>OLT:n laser on näkymätöntä infrapunaa (Class 1M) — silmä ei havaitse sitä</li>
+          <li>Älä koskaan katso avoimen kuidun päähän</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
