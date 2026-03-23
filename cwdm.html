@@ -131,6 +131,28 @@
     h2 { font-size: 22px; }
     .when-grid, .savings-row { grid-template-columns: 1fr; flex-direction: column; }
   }
+  /* Print button */
+  .print-btn { background: none; border: 1px solid var(--card-border); color: var(--text-dim); font-size: 13px; padding: 4px 10px; border-radius: 6px; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; gap: 4px; font-family: inherit; }
+  .print-btn:hover { border-color: var(--accent); color: var(--text); }
+
+  /* Print styles */
+  @media print {
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; color-adjust: exact !important; }
+    .nav { display: none !important; }
+    .print-btn { display: none !important; }
+    .section { min-height: auto !important; padding: 20px 20px 10px !important; page-break-inside: avoid; }
+    .part-header { padding: 30px 20px 10px !important; }
+    .card, .data-table, .diagram-box, .spectrum-box { page-break-inside: avoid; }
+    .card:hover { transform: none !important; box-shadow: none !important; border-color: var(--card-border) !important; }
+    .data-table tr:hover td { background: transparent !important; }
+    details { display: block !important; }
+    details[open] summary ~ * { display: block !important; }
+    details > summary { list-style: none; }
+    details > summary::-webkit-details-marker { display: none; }
+    details:not([open]) > *:not(summary) { display: block !important; }
+    .fiber-seg::after { animation: none !important; }
+    @page { margin: 1.5cm; }
+  }
 </style>
 </head>
 <body>
@@ -138,6 +160,7 @@
 <!-- NAV -->
 <nav class="nav">
   <div class="nav-title">CWDM & DWDM</div>
+  <button class="print-btn" onclick="window.print()" title="Tallenna PDF">&#x1F5B6; PDF</button>
   <div class="nav-dots" id="navDots"></div>
   <div class="nav-label" id="navLabel"></div>
 </nav>
