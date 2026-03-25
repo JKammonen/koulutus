@@ -57,7 +57,7 @@
   .insight-box p { font-size: 15px; color: var(--text); line-height: 1.6; }
 
   /* Diagram containers */
-  .diagram-box { max-width: 1000px; width: 100%; background: var(--card); border: 1px solid var(--card-border); border-radius: 16px; padding: 32px; margin-bottom: 20px; overflow-x: auto; }
+  .diagram-box { max-width: 1400px; width: 100%; background: var(--card); border: 1px solid var(--card-border); border-radius: 16px; padding: 32px; margin-bottom: 20px; overflow-x: auto; }
   .diagram-title { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); margin-bottom: 16px; }
 
   /* Tables */
@@ -90,8 +90,8 @@
   .port-row-label { font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin: 12px 0 6px; font-weight: 600; }
 
   /* Connection diagram (circuit-style) */
-  .circuit-diagram { display: flex; align-items: stretch; gap: 0; min-width: 700px; }
-  .site-box { background: #0f1629; border: 2px solid var(--green); border-radius: 10px; padding: 14px; min-width: 160px; flex-shrink: 0; }
+  .circuit-diagram { display: flex; align-items: stretch; gap: 0; }
+  .site-box { background: #0f1629; border: 2px solid var(--green); border-radius: 10px; padding: 10px; min-width: 140px; flex-shrink: 0; }
   .site-name { color: var(--green); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
   .site-address { color: var(--text-dim); font-size: 10px; margin-bottom: 10px; }
   .device-box { background: #1a2035; border: 1px solid #2d3a5c; border-radius: 6px; padding: 8px 10px; margin-bottom: 6px; }
@@ -101,7 +101,18 @@
   .port-tag.com { background: rgba(6,182,212,0.15); color: var(--cyan); border: 1px solid rgba(6,182,212,0.3); }
   .port-tag.wl { background: rgba(139,92,246,0.15); color: #a78bfa; border: 1px solid rgba(139,92,246,0.3); }
 
-  .cable-segment { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; min-width: 80px; padding: 10px 0; position: relative; }
+  /* Device row: ports on sides, CC/RK as connecting line */
+  .dev-row { display: flex; align-items: center; gap: 0; margin-bottom: 6px; }
+  .dev-ports { display: flex; flex-direction: column; justify-content: center; gap: 2px; padding: 0 1px; }
+  .dev-port { padding: 1px 3px; font-size: 8px; font-weight: 600; background: rgba(6,182,212,0.15); color: var(--cyan); border: 1px solid rgba(6,182,212,0.3); border-radius: 3px; white-space: nowrap; text-align: center; }
+  .dev-link { display: flex; align-items: center; padding: 0 1px; min-width: 24px; }
+  .dev-link-line { flex: 1; height: 2px; background: var(--green); }
+  .dev-link-label { font-size: 9px; color: var(--green); font-weight: 600; padding: 0 2px; white-space: nowrap; }
+  .dev-row .device-box { padding: 5px 6px; }
+  .dev-row .device-name { font-size: 9px !important; }
+  .dev-row .device-type { font-size: 8px; }
+
+  .cable-segment { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; min-width: 60px; padding: 8px 0; position: relative; }
   .cable-line { width: 100%; height: 3px; background: var(--cyan); border-radius: 2px; position: relative; }
   .cable-line::after { content: ''; position: absolute; top: -2px; left: 0; width: 40%; height: 7px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); animation: flow 2s linear infinite; border-radius: 2px; }
   @keyframes flow { 0% { transform: translateX(-200%); } 100% { transform: translateX(200%); } }
@@ -156,6 +167,8 @@
   .step-content p { font-size: 13px; color: var(--text-dim); line-height: 1.5; }
   .step-content code { background: rgba(139,92,246,0.1); color: #a78bfa; padding: 1px 6px; border-radius: 4px; font-size: 12px; }
 
+  /* KeyCom circuit diagram style */
+
   /* Expandable details */
   details.lisatiedot { margin: 1rem 0; background: #1E293B; border-radius: 0.5rem; border: 1px solid #334155; max-width: 900px; width: 100%; }
   details.lisatiedot summary { padding: 0.75rem 1rem; cursor: pointer; color: #94A3B8; font-size: 0.9rem; }
@@ -163,11 +176,11 @@
   details.lisatiedot[open] summary { color: var(--accent); border-bottom: 1px solid #334155; }
   details.lisatiedot .lisatiedot-content { padding: 1rem; font-size: 0.85rem; color: #CBD5E1; }
 
+
   @media (max-width: 700px) {
     .section { padding: 70px 16px 20px; }
     h2 { font-size: 22px; }
     .port-grid { grid-template-columns: repeat(3, 1fr); }
-    .circuit-diagram { flex-direction: column; min-width: unset; }
     .oadm-layout { grid-template-columns: 1fr; }
   }
 
@@ -558,34 +571,71 @@
     <p>WDM-isäntäyhteys luodaan <strong>kahtena erillisenä yhteytenä</strong>: yksi TX-suuntaan ja toinen RX-suuntaan. Molemmat kulkevat COM-liittimien kautta.</p>
   </div>
 
+  <!-- Site map -->
+  <div class="diagram-box" style="padding: 20px;">
+    <div class="diagram-title">Teletilat kartalla</div>
+    <svg viewBox="0 0 800 510" style="width: 100%; max-width: 800px; margin: 0 auto; display: block;" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="glow"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        <marker id="dot" viewBox="0 0 6 6" refX="3" refY="3" markerWidth="6" markerHeight="6"><circle cx="3" cy="3" r="2.5" fill="#06b6d4"/></marker>
+      </defs>
+      <!-- Streets -->
+      <path d="M 30 260 L 500 260" stroke="#2d3a5c" stroke-width="28" stroke-linecap="round" fill="none"/>
+      <path d="M 340 180 L 340 420" stroke="#2d3a5c" stroke-width="22" stroke-linecap="round" fill="none"/>
+      <path d="M 340 340 L 750 340" stroke="#2d3a5c" stroke-width="22" stroke-linecap="round" fill="none"/>
+      <!-- Street labels -->
+      <text x="160" y="290" fill="#475569" font-size="11" font-family="system-ui" letter-spacing="2" text-anchor="middle">LÄNSIKATU</text>
+      <text x="370" y="290" fill="#475569" font-size="10" font-family="system-ui" letter-spacing="1" transform="rotate(90 370 290)">SILTAKATU</text>
+      <text x="680" y="335" fill="#475569" font-size="10" font-family="system-ui" letter-spacing="1">KAUPPAKATU</text>
+      <!-- Buildings -->
+      <rect x="60" y="150" width="130" height="70" rx="4" fill="#1a2035" stroke="#334155" stroke-width="1.5"/>
+      <rect x="275" y="60" width="130" height="100" rx="4" fill="#1a2035" stroke="#334155" stroke-width="1.5"/>
+      <rect x="510" y="380" width="140" height="80" rx="4" fill="#1a2035" stroke="#334155" stroke-width="1.5"/>
+      <!-- Cable routes -->
+      <path d="M 125 220 L 125 252 L 340 252 L 340 160" stroke="#06b6d4" stroke-width="2" stroke-dasharray="6 3" fill="none" filter="url(#glow)" marker-start="url(#dot)" marker-end="url(#dot)"/>
+      <path d="M 340 160 L 340 330 L 580 330 L 580 380" stroke="#06b6d4" stroke-width="2" stroke-dasharray="6 3" fill="none" filter="url(#glow)" marker-end="url(#dot)"/>
+      <!-- Cable labels -->
+      <rect x="195" y="215" width="70" height="18" rx="3" fill="#0f172a" stroke="#06b6d4" stroke-width="0.5"/>
+      <text x="230" y="228" fill="#06b6d4" font-size="9" font-family="monospace" text-anchor="middle">C5188</text>
+      <rect x="425" y="315" width="70" height="18" rx="3" fill="#0f172a" stroke="#06b6d4" stroke-width="0.5"/>
+      <text x="460" y="328" fill="#06b6d4" font-size="9" font-family="monospace" text-anchor="middle">C5189</text>
+      <!-- Site markers -->
+      <circle cx="125" cy="185" r="6" fill="#22c55e" opacity="0.3"/><circle cx="125" cy="185" r="3" fill="#22c55e"/>
+      <circle cx="340" cy="110" r="6" fill="#22c55e" opacity="0.3"/><circle cx="340" cy="110" r="3" fill="#22c55e"/>
+      <circle cx="580" cy="420" r="6" fill="#22c55e" opacity="0.3"/><circle cx="580" cy="420" r="3" fill="#22c55e"/>
+      <!-- Site labels -->
+      <text x="125" y="138" fill="#22c55e" font-size="14" font-weight="700" font-family="system-ui" text-anchor="middle" letter-spacing="1">KEYPRO</text>
+      <text x="340" y="45" fill="#22c55e" font-size="14" font-weight="700" font-family="system-ui" text-anchor="middle" letter-spacing="1">ILOSAARI</text>
+      <text x="580" y="485" fill="#22c55e" font-size="14" font-weight="700" font-family="system-ui" text-anchor="middle" letter-spacing="1">HASSISEN KONE</text>
+      <!-- Distance labels -->
+      <text x="230" y="210" fill="#94a3b8" font-size="8" font-family="system-ui" text-anchor="middle">70,8 m</text>
+      <text x="460" y="310" fill="#94a3b8" font-size="8" font-family="system-ui" text-anchor="middle">88,8 m</text>
+    </svg>
+  </div>
+
   <!-- Circuit diagram: Tx direction -->
   <div class="diagram-box">
-    <div class="diagram-title">CWDM-RUNKO (Keypro–Ruokala) Tx</div>
+    <div class="diagram-title">Runkoyhteys TX-suunta — esimerkki: Keypro → Ilosaari → Hassisen Kone</div>
     <div class="circuit-diagram">
-      <!-- Keypro -->
+      <!-- Keypro: MUX/DEMUX ──CC── F-jakamo -->
       <div class="site-box" style="min-width: 220px;">
         <div class="site-name">Keypro</div>
-        <div class="site-address">Teollisuuskatu 13</div>
-        <div style="display: flex; gap: 0; align-items: stretch;">
-          <div class="device-box" style="flex: 1; border-radius: 6px 0 0 6px; display: flex; flex-direction: column; justify-content: space-between;">
-            <div>
-              <div class="device-name" style="font-size: 10px;">CWDMG2847FACC03</div>
-              <div class="device-type">(CWDMG2847FACC03)</div>
-            </div>
-            <div style="display: flex; align-items: center; gap: 6px; margin-top: 8px;">
-              <span style="font-size: 10px; color: var(--accent);">Line Tx</span>
-              <span style="font-size: 11px; font-weight: 700; color: var(--text);">2</span>
-            </div>
-            <div style="font-size: 9px; color: var(--text-dim);">CC</div>
+        <div class="site-address">Länsikatu 15</div>
+        <div class="dev-row">
+          <div class="device-box" style="margin-bottom: 0;">
+            <div class="device-name" style="font-size: 10px;">CWDMG2847FACC03</div>
+            <div class="device-type">MUX/DEMUX</div>
           </div>
-          <div class="device-box" style="flex: 1; border-radius: 0 6px 6px 0; border-left: 1px dashed rgba(250,204,21,0.3); display: flex; flex-direction: column; justify-content: space-between;">
-            <div>
-              <div class="device-name" style="font-size: 10px;">2_260221</div>
-              <div class="device-type">(F-jakamo-taso1)</div>
-            </div>
-            <div style="text-align: right; margin-top: 8px;">
-              <span style="font-size: 11px; font-weight: 700; color: var(--text);">2</span>
-            </div>
+          <div class="dev-ports"><div class="dev-port">Line Tx</div></div>
+          <div class="dev-link">
+            <div class="dev-link-line"></div>
+            <div class="dev-link-label">RK</div>
+            <div class="dev-link-line"></div>
+          </div>
+          <div class="dev-ports"><div class="dev-port">2</div></div>
+          <div class="device-box" style="margin-bottom: 0;">
+            <div class="device-name" style="font-size: 10px;">O-142</div>
+            <div class="device-type">48×SC/APC</div>
           </div>
         </div>
       </div>
@@ -595,36 +645,39 @@
         <div class="cable-info"><span class="cable-id">C5188</span><br>CTC 8×SM — 70,8 m</div>
       </div>
 
-      <!-- Metrotukku OADM -->
-      <div class="site-box" style="min-width: 300px;">
-        <div class="site-name">Metrotukku</div>
-        <div class="site-address">Teollisuuskatu 13</div>
-        <div style="display: flex; gap: 0; align-items: stretch;">
-          <div class="device-box" style="flex: 1; border-radius: 6px 0 0 6px;">
+      <!-- Ilosaari: West-jakamo ──VP── OADM ──VP── East-jakamo -->
+      <div class="site-box" style="min-width: 340px;">
+        <div class="site-name">Ilosaari</div>
+        <div class="site-address">Siltakatu 1</div>
+        <div class="dev-row">
+          <div class="device-box" style="margin-bottom: 0;">
             <div class="device-name" style="font-size: 10px;">West</div>
-            <div class="device-type">(F-jakamo-taso1)</div>
-            <div style="display: flex; align-items: center; gap: 6px; margin-top: 8px;">
-              <span style="font-size: 11px; font-weight: 700; color: var(--text);">2</span>
-            </div>
+            <div class="device-type">48×SC/APC</div>
           </div>
-          <div class="device-box" style="flex: 2; border-radius: 0; border-left: 1px dashed rgba(250,204,21,0.3); border-right: 1px dashed rgba(250,204,21,0.3);">
+          <div class="dev-ports"><div class="dev-port">2</div></div>
+          <div class="dev-link">
+            <div class="dev-link-line"></div>
+            <div class="dev-link-label">RK</div>
+            <div class="dev-link-line"></div>
+          </div>
+          <div class="dev-ports"><div class="dev-port">Line West In</div></div>
+          <div class="device-box" style="margin-bottom: 0;">
             <div class="device-name" style="font-size: 10px;">CWDMG2247FACC03</div>
-            <div class="device-type">(CWDMG2247FACC03)</div>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px;">
-              <span style="font-size: 9px; color: var(--cyan);">Line West In</span>
-              <span style="font-size: 9px; color: var(--fiber-glow);">SK</span>
-              <span style="font-size: 9px; color: var(--cyan);">Line East Out</span>
-            </div>
-            <div style="font-size: 9px; color: var(--text-dim); text-align: center;">CC (UCON) → IC → CC (UCON)</div>
+            <div class="device-type">OADM</div>
           </div>
-          <div class="device-box" style="flex: 1; border-radius: 0 6px 6px 0;">
+          <div class="dev-ports"><div class="dev-port">Line East Out</div></div>
+          <div class="dev-link">
+            <div class="dev-link-line"></div>
+            <div class="dev-link-label">RK</div>
+            <div class="dev-link-line"></div>
+          </div>
+          <div class="dev-ports"><div class="dev-port">2</div></div>
+          <div class="device-box" style="margin-bottom: 0;">
             <div class="device-name" style="font-size: 10px;">East</div>
-            <div class="device-type">(F-jakamo-taso1)</div>
-            <div style="display: flex; align-items: center; gap: 6px; margin-top: 8px; justify-content: flex-end;">
-              <span style="font-size: 11px; font-weight: 700; color: var(--text);">2</span>
-            </div>
+            <div class="device-type">48×SC/APC</div>
           </div>
         </div>
+        <div style="font-size: 9px; color: var(--text-dim); text-align: center; margin-top: 4px;">kaapeli (VP) → SK läpikulku → kaapeli (VP)</div>
       </div>
 
       <div class="cable-segment">
@@ -632,30 +685,25 @@
         <div class="cable-info"><span class="cable-id">C5189</span><br>CTC 8×SM — 88,8 m</div>
       </div>
 
-      <!-- Ruokala -->
+      <!-- Hassisen Kone: F-jakamo ──CC── MUX/DEMUX -->
       <div class="site-box" style="min-width: 220px;">
-        <div class="site-name">Ruokala</div>
-        <div class="site-address">Teollisuuskatu 13</div>
-        <div style="display: flex; gap: 0; align-items: stretch;">
-          <div class="device-box" style="flex: 1; border-radius: 6px 0 0 6px; display: flex; flex-direction: column; justify-content: space-between;">
-            <div>
-              <div class="device-name" style="font-size: 10px;">2_260221</div>
-              <div class="device-type">(F-jakamo-taso1)</div>
-            </div>
-            <div style="margin-top: 8px;">
-              <span style="font-size: 11px; font-weight: 700; color: var(--text);">2</span>
-            </div>
+        <div class="site-name">Hassisen Kone</div>
+        <div class="site-address">Kauppakatu 27</div>
+        <div class="dev-row">
+          <div class="device-box" style="margin-bottom: 0;">
+            <div class="device-name" style="font-size: 10px;">ODF 1</div>
+            <div class="device-type">12×SC/APC</div>
           </div>
-          <div class="device-box" style="flex: 1; border-radius: 0 6px 6px 0; border-left: 1px dashed rgba(250,204,21,0.3); display: flex; flex-direction: column; justify-content: space-between;">
-            <div>
-              <div class="device-name" style="font-size: 10px;">CWDMG2847FACC03</div>
-              <div class="device-type">(CWDMG2847FACC03)</div>
-            </div>
-            <div style="display: flex; align-items: center; gap: 6px; margin-top: 8px; justify-content: flex-end;">
-              <span style="font-size: 11px; font-weight: 700; color: var(--text);">2</span>
-              <span style="font-size: 10px; color: var(--accent);">Line Rx</span>
-            </div>
-            <div style="font-size: 9px; color: var(--text-dim);">CC (UCON)</div>
+          <div class="dev-ports"><div class="dev-port">2</div></div>
+          <div class="dev-link">
+            <div class="dev-link-line"></div>
+            <div class="dev-link-label">RK</div>
+            <div class="dev-link-line"></div>
+          </div>
+          <div class="dev-ports"><div class="dev-port">Line Rx</div></div>
+          <div class="device-box" style="margin-bottom: 0;">
+            <div class="device-name" style="font-size: 10px;">CWDMG2847FACC03</div>
+            <div class="device-type">MUX/DEMUX</div>
           </div>
         </div>
       </div>
@@ -664,32 +712,27 @@
 
   <!-- Circuit diagram: Rx direction -->
   <div class="diagram-box">
-    <div class="diagram-title">CWDM-RUNKO (Keypro–Ruokala) Rx</div>
+    <div class="diagram-title">Runkoyhteys RX-suunta — esimerkki: Hassisen Kone → Ilosaari → Keypro</div>
     <div class="circuit-diagram">
       <!-- Keypro -->
       <div class="site-box" style="min-width: 220px;">
         <div class="site-name">Keypro</div>
-        <div class="site-address">Teollisuuskatu 13</div>
-        <div style="display: flex; gap: 0; align-items: stretch;">
-          <div class="device-box" style="flex: 1; border-radius: 6px 0 0 6px; display: flex; flex-direction: column; justify-content: space-between;">
-            <div>
-              <div class="device-name" style="font-size: 10px;">CWDMG2847FACC03</div>
-              <div class="device-type">(CWDMG2847FACC03)</div>
-            </div>
-            <div style="display: flex; align-items: center; gap: 6px; margin-top: 8px;">
-              <span style="font-size: 10px; color: var(--accent);">Line Rx</span>
-              <span style="font-size: 11px; font-weight: 700; color: var(--text);">1</span>
-            </div>
-            <div style="font-size: 9px; color: var(--text-dim);">CC</div>
+        <div class="site-address">Länsikatu 15</div>
+        <div class="dev-row">
+          <div class="device-box" style="margin-bottom: 0;">
+            <div class="device-name" style="font-size: 10px;">CWDMG2847FACC03</div>
+            <div class="device-type">MUX/DEMUX</div>
           </div>
-          <div class="device-box" style="flex: 1; border-radius: 0 6px 6px 0; border-left: 1px dashed rgba(250,204,21,0.3); display: flex; flex-direction: column; justify-content: space-between;">
-            <div>
-              <div class="device-name" style="font-size: 10px;">2_260221</div>
-              <div class="device-type">(F-jakamo-taso1)</div>
-            </div>
-            <div style="text-align: right; margin-top: 8px;">
-              <span style="font-size: 11px; font-weight: 700; color: var(--text);">1</span>
-            </div>
+          <div class="dev-ports"><div class="dev-port">Line Rx</div></div>
+          <div class="dev-link">
+            <div class="dev-link-line"></div>
+            <div class="dev-link-label">RK</div>
+            <div class="dev-link-line"></div>
+          </div>
+          <div class="dev-ports"><div class="dev-port">1</div></div>
+          <div class="device-box" style="margin-bottom: 0;">
+            <div class="device-name" style="font-size: 10px;">O-142</div>
+            <div class="device-type">48×SC/APC</div>
           </div>
         </div>
       </div>
@@ -699,36 +742,39 @@
         <div class="cable-info"><span class="cable-id">C5188</span><br>CTC 8×SM — 70,8 m</div>
       </div>
 
-      <!-- Metrotukku OADM -->
-      <div class="site-box" style="min-width: 300px;">
-        <div class="site-name">Metrotukku</div>
-        <div class="site-address">Teollisuuskatu 13</div>
-        <div style="display: flex; gap: 0; align-items: stretch;">
-          <div class="device-box" style="flex: 1; border-radius: 6px 0 0 6px;">
+      <!-- Ilosaari -->
+      <div class="site-box" style="min-width: 340px;">
+        <div class="site-name">Ilosaari</div>
+        <div class="site-address">Siltakatu 1</div>
+        <div class="dev-row">
+          <div class="device-box" style="margin-bottom: 0;">
             <div class="device-name" style="font-size: 10px;">West</div>
-            <div class="device-type">(F-jakamo-taso1)</div>
-            <div style="margin-top: 8px;">
-              <span style="font-size: 11px; font-weight: 700; color: var(--text);">1</span>
-            </div>
+            <div class="device-type">48×SC/APC</div>
           </div>
-          <div class="device-box" style="flex: 2; border-radius: 0; border-left: 1px dashed rgba(250,204,21,0.3); border-right: 1px dashed rgba(250,204,21,0.3);">
+          <div class="dev-ports"><div class="dev-port">1</div></div>
+          <div class="dev-link">
+            <div class="dev-link-line"></div>
+            <div class="dev-link-label">RK</div>
+            <div class="dev-link-line"></div>
+          </div>
+          <div class="dev-ports"><div class="dev-port">Line West Out</div></div>
+          <div class="device-box" style="margin-bottom: 0;">
             <div class="device-name" style="font-size: 10px;">CWDMG2247FACC03</div>
-            <div class="device-type">(CWDMG2247FACC03)</div>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px;">
-              <span style="font-size: 9px; color: var(--cyan);">Line West Out</span>
-              <span style="font-size: 9px; color: var(--fiber-glow);">SK</span>
-              <span style="font-size: 9px; color: var(--cyan);">Line East In</span>
-            </div>
-            <div style="font-size: 9px; color: var(--text-dim); text-align: center;">CC (UCON) → IC → CC (UCON)</div>
+            <div class="device-type">OADM</div>
           </div>
-          <div class="device-box" style="flex: 1; border-radius: 0 6px 6px 0;">
+          <div class="dev-ports"><div class="dev-port">Line East In</div></div>
+          <div class="dev-link">
+            <div class="dev-link-line"></div>
+            <div class="dev-link-label">RK</div>
+            <div class="dev-link-line"></div>
+          </div>
+          <div class="dev-ports"><div class="dev-port">1</div></div>
+          <div class="device-box" style="margin-bottom: 0;">
             <div class="device-name" style="font-size: 10px;">East</div>
-            <div class="device-type">(F-jakamo-taso1)</div>
-            <div style="margin-top: 8px; text-align: right;">
-              <span style="font-size: 11px; font-weight: 700; color: var(--text);">1</span>
-            </div>
+            <div class="device-type">48×SC/APC</div>
           </div>
         </div>
+        <div style="font-size: 9px; color: var(--text-dim); text-align: center; margin-top: 4px;">kaapeli (VP) → SK läpikulku → kaapeli (VP)</div>
       </div>
 
       <div class="cable-segment">
@@ -736,40 +782,34 @@
         <div class="cable-info"><span class="cable-id">C5189</span><br>CTC 8×SM — 88,8 m</div>
       </div>
 
-      <!-- Ruokala -->
+      <!-- Hassisen Kone -->
       <div class="site-box" style="min-width: 220px;">
-        <div class="site-name">Ruokala</div>
-        <div class="site-address">Teollisuuskatu 13</div>
-        <div style="display: flex; gap: 0; align-items: stretch;">
-          <div class="device-box" style="flex: 1; border-radius: 6px 0 0 6px; display: flex; flex-direction: column; justify-content: space-between;">
-            <div>
-              <div class="device-name" style="font-size: 10px;">2_260221</div>
-              <div class="device-type">(F-jakamo-taso1)</div>
-            </div>
-            <div style="margin-top: 8px;">
-              <span style="font-size: 11px; font-weight: 700; color: var(--text);">1</span>
-            </div>
+        <div class="site-name">Hassisen Kone</div>
+        <div class="site-address">Kauppakatu 27</div>
+        <div class="dev-row">
+          <div class="device-box" style="margin-bottom: 0;">
+            <div class="device-name" style="font-size: 10px;">ODF 1</div>
+            <div class="device-type">12×SC/APC</div>
           </div>
-          <div class="device-box" style="flex: 1; border-radius: 0 6px 6px 0; border-left: 1px dashed rgba(250,204,21,0.3); display: flex; flex-direction: column; justify-content: space-between;">
-            <div>
-              <div class="device-name" style="font-size: 10px;">CWDMG2847FACC03</div>
-              <div class="device-type">(CWDMG2847FACC03)</div>
-            </div>
-            <div style="display: flex; align-items: center; gap: 6px; margin-top: 8px; justify-content: flex-end;">
-              <span style="font-size: 11px; font-weight: 700; color: var(--text);">1</span>
-              <span style="font-size: 10px; color: var(--accent);">Line Tx</span>
-            </div>
-            <div style="font-size: 9px; color: var(--text-dim);">CC (UCON)</div>
+          <div class="dev-ports"><div class="dev-port">1</div></div>
+          <div class="dev-link">
+            <div class="dev-link-line"></div>
+            <div class="dev-link-label">RK</div>
+            <div class="dev-link-line"></div>
+          </div>
+          <div class="dev-ports"><div class="dev-port">Line Tx</div></div>
+          <div class="device-box" style="margin-bottom: 0;">
+            <div class="device-name" style="font-size: 10px;">CWDMG2847FACC03</div>
+            <div class="device-type">MUX/DEMUX</div>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <div style="text-align: center; font-size: 11px; color: var(--text-dim); margin-bottom: 20px;">
+  <div style="text-align: center; margin-top: 12px; font-size: 11px; color: var(--text-dim); margin-bottom: 20px;">
     Oma yhteys molemmille siirtosuunnille. Tx käyttää kuitua 2, Rx kuitua 1.<br>
-    <strong style="color: var(--fiber-glow);">CC</strong> = ristikytkentä (RK) · <strong style="color: var(--fiber-glow);">IC</strong> = sisäinen kytkentä (SK) · Numerot = portti-/kuitunumerot
-  </div>
+    <strong>VP</strong> = vastinpistekytkentä (kaapeli kahden teletilan välillä) · <strong>SK</strong> = sisäinen kytkentä (laitteen sisällä) · <strong>RK</strong> = ristikytkentä (CC)  </div>
 
   <div class="step-list" style="margin-bottom: 28px;">
     <div class="step-item">
@@ -783,14 +823,14 @@
       <div class="step-num">2</div>
       <div class="step-content">
         <h4>Avaa Yhteys-lomake</h4>
-        <p>KeyNet-työkaluista: Yhteys → Luo uusi. Tyyppi = WDM, tunnus esim. <code>CWDM-RUNKO (Keypro-Ruokala) Tx</code>.</p>
+        <p>KeyNet-työkaluista: Yhteys → Luo uusi. Tyyppi = WDM, tunnus esim. <code>CWDM-RUNKO (Keypro-Hassisen Kone) Tx</code>.</p>
       </div>
     </div>
     <div class="step-item">
       <div class="step-num">3</div>
       <div class="step-content">
         <h4>Lisää yhteysosiot</h4>
-        <p>Jokaiselle teletila-parille oma yhteysosio: Keypro→Metrotukku ja Metrotukku→Ruokala.</p>
+        <p>Jokaiselle teletila-parille oma yhteysosio: Keypro→Ilosaari ja Ilosaari→Hassisen Kone.</p>
       </div>
     </div>
     <div class="step-item">
@@ -804,7 +844,7 @@
       <div class="step-num">5</div>
       <div class="step-content">
         <h4>Luo toinen yhteys RX-suuntaan</h4>
-        <p>Toista sama vastakkaiseen suuntaan: <code>CWDM-RUNKO (Keypro-Ruokala) Rx</code>. Käytä samoja kaapeleita, mutta eri kuitu.</p>
+        <p>Toista sama vastakkaiseen suuntaan: <code>CWDM-RUNKO (Keypro-Hassisen Kone) Rx</code>. Käytä samoja kaapeleita, mutta eri kuitu.</p>
       </div>
     </div>
   </div>
@@ -851,14 +891,14 @@
       <div class="step-num">1</div>
       <div class="step-content">
         <h4>Avaa isäntäyhteys</h4>
-        <p>Hae runkoyhteys (esim. <code>CWDM-RUNKO (Keypro-Ruokala) Tx</code>) Yhteys-lomakkeelta.</p>
+        <p>Hae runkoyhteys (esim. <code>CWDM-RUNKO (Keypro-Hassisen Kone) Tx</code>) Yhteys-lomakkeelta.</p>
       </div>
     </div>
     <div class="step-item">
       <div class="step-num">2</div>
       <div class="step-content">
         <h4>Luo aliyhteys</h4>
-        <p>Yhteys-lomakkeella: <code>Aliyhteydet</code>-osio → Luo uusi aliyhteys. Tunnus esim. <code>CWDM-Asiakas (Metrotukku) D</code>.</p>
+        <p>Yhteys-lomakkeella: <code>Aliyhteydet</code>-osio → Luo uusi aliyhteys. Tunnus esim. <code>CWDM-Asiakas (Ilosaari) D</code>.</p>
       </div>
     </div>
     <div class="step-item">
@@ -882,7 +922,7 @@
     <div class="diagram-title">Asiakasyhteys (sub-channel) — isäntäyhteyden sisällä</div>
     <div class="circuit-diagram">
       <div class="site-box" style="border-color: var(--accent);">
-        <div class="site-name" style="color: var(--accent);">Metrotukku</div>
+        <div class="site-name" style="color: var(--accent);">Ilosaari</div>
         <div class="device-box">
           <div class="device-name">CWDMG2247FACC03</div>
         </div>
@@ -948,8 +988,8 @@
       <tr><td class="hl">COM/MON-liitin</td><td><code>COM [suunta]</code> / <code>MON</code></td><td>COM tx, COM rx, MON</td></tr>
       <tr><td class="hl">OADM-portti</td><td><code>Line [suunta] [In/Out]</code></td><td>Line West In, Line East Out</td></tr>
       <tr><td class="hl">OADM drop/add</td><td><code>[λ]nm [suunta] [D/A]</code></td><td>1310nm West D, 1470nm East A</td></tr>
-      <tr><td class="hl">Runkoyhteys</td><td><code>CWDM-RUNKO ([A]–[B]) [Tx/Rx]</code></td><td>CWDM-RUNKO (Keypro-Ruokala) Tx</td></tr>
-      <tr><td class="hl">Asiakasyhteys</td><td><code>WDM@[λ]nm ([asiakas/sijainti])</code></td><td>WDM@1490nm (Metrotukku)</td></tr>
+      <tr><td class="hl">Runkoyhteys</td><td><code>CWDM-RUNKO ([A]–[B]) [Tx/Rx]</code></td><td>CWDM-RUNKO (Keypro-Hassisen Kone) Tx</td></tr>
+      <tr><td class="hl">Asiakasyhteys</td><td><code>WDM@[λ]nm ([asiakas/sijainti])</code></td><td>WDM@1490nm (Ilosaari)</td></tr>
     </tbody>
   </table>
 
@@ -1026,7 +1066,7 @@
     <div class="circuit-diagram">
       <div class="site-box" style="min-width: 140px;">
         <div class="site-name" style="font-size: 10px;">Keypro</div>
-        <div class="site-address">Teollisuuskatu 13</div>
+        <div class="site-address">Länsikatu 15</div>
         <div class="device-box">
           <div class="device-name" style="font-size: 10px;">ODF1</div>
           <div class="device-type">19" 48×SC/APC 5m</div>
@@ -1053,7 +1093,7 @@
       </div>
 
       <div class="site-box" style="min-width: 140px; border-color: var(--accent);">
-        <div class="site-name" style="color: var(--accent); font-size: 10px;">Ruokala</div>
+        <div class="site-name" style="color: var(--accent); font-size: 10px;">Hassisen Kone</div>
         <div class="device-box">
           <div class="device-name" style="font-size: 10px;">CWDM MUX/DEMUX</div>
         </div>
@@ -1067,7 +1107,7 @@
       </div>
 
       <div class="site-box" style="min-width: 140px;">
-        <div class="site-name" style="font-size: 10px;">Ruokala</div>
+        <div class="site-name" style="font-size: 10px;">Hassisen Kone</div>
         <div class="device-box">
           <div class="device-name" style="font-size: 10px;">ODF5</div>
           <div class="device-type">19" 48×SC/APC 5m</div>

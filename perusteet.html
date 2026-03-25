@@ -1196,8 +1196,8 @@
   <p class="subtitle">Miten 1:32 jakosuhde toteutetaan? Kolme perusstrategiaa, joilla on erilaiset kustannus- ja joustavuusprofiilit.</p>
 
   <div class="card-grid" style="grid-template-columns: repeat(3, 1fr);">
-    <div class="card" style="border-color: rgba(250,204,21,0.3);"><div class="card-label" style="color:#facc15;">Keskitetty</div><h3>1 × 1:32</h3><p>Yksi iso splitteri FDH:ssa. Yksinkertainen, halpa. Mutta kaikki 32 kuitua jakelukaapeliin — paksu kaapeli.</p><div style="margin-top:12px; padding:12px; background:rgba(250,204,21,0.05); border-radius:8px; font-size:11px; color:#facc15;">OLT → [1:32] → 32 × drop</div></div>
-    <div class="card" style="border-color: rgba(59,130,246,0.3);"><div class="card-label">Kaskadoitu</div><h3>1:4 + 1:8</h3><p>Ensimmäinen jako FDH:ssa (1:4), toinen lähempänä asiakasta (1:8). Ohuemmat kaapelit, joustavampi. Yleisin.</p><div style="margin-top:12px; padding:12px; background:rgba(59,130,246,0.05); border-radius:8px; font-size:11px; color:#60a5fa;">OLT → [1:4] → 4×[1:8] → 32 × drop</div></div>
+    <div class="card" style="border-color: rgba(250,204,21,0.3);"><div class="card-label" style="color:#facc15;">Keskitetty</div><h3>1 × 1:32</h3><p>Yksi iso splitteri FDH:ssa. Yksinkertainen, halpa. Mutta kaikki 32 kuitua samassa jakelukaapelissa.</p><div style="margin-top:12px; padding:12px; background:rgba(250,204,21,0.05); border-radius:8px; font-size:11px; color:#facc15;">OLT → [1:32] → 32 × drop</div></div>
+    <div class="card" style="border-color: rgba(59,130,246,0.3);"><div class="card-label">Kaskadoitu</div><h3>1:4 + 1:8</h3><p>Ensimmäinen jako FDH:ssa (1:4), toinen lähempänä asiakasta (1:8). Vähemmän kuituja per kaapeli (4 vs 32), joustavampi. Yleisin.</p><div style="margin-top:12px; padding:12px; background:rgba(59,130,246,0.05); border-radius:8px; font-size:11px; color:#60a5fa;">OLT → [1:4] → 4×[1:8] → 32 × drop</div></div>
     <details class="lisatiedot" style="border-color: rgba(139,92,246,0.3);">
       <summary>📖 Lisätiedot: Hajautettu topologia</summary>
       <div class="lisatiedot-content">
@@ -1217,18 +1217,18 @@
       <text x="400" y="20" fill="#94a3b8" font-size="12" font-weight="600" text-anchor="middle" letter-spacing="1">KASKADOITU 1:4 + 1:8 — YLEISIN MALLI</text>
       <rect x="10" y="95" width="60" height="40" rx="6" fill="rgba(59,130,246,0.12)" stroke="#3b82f6" stroke-opacity="0.3"/><text x="40" y="119" fill="#60a5fa" font-size="11" font-weight="700" text-anchor="middle">OLT</text>
       <line x1="70" y1="115" x2="160" y2="115" stroke="#facc15" stroke-width="3" stroke-opacity="0.5"/>
-      <polygon points="160,85 195,100 195,130 160,145" fill="rgba(250,204,21,0.1)" stroke="#facc15" stroke-opacity="0.4" stroke-width="1.5"/><text x="178" y="120" fill="#facc15" font-size="9" font-weight="600" text-anchor="middle">1:4</text><text x="178" y="77" fill="#facc15" font-size="9" text-anchor="middle" font-weight="500">FDH</text>
+      <polygon points="160,100 195,85 195,145 160,130" fill="rgba(250,204,21,0.1)" stroke="#facc15" stroke-opacity="0.4" stroke-width="1.5"/><text x="178" y="120" fill="#facc15" font-size="9" font-weight="600" text-anchor="middle">1:4</text><text x="178" y="77" fill="#facc15" font-size="9" text-anchor="middle" font-weight="500">FDH</text>
       <line x1="195" y1="98" x2="320" y2="55" stroke="#22c55e" stroke-width="2" stroke-opacity="0.4"/><line x1="195" y1="108" x2="320" y2="95" stroke="#22c55e" stroke-width="2" stroke-opacity="0.4"/><line x1="195" y1="122" x2="320" y2="145" stroke="#22c55e" stroke-width="2" stroke-opacity="0.4"/><line x1="195" y1="132" x2="320" y2="190" stroke="#22c55e" stroke-width="2" stroke-opacity="0.4"/>
-      <polygon points="320,40 350,48 350,65 320,73" fill="rgba(6,182,212,0.1)" stroke="#06b6d4" stroke-opacity="0.3" stroke-width="1"/><text x="335" y="60" fill="#06b6d4" font-size="8" font-weight="600" text-anchor="middle">1:8</text>
-      <polygon points="320,80 350,88 350,105 320,113" fill="rgba(6,182,212,0.1)" stroke="#06b6d4" stroke-opacity="0.3" stroke-width="1"/><text x="335" y="100" fill="#06b6d4" font-size="8" font-weight="600" text-anchor="middle">1:8</text>
-      <polygon points="320,130 350,138 350,155 320,163" fill="rgba(6,182,212,0.1)" stroke="#06b6d4" stroke-opacity="0.3" stroke-width="1"/><text x="335" y="150" fill="#06b6d4" font-size="8" font-weight="600" text-anchor="middle">1:8</text>
-      <polygon points="320,175 350,183 350,200 320,208" fill="rgba(6,182,212,0.1)" stroke="#06b6d4" stroke-opacity="0.3" stroke-width="1"/><text x="335" y="195" fill="#06b6d4" font-size="8" font-weight="600" text-anchor="middle">1:8</text>
+      <polygon points="320,48 350,40 350,73 320,65" fill="rgba(6,182,212,0.1)" stroke="#06b6d4" stroke-opacity="0.3" stroke-width="1"/><text x="335" y="60" fill="#06b6d4" font-size="8" font-weight="600" text-anchor="middle">1:8</text>
+      <polygon points="320,88 350,80 350,113 320,105" fill="rgba(6,182,212,0.1)" stroke="#06b6d4" stroke-opacity="0.3" stroke-width="1"/><text x="335" y="100" fill="#06b6d4" font-size="8" font-weight="600" text-anchor="middle">1:8</text>
+      <polygon points="320,138 350,130 350,163 320,155" fill="rgba(6,182,212,0.1)" stroke="#06b6d4" stroke-opacity="0.3" stroke-width="1"/><text x="335" y="150" fill="#06b6d4" font-size="8" font-weight="600" text-anchor="middle">1:8</text>
+      <polygon points="320,183 350,175 350,208 320,200" fill="rgba(6,182,212,0.1)" stroke="#06b6d4" stroke-opacity="0.3" stroke-width="1"/><text x="335" y="195" fill="#06b6d4" font-size="8" font-weight="600" text-anchor="middle">1:8</text>
       <text x="335" y="228" fill="#06b6d4" font-size="9" text-anchor="middle" font-weight="500">FDT</text>
       <g opacity="0.5"><line x1="350" y1="52" x2="420" y2="42" stroke="#a78bfa" stroke-width="1"/><line x1="350" y1="56" x2="420" y2="52" stroke="#a78bfa" stroke-width="1"/><line x1="350" y1="60" x2="420" y2="62" stroke="#a78bfa" stroke-width="1"/><line x1="350" y1="92" x2="420" y2="82" stroke="#a78bfa" stroke-width="1"/><line x1="350" y1="96" x2="420" y2="92" stroke="#a78bfa" stroke-width="1"/><line x1="350" y1="100" x2="420" y2="102" stroke="#a78bfa" stroke-width="1"/><line x1="350" y1="142" x2="420" y2="132" stroke="#a78bfa" stroke-width="1"/><line x1="350" y1="146" x2="420" y2="142" stroke="#a78bfa" stroke-width="1"/><line x1="350" y1="150" x2="420" y2="152" stroke="#a78bfa" stroke-width="1"/><line x1="350" y1="187" x2="420" y2="178" stroke="#a78bfa" stroke-width="1"/><line x1="350" y1="191" x2="420" y2="188" stroke="#a78bfa" stroke-width="1"/><line x1="350" y1="195" x2="420" y2="198" stroke="#a78bfa" stroke-width="1"/></g>
       <text x="440" y="55" fill="#22c55e" font-size="9" font-weight="600">→ 8 ONT</text><text x="440" y="95" fill="#22c55e" font-size="9" font-weight="600">→ 8 ONT</text><text x="440" y="145" fill="#22c55e" font-size="9" font-weight="600">→ 8 ONT</text><text x="440" y="190" fill="#22c55e" font-size="9" font-weight="600">→ 8 ONT</text>
       <rect x="500" y="55" width="280" height="120" rx="10" fill="rgba(59,130,246,0.04)" stroke="rgba(59,130,246,0.12)"/>
       <text x="640" y="80" fill="#60a5fa" font-size="11" font-weight="600" text-anchor="middle">Miksi kaskadoitu?</text>
-      <text x="640" y="100" fill="#94a3b8" font-size="10" text-anchor="middle">✓ Ohuemmat jakelukaapelit (4 vs 32 kuitua)</text>
+      <text x="640" y="100" fill="#94a3b8" font-size="10" text-anchor="middle">✓ Vähemmän kuituja jakelukaapeleissa (4 vs 32)</text>
       <text x="640" y="117" fill="#94a3b8" font-size="10" text-anchor="middle">✓ Pay-as-you-grow: lisää 1:8 tarpeen mukaan</text>
       <text x="640" y="134" fill="#94a3b8" font-size="10" text-anchor="middle">✓ Vian eristäminen helpompaa</text>
       <text x="640" y="151" fill="#94a3b8" font-size="10" text-anchor="middle">⚠ Häviö sama: 7 + 10.5 = 17.5 dB = 1×1:32</text>
@@ -1240,7 +1240,7 @@
     <div style="position:absolute; top:-9px; left:20px; padding:3px 12px; background:#06B6D4; border-radius:4px; font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#0F172A;">Yhteenveto</div>
     <ul style="margin:0; padding-left:18px; color:#CBD5E1; font-size:13px; line-height:1.9;">
       <li>Kaskadi (1:4 + 1:8) on yleisin — joustava ja kustannustehokas</li>
-      <li>Keskitetty (1:32) on yksinkertaisin mutta vaatii paksun kaapelin</li>
+      <li>Keskitetty (1:32) on yksinkertaisin mutta vaatii 32-kuituisen jakelukaapelin</li>
       <li>Topologian valinta riippuu asiakasmäärästä ja maantieteestä</li>
     </ul>
   </div>
